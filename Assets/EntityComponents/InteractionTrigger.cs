@@ -11,7 +11,7 @@ public class InteractionTrigger : MonoBehaviour
     public float interactRadius;
     public LayerMask selectObjectsToHit;
 
-    private ActionResponder ActionResponder { get; set; };
+    private ActionResponder ActionResponder { get; set; }
     private Collider2D RootCollider { get; set; }
     private Collider2D CurrentCollider { get; set; }
 
@@ -46,7 +46,7 @@ public class InteractionTrigger : MonoBehaviour
         if (interactible != null)
         {
             // Perform related actions on player side (trigger carrying, etc)
-            actionResponder.Act(interactible.InteractibleType);
+            ActionResponder.Act(interactible.InteractibleType);
 
             // Perform related actions on interactible's side (trigger anims, data changes, etc)
             interactible.Use(RootCollider, originInputType);
