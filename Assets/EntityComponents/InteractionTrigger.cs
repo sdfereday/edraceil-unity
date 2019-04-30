@@ -6,17 +6,19 @@ using System.Linq;
 public class InteractionTrigger : MonoBehaviour
 {
     [SerializeField]
+    public Transform root;
     public Transform interactPosition;
     public float interactRadius;
     public LayerMask selectObjectsToHit;
-    public ActionResponder actionResponder;
 
+    private ActionResponder ActionResponder { get; set; };
     private Collider2D RootCollider { get; set; }
     private Collider2D CurrentCollider { get; set; }
 
     private void Start()
     {
-        RootCollider = transform.root.GetComponent<Collider2D>();
+        ActionResponder = GetComponent<ActionResponder>();
+        RootCollider = root != null ? root.GetComponent<Collider2D>() : GetComponent<Collider2D>();
         CurrentCollider = GetComponent<Collider2D>();
     }
 
