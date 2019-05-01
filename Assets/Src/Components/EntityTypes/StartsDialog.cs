@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartsDialog : MonoBehaviour, IInteractible
+public class StartsDialog : MonoBehaviour, IInteractible, IIdentifier
 {
-    public INTERACTIBLE_TYPE InteractibleType {
-        get {
+    public string Id;
+    public string Identifier
+    {
+        get { return Id; }
+    }
+    public INTERACTIBLE_TYPE InteractibleType
+    {
+        get
+        {
             return INTERACTIBLE_TYPE.DIALOG;
         }
     }

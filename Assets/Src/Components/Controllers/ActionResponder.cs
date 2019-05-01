@@ -18,10 +18,10 @@ public class ActionResponder : MonoBehaviour
                 testAction.StartTesting(originType, originTransform);
 
             if (carryAction != null)
-                carryAction.StartCarrying();
+                carryAction.StartCarrying(originType, originTransform);
 
             if (talkAction != null)
-                talkAction.StartTalking();
+                talkAction.StartTalking(originType, originTransform);
         }
     }
 

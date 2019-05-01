@@ -1,0 +1,13 @@
+using System.Collections.Generic;
+
+[System.Serializable]
+public class ChatNode
+{
+    public string Id { get; set; }
+    public string From { get; set; }
+    public string To { get; set; }
+    public string Text { get; set; }
+
+    public List<ChatNode> Choices { get; set; }
+    public List<string> Actions { get; set; }
+}
