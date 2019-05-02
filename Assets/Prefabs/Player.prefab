@@ -391,9 +391,13 @@ MonoBehaviour:
     type: 3
     testResponse: {fileID: 0}
     carryResponse: {fileID: 0}
+    throwResponse: {fileID: 0}
     talkResponse: {fileID: 490002259}
+    blockUntilDone: 1
   - id: onCarry
     type: 1
     testResponse: {fileID: 0}
     carryResponse: {fileID: 248423147}
+    throwResponse: {fileID: 0}
     talkResponse: {fileID: 0}
+    blockUntilDone: 1

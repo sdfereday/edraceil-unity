@@ -9,6 +9,11 @@ public class Carry : MonoBehaviour
     private SpriteRenderer spr;
     private bool beingCarried = false;
 
+    // Throw the object if certain conditions met.
+    public Throw throwAction;
+
+    public bool isActive = false;
+
     public bool isBeingCarried
     {
         get
@@ -31,10 +36,12 @@ public class Carry : MonoBehaviour
             objectToCarry.position = new Vector2(transform.position.x + offset.x, transform.position.y + offset.y);
             // gameObject.transform.Translate (newpos.x, newpos.y, Time.deltaTime);
             // ^- Use if you want some sort of actual transition (perhaps pushing or pulling).
+
+            // throwAction.Update();
         }
     }
 
-    public void StartCarrying(Transform origin, Action onDidCarry = null)
+    public void StartCarrying(INTERACTIBLE_TYPE originType, Transform origin, Action onDidCarry = null)
     {
         objectToCarry = origin;
         carryable = objectToCarry.GetComponent<ICarryable>();
@@ -52,6 +59,7 @@ public class Carry : MonoBehaviour
 
         // carryable.SetInteractible(false);
         beingCarried = true;
+        isActive = true;
 
         if (onDidCarry != null)
             onDidCarry();
@@ -61,6 +69,12 @@ public class Carry : MonoBehaviour
     {
         objectToCarry.position = new Vector2(transform.position.x + offset.x, transform.position.y);
         // carryable.SetInteractible(true);
+        isActive = false;
         beingCarried = false;
+    }
+
+    public bool IsActive()
+    {
+        return isActive;
     }
 }

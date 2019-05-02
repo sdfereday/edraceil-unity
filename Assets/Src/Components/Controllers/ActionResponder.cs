@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections.Generic;
+using System.Linq;
+
 public class ActionResponder : MonoBehaviour
 {
     [System.Serializable]
@@ -10,10 +11,12 @@ public class ActionResponder : MonoBehaviour
         public INTERACTIBLE_TYPE type;
         public TestAction testResponse;
         public Carry carryResponse;
-        public Throw throwResponse;
         public Talk talkResponse;
+        public bool blockUntilDone = false;
 
-        public void Activate(INTERACTIBLE_TYPE originType, Transform originTransform, Action onActivated = null)
+        public bool isBusy = false;
+
+        public void Activate(INTERACTIBLE_TYPE originType, Transform originTransform)
         {
             // TODO: It might actually be best to only allow for one type of response to happen, things
             // could get messy with multiple callbacks for example. I'd also use an interface / component.
@@ -28,54 +31,39 @@ public class ActionResponder : MonoBehaviour
             }
 
             if (carryResponse != null) {
-                carryResponse.StartCarrying(originTransform, onActivated); // hmm... not a fan of this idea.
+                isBusy = true; // Hmmmmmm
+                carryResponse.StartCarrying(originType, originTransform); // hmm... onActivated
             }
         }
 
         public void Deactivate(INTERACTIBLE_TYPE originType, Transform originTransform)
         {
             if (carryResponse != null)
+            {
                 carryResponse.StopCarrying();
-
-            if (throwResponse != null)
-                throwResponse.StartThrow(originTransform);
+                isBusy = false;
+            }
         }
-
-        public void Update()
-        {
-            if (throwResponse != null)
-                throwResponse.Update();
-        }
-    }
-
-    private bool ActionsInProgress { get; set; }
-
-    private void Update()
-    {
-        ResponseList.ForEach(x => x.Update());
     }
 
     public List<Response> ResponseList;
 
     public void Act(INTERACTIBLE_TYPE originType, Transform originTransform)
     {
+        Debug.Log(originType);
         var matchedResponse = ResponseList.Find(x => x.type == originType);
+        var responseMustFinish = ResponseList.Any(x => x.blockUntilDone && x.isBusy);
 
-        if (ActionsInProgress)
+        if (matchedResponse == null)
+            throw new UnityException("No matched response found.");
+
+        if (responseMustFinish)
         {
-            if (matchedResponse != null)
-            {
-                matchedResponse.Deactivate(originType, originTransform);
-            }
-
-            ActionsInProgress = false;
+            // matchedResponse.doSomethingToCheckIfItsFinished
+            // Is a response still in progress or waiting to finish? If so, we don't fire any others yet.
             return;
         }
-
-        if (matchedResponse != null)
-            matchedResponse.Activate(originType, originTransform, () =>
-            {
-                ActionsInProgress = true;
-            });
+        
+        matchedResponse.Activate(originType, originTransform);
     }
 }
