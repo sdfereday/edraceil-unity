@@ -50,9 +50,9 @@ public class Throw : MonoBehaviour
         SpawnedRecticule.transform.position = destination;
     }
 
-    public void StartThrow(Component origin, Action onComplete = null)
+    public void StartThrow(Component _objectToThrow)
     {
-        ObjectToThrow = origin.transform.root;
+        ObjectToThrow = _objectToThrow.transform.root;
         flightDuration = targetDistance / destination.magnitude;
         elapsed_time = 0;
 

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 248423146}
   - component: {fileID: 248423147}
+  - component: {fileID: 881998516}
   m_Layer: 0
   m_Name: Carry
   m_TagString: Untagged
@@ -43,7 +44,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fadb1e7b8f8154613af710d10d31ef56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  throwAction: {fileID: 0}
   offset: {x: 0, y: 1}
+--- !u!114 &881998516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248423145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cde4d6122f4e15a4db7b9411d4281aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Ta: {fileID: 0}
+  Tb: {fileID: 0}
+  h: 2.5
+  distanceToTravel: 5
+  speedOfTravel: 3
+  TargetingPrefab: {fileID: 0}
+  DirectionalPrefab: {fileID: 0}
 --- !u!1 &490002257
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,13 +412,9 @@ MonoBehaviour:
     type: 3
     testResponse: {fileID: 0}
     carryResponse: {fileID: 0}
-    throwResponse: {fileID: 0}
     talkResponse: {fileID: 490002259}
-    blockUntilDone: 1
   - id: onCarry
     type: 1
     testResponse: {fileID: 0}
     carryResponse: {fileID: 248423147}
-    throwResponse: {fileID: 0}
     talkResponse: {fileID: 0}
-    blockUntilDone: 1

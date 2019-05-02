@@ -7,74 +7,53 @@ public class Carry : MonoBehaviour
     private Transform objectToCarry;
     private SortZ sortZ;
     private SpriteRenderer spr;
-    private bool beingCarried = false;
 
-    // Throw the object if certain conditions met.
     public Throw throwAction;
-
-    public bool isActive = false;
-
-    public bool isBeingCarried
-    {
-        get
-        {
-            return beingCarried;
-        }
-    }
     public Vector2 offset = Vector2.zero;
+    public bool IsBeingCarried { get; set; }
 
     private void Awake()
     {
         sortZ = GetComponent<SortZ>();
         spr = GetComponent<SpriteRenderer>();
+        throwAction = GetComponent<Throw>();
     }
     
     private void Update()
     {
-        if (beingCarried)
+        if (IsBeingCarried)
         {
             objectToCarry.position = new Vector2(transform.position.x + offset.x, transform.position.y + offset.y);
             // gameObject.transform.Translate (newpos.x, newpos.y, Time.deltaTime);
             // ^- Use if you want some sort of actual transition (perhaps pushing or pulling).
-
-            // throwAction.Update();
+            if (throwAction != null)
+                throwAction.Update();
         }
     }
 
-    public void StartCarrying(INTERACTIBLE_TYPE originType, Transform origin, Action onDidCarry = null)
+    public void StartCarrying(INTERACTIBLE_TYPE originType, Transform _objectToCarry)
     {
-        objectToCarry = origin;
+        objectToCarry = _objectToCarry;
         carryable = objectToCarry.GetComponent<ICarryable>();
 
-        if (carryable == null)
-        {
-            return;
-        }
-
-        if (beingCarried)
+        if (IsBeingCarried)
         {
             StopCarrying();
             return;
         }
 
         // carryable.SetInteractible(false);
-        beingCarried = true;
-        isActive = true;
-
-        if (onDidCarry != null)
-            onDidCarry();
+        IsBeingCarried = true;
     }
 
     public void StopCarrying()
     {
-        objectToCarry.position = new Vector2(transform.position.x + offset.x, transform.position.y);
         // carryable.SetInteractible(true);
-        isActive = false;
-        beingCarried = false;
-    }
+        objectToCarry.position = new Vector2(transform.position.x + offset.x, transform.position.y);
+        IsBeingCarried = false;
 
-    public bool IsActive()
-    {
-        return isActive;
+        if (throwAction != null) {
+            throwAction.StartThrow(transform);
+        }
     }
 }
