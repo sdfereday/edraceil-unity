@@ -6,8 +6,10 @@
 public class PlayerInput : MonoBehaviour
 {
     public float maxSpeed = 3f;
-    public Vector2 facing { get; set; }
-    public Vector2 currentVelocity
+    public bool InteractionsEnabled { get; private set; }
+    public bool MovementEnabled { get; private set; }
+    public Vector2 Facing { get; set; }
+    public Vector2 CurrentVelocity
     {
         get
         {
@@ -22,13 +24,25 @@ public class PlayerInput : MonoBehaviour
     {
         rbody = GetComponent<Rigidbody2D>();
         interactionTrigger = GetComponentInChildren<InteractionTrigger>();
-        facing = Vector2.right;
+        Facing = Vector2.right;
+
+        InteractionsEnabled = true;
+        MovementEnabled = true;
     }
 
     private void Update()
     {
         rbody.velocity = Vector2.zero;
 
+        if (InteractionsEnabled)
+            Interactions();
+
+        if (MovementEnabled)
+            Movement();
+    }
+
+    private void Interactions()
+    {
         if (Input.GetKeyDown(KeyCodeConsts.USE))
         {
             interactionTrigger.Interact(INPUT_TYPE.USE);
@@ -38,7 +52,10 @@ public class PlayerInput : MonoBehaviour
         {
             interactionTrigger.Interact(INPUT_TYPE.CANCEL);
         }
+    }
 
+    private void Movement()
+    {
         float xAxis = Input.GetAxisRaw(KeyCodeConsts.Horizontal);
         float yAxis = Input.GetAxisRaw(KeyCodeConsts.Vertical);
 
@@ -46,7 +63,17 @@ public class PlayerInput : MonoBehaviour
         {
             Vector2 nm = new Vector2(xAxis * maxSpeed, yAxis * maxSpeed).normalized;
             rbody.velocity = nm * maxSpeed;
-            facing = currentVelocity.normalized;
+            Facing = CurrentVelocity.normalized;
         }
+    }
+
+    public void ToggleInteractions(bool state)
+    {
+        InteractionsEnabled = state;
+    }
+
+    public void ToggleMovement(bool state)
+    {
+        MovementEnabled = state;
     }
 }

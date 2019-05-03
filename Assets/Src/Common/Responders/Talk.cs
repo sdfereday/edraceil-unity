@@ -11,10 +11,14 @@ public class Talk : MonoBehaviour, IResponseTask
         }
     }
 
+    public PlayerInput playerInput;
+
     public void OnChatComplete(string endId)
     {
         Debug.Log("Got chat complete message:");
         Debug.Log(endId);
+
+        playerInput.ToggleMovement(true);
         IsActive = false;
     }
 
@@ -22,6 +26,8 @@ public class Talk : MonoBehaviour, IResponseTask
     {
         var conversationStartPoint = originTransform.GetComponent<IIdentifier>().Identifier;
         var chatIterator = new ChatIterator(ConversationStub.Collection, OnChatComplete);
+
+        playerInput.ToggleMovement(false);
         IsActive = true;
 
         // Get first node
