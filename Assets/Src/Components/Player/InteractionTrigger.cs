@@ -39,17 +39,17 @@ public class InteractionTrigger : MonoBehaviour
 
     public void Interact(INPUT_TYPE originInputType)
     {
-        // if (actionInProgress)... avoid doing anything further.
         var closestInteractee = GetClosestInteractee();
-        var interactible = closestInteractee ? closestInteractee.GetComponent<IInteractible>() : null;
+        var interactible = closestInteractee?.GetComponent<IInteractible>();
 
         if (interactible != null)
         {
-            // Perform related actions on interactible's side (trigger anims, individual data changes, etc)
-            var interactibleTransform = interactible.Use(RootCollider, originInputType);
-
             // Perform related actions on player side (trigger carrying, gaining items, global events, etc)
-            ActionResponder.Act(interactible.InteractibleType, interactibleTransform);
+            ActionResponder.Act(interactible.InteractibleType, interactible.Transform);
+
+            // Perform related actions on interactible's side (trigger anims, individual data changes, etc)
+            if (!ActionResponder.ResponseMustFinish)
+                interactible.Use(RootCollider, originInputType);
         }
     }
 }

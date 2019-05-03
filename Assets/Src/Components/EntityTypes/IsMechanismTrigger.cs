@@ -1,0 +1,70 @@
+﻿using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+
+public class IsMechanismTrigger : MonoBehaviour, IInteractible
+{
+    public bool MechanismActive = false;
+    public List<Transform> mechanisms;
+
+    public Transform Transform
+    {
+        get
+        {
+            return transform;
+        }
+    }
+
+    public INTERACTIBLE_TYPE InteractibleType
+    {
+        get
+        {
+            return INTERACTIBLE_TYPE.MECHANISM_TRIGGER;
+        }
+    }
+
+    private ToggledSprite toggledSpriteComponent;
+
+    private void UpdateSprite()
+    {
+        if (MechanismActive)
+        {
+            toggledSpriteComponent.On();
+        }
+        else
+        {
+            toggledSpriteComponent.Off();
+        }
+    }
+
+    private void UpdateMechanisms()
+    {
+        mechanisms
+            .Select(x => x.GetComponent<IMechanism>())
+            .ToList()
+            .ForEach(x => {
+                if (MechanismActive)
+                {
+                    x.Activate();
+                }
+                else
+                {
+                    x.Deactivate();
+                }
+            });
+    }
+
+    private void Start()
+    {
+        toggledSpriteComponent = GetComponent<ToggledSprite>();
+        UpdateSprite();
+        UpdateMechanisms();
+    }
+    
+    public void Use(Collider2D collider, INPUT_TYPE inputType)
+    {
+        MechanismActive = !MechanismActive;
+        UpdateSprite();
+        UpdateMechanisms();
+    }
+}

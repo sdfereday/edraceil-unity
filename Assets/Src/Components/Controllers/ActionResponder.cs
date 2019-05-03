@@ -12,6 +12,7 @@ public class ActionResponder : MonoBehaviour
         public TestAction testResponse;
         public Carry carryResponse;
         public Talk talkResponse;
+        public Collect collectResponse;
 
         public List<IResponseTask> ResponseTasks { get; set; }
         
@@ -32,6 +33,11 @@ public class ActionResponder : MonoBehaviour
             if (carryResponse != null)
             {
                 ResponseTasks.Add(carryResponse.GetComponent<IResponseTask>());
+            }
+
+            if (collectResponse != null)
+            {
+                ResponseTasks.Add(collectResponse.GetComponent<IResponseTask>());
             }
         }
 
@@ -60,6 +66,7 @@ public class ActionResponder : MonoBehaviour
     }
 
     public List<Response> ResponseList;
+    public bool ResponseMustFinish { get; private set; }
 
     private void Start()
     {
@@ -69,12 +76,12 @@ public class ActionResponder : MonoBehaviour
     public void Act(INTERACTIBLE_TYPE originType, Transform originTransform)
     {
         var matchedResponse = ResponseList.Find(r => r.type == originType);
-        var responseMustFinish = ResponseList.Any(r => r.ContainsUnfinished());
+        ResponseMustFinish = ResponseList.Any(r => r.ContainsUnfinished());
 
         if (matchedResponse == null)
-            throw new UnityException("No matched response found.");
+            return;
 
-        if (responseMustFinish)
+        if (ResponseMustFinish)
         {
             matchedResponse.Update(originType, originTransform);
         } else

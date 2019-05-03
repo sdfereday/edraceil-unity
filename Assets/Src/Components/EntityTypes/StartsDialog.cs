@@ -7,6 +7,15 @@ public class StartsDialog : MonoBehaviour, IInteractible, IIdentifier
     {
         get { return Id; }
     }
+
+    public Transform Transform
+    {
+        get
+        {
+            return transform;
+        }
+    }
+
     public INTERACTIBLE_TYPE InteractibleType
     {
         get
@@ -14,8 +23,9 @@ public class StartsDialog : MonoBehaviour, IInteractible, IIdentifier
             return INTERACTIBLE_TYPE.DIALOG;
         }
     }
-    public Transform Use(Collider2D collider, INPUT_TYPE inputType)
+
+    public void Use(Collider2D collider, INPUT_TYPE inputType)
     {
-        return transform;
+        // ...
     }
 }

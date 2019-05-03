@@ -2,6 +2,7 @@
 
 public interface IInteractible
 {
-    Transform Use(Collider2D collider, INPUT_TYPE inputType);
+    void Use(Collider2D collider, INPUT_TYPE inputType);
+    Transform Transform { get; }
     INTERACTIBLE_TYPE InteractibleType { get; }
 }

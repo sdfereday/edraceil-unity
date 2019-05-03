@@ -9,6 +9,22 @@ public class CanBeCarried : MonoBehaviour, IInteractible, ICarryable
 
     public Collider2D Collider;
 
+    public Transform Transform
+    {
+        get
+        {
+            return transform;
+        }
+    }
+
+    public INTERACTIBLE_TYPE InteractibleType
+    {
+        get
+        {
+            return INTERACTIBLE_TYPE.TRANSPORTABLE;
+        }
+    }
+
     private void Start()
     {
         SetInteractible(true);
@@ -25,16 +41,9 @@ public class CanBeCarried : MonoBehaviour, IInteractible, ICarryable
     {
         CanCarry = state;
     }
-
-    public INTERACTIBLE_TYPE InteractibleType
+    
+    public void Use(Collider2D collider, INPUT_TYPE inputType)
     {
-        get
-        {
-            return INTERACTIBLE_TYPE.TRANSPORTABLE;
-        }
-    }
-    public Transform Use(Collider2D collider, INPUT_TYPE inputType)
-    {
-        return transform;
+        // ...
     }
 }
