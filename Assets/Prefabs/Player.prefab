@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fadb1e7b8f8154613af710d10d31ef56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwAction: {fileID: 0}
   offset: {x: 0, y: 1}
 --- !u!114 &881998516
 MonoBehaviour:
@@ -58,8 +57,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde4d6122f4e15a4db7b9411d4281aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ta: {fileID: 0}
-  Tb: {fileID: 0}
   h: 2.5
   distanceToTravel: 5
   speedOfTravel: 3

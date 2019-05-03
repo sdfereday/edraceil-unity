@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -12,12 +10,10 @@ public class SortZ : MonoBehaviour
         spr = GetComponent<SpriteRenderer>();
     }
 
-    void Update()
+    private void Update()
     {
         if (spr != null && Camera.main != null)
-        {
             spr.sortingOrder = (int)Camera.main.WorldToScreenPoint(spr.bounds.min).y * -1;
-        }
     }
 
 }

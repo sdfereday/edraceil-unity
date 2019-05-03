@@ -1,18 +1,30 @@
 ﻿using UnityEngine;
 
-public class Talk : MonoBehaviour
+public class Talk : MonoBehaviour, IResponseTask
 {
+    public bool IsActive { get; private set; }
+    public RESPONSE_TYPE ResponseType
+    {
+        get
+        {
+            return RESPONSE_TYPE.CONTINUOUS;
+        }
+    }
+
     public void OnChatComplete(string endId)
     {
         Debug.Log("Got chat complete message:");
         Debug.Log(endId);
+        IsActive = false;
     }
 
-    public void StartTalking(INTERACTIBLE_TYPE originType, Transform originTransform)
+    public void Run(INTERACTIBLE_TYPE originType, Transform originTransform)
     {
         var conversationStartPoint = originTransform.GetComponent<IIdentifier>().Identifier;
         var chatIterator = new ChatIterator(ConversationStub.Collection, OnChatComplete);
+        IsActive = true;
 
+        // Get first node
         var node = chatIterator.Start(conversationStartPoint);
         Debug.Log(node.Text);
 
@@ -25,5 +37,16 @@ public class Talk : MonoBehaviour
             var nextNode = chatIterator.GoToNext();
             Debug.Log(nextNode.Text);
         }
+    }
+    
+    public void Complete()
+    {
+        // ...
+    }
+
+    public void Next()
+    {
+        // Testing
+        OnChatComplete("notSet");
     }
 }

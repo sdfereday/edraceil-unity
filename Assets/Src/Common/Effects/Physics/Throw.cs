@@ -5,16 +5,15 @@ using System.Collections;
 
 public class Throw : MonoBehaviour
 {
-    public Transform Ta, Tb; // transforms that mark the start and end (for debug)
+    // public Transform Ta, Tb; // transforms that mark the start and end (for debug)
     public float h = 2.5f; // desired parabola height
     public float distanceToTravel = 5;
     public float speedOfTravel = 3;
     public GameObject TargetingPrefab;
     public Transform DirectionalPrefab;
+
     private float flightDuration = 0f;
     private float elapsed_time = 0f;
-
-    private IDirection TargetDirectionData;
     private Transform ObjectToThrow;
     private Vector3 mouse;
     private Vector2 a, b; // Vector positions for start and end
@@ -27,13 +26,11 @@ public class Throw : MonoBehaviour
     {
         SpawnedRecticule = Instantiate(TargetingPrefab.transform, transform.position, Quaternion.identity);
         SpawnedRecticule.gameObject.SetActive(false);
-
-        TargetDirectionData = DirectionalPrefab.GetComponent<IDirection>();
     }
 
     public void Update()
     {
-        Vector2 targetDirection = TargetDirectionData.FacingDirection;
+        Vector2 targetDirection = DirectionalPrefab.position;
         center = new Vector2(transform.position.x, transform.position.y);
         destination = center + (targetDirection * distanceToTravel);
 

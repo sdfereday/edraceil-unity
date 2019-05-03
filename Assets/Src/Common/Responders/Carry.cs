@@ -1,16 +1,22 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Carry : MonoBehaviour
+public class Carry : MonoBehaviour, IResponseTask
 {
     private ICarryable carryable;
     private Transform objectToCarry;
     private SortZ sortZ;
     private SpriteRenderer spr;
+    private Throw throwAction;
 
-    public Throw throwAction;
     public Vector2 offset = Vector2.zero;
-    public bool IsBeingCarried { get; set; }
+    public bool IsActive { get; private set; }
+    public RESPONSE_TYPE ResponseType
+    {
+        get
+        {
+            return RESPONSE_TYPE.TOGGLE;
+        }
+    }
 
     private void Awake()
     {
@@ -21,39 +27,36 @@ public class Carry : MonoBehaviour
     
     private void Update()
     {
-        if (IsBeingCarried)
+        if (IsActive)
         {
             objectToCarry.position = new Vector2(transform.position.x + offset.x, transform.position.y + offset.y);
             // gameObject.transform.Translate (newpos.x, newpos.y, Time.deltaTime);
             // ^- Use if you want some sort of actual transition (perhaps pushing or pulling).
-            if (throwAction != null)
-                throwAction.Update();
         }
     }
 
-    public void StartCarrying(INTERACTIBLE_TYPE originType, Transform _objectToCarry)
+    public void Run(INTERACTIBLE_TYPE originType, Transform _objectToCarry)
     {
         objectToCarry = _objectToCarry;
         carryable = objectToCarry.GetComponent<ICarryable>();
 
-        if (IsBeingCarried)
-        {
-            StopCarrying();
-            return;
-        }
-
-        // carryable.SetInteractible(false);
-        IsBeingCarried = true;
+        IsActive = true;
     }
 
-    public void StopCarrying()
+    public void Complete()
     {
-        // carryable.SetInteractible(true);
         objectToCarry.position = new Vector2(transform.position.x + offset.x, transform.position.y);
-        IsBeingCarried = false;
+        IsActive = false;
 
-        if (throwAction != null) {
-            throwAction.StartThrow(transform);
+        if (throwAction != null)
+        {
+            Debug.Log("Throw currently broken.");
+            //throwAction.StartThrow(transform);
         }
+    }
+
+    public void Next()
+    {
+        // ...
     }
 }

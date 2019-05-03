@@ -98,8 +98,7 @@ public class ChatIterator
 
             Log("Reached end.");
 
-            if (OnChatComplete != null)
-                OnChatComplete(ChainPosition);
+            OnChatComplete?.Invoke(ChainPosition);
         }
 
         return QueryAndAssignNode(CurrentNode.To);
