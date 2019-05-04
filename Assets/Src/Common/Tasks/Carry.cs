@@ -50,8 +50,7 @@ public class Carry : MonoBehaviour, IResponseTask
 
         if (throwAction != null)
         {
-            Debug.Log("Throw currently broken.");
-            //throwAction.StartThrow(transform);
+            throwAction.StartThrow(objectToCarry);
         }
     }
 

@@ -43,7 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f68c275563b0b845b6e6e9aa29acd01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DataIO: {fileID: 0}
 --- !u!1 &248423145
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,11 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cde4d6122f4e15a4db7b9411d4281aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  h: 2.5
+  parabolaMaxHeight: 2.5
   distanceToTravel: 5
   speedOfTravel: 3
-  TargetingPrefab: {fileID: 0}
-  DirectionalPrefab: {fileID: 0}
+  DirectionalPrefab: {fileID: 6401586682848449954}
 --- !u!1 &490002257
 GameObject:
   m_ObjectHideFlags: 0

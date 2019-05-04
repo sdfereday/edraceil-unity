@@ -3,7 +3,7 @@
 // See: https://bitbucket.org/drunkenoodle/rr-clone/src for original (and battle ideas).
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(InteractionTrigger))]
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : MonoBehaviour, IDirectionInfo
 {
     public float maxSpeed = 3f;
     public bool InteractionsEnabled { get; private set; }
@@ -75,5 +75,10 @@ public class PlayerInput : MonoBehaviour
     public void ToggleMovement(bool state)
     {
         MovementEnabled = state;
+    }
+
+    public Vector2 GetFirectionVector2D()
+    {
+        return Facing;
     }
 }

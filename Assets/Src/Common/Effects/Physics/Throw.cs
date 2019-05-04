@@ -1,36 +1,35 @@
 using UnityEngine;
-using UnityEditor;
-using System;
 using System.Collections;
 
 public class Throw : MonoBehaviour
 {
     // public Transform Ta, Tb; // transforms that mark the start and end (for debug)
-    public float h = 2.5f; // desired parabola height
+    public float parabolaMaxHeight = 2.5f; // desired parabola height
     public float distanceToTravel = 5;
     public float speedOfTravel = 3;
-    public GameObject TargetingPrefab;
     public Transform DirectionalPrefab;
+    //public GameObject TargetingReticule;
 
+    private IDirectionInfo DirectionalInfo;
     private float flightDuration = 0f;
     private float elapsed_time = 0f;
     private Transform ObjectToThrow;
     private Vector3 mouse;
-    private Vector2 a, b; // Vector positions for start and end
+    private Vector2 start, end; // Vector positions for start and end
     private Vector2 destination, mouse2d, center;
-    private Transform SpawnedRecticule;
-
     private float targetDistance, Vx, Vy = 0;
+    //private Transform SpawnedRecticule;
 
     private void Awake()
     {
-        SpawnedRecticule = Instantiate(TargetingPrefab.transform, transform.position, Quaternion.identity);
-        SpawnedRecticule.gameObject.SetActive(false);
+        DirectionalInfo = DirectionalPrefab.GetComponent<IDirectionInfo>();
+        //SpawnedRecticule = Instantiate(TargetingReticule.transform, transform.position, Quaternion.identity);
+        //SpawnedRecticule.gameObject.SetActive(false);
     }
 
     public void Update()
     {
-        Vector2 targetDirection = DirectionalPrefab.position;
+        Vector2 targetDirection = DirectionalInfo.GetFirectionVector2D();
         center = new Vector2(transform.position.x, transform.position.y);
         destination = center + (targetDirection * distanceToTravel);
 
@@ -40,11 +39,11 @@ public class Throw : MonoBehaviour
         Vx = destination.x;
         Vy = destination.y;
 
-        a = transform.position;
-        b = destination;
+        start = transform.position;
+        end = destination;
 
-        SpawnedRecticule.gameObject.SetActive(true);
-        SpawnedRecticule.transform.position = destination;
+        //SpawnedRecticule.gameObject.SetActive(true);
+        //SpawnedRecticule.transform.position = destination;
     }
 
     public void StartThrow(Component _objectToThrow)
@@ -53,8 +52,8 @@ public class Throw : MonoBehaviour
         flightDuration = targetDistance / destination.magnitude;
         elapsed_time = 0;
 
-        SpawnedRecticule.gameObject.SetActive(false);
-        StartCoroutine(SimulateThrow(elapsed_time, flightDuration, Vx, Vy, 0, a, b));
+        //SpawnedRecticule.gameObject.SetActive(false);
+        StartCoroutine(SimulateThrow(elapsed_time, flightDuration, Vx, Vy, 0, start, end));
     }
 
     private IEnumerator SimulateThrow(float elapsedTime, float flightDuration, float Vx, float Vy, float gravity, Vector2 a, Vector2 b)
@@ -70,7 +69,7 @@ public class Throw : MonoBehaviour
 
         while (elapsedTime < b_flightDuration)
         {
-            ObjectToThrow.transform.position = SampleParabola(a, b, h, elapsedTime);
+            ObjectToThrow.transform.position = SampleParabola(start, end, parabolaMaxHeight, elapsedTime);
 
             // This allows for scaling, but it's hard to understand:
             // https://stackoverflow.com/questions/20309661/scale-sprite-up-and-down-to-give-illusion-of-a-jump
