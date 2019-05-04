@@ -13,6 +13,7 @@ public class ActionResponder : MonoBehaviour
         public Carry carryResponse;
         public Talk talkResponse;
         public Collect collectResponse;
+        public SaveGame saveResponse;
 
         public List<IResponseTask> ResponseTasks { get; set; }
         
@@ -38,6 +39,11 @@ public class ActionResponder : MonoBehaviour
             if (collectResponse != null)
             {
                 ResponseTasks.Add(collectResponse.GetComponent<IResponseTask>());
+            }
+
+            if (saveResponse != null)
+            {
+                ResponseTasks.Add(saveResponse.GetComponent<IResponseTask>());
             }
         }
 

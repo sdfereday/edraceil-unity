@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
-public class Collect : MonoBehaviour, IResponseTask
+public class SaveGame : MonoBehaviour, IResponseTask
 {
-    public PlayerInventory Inventory;
+    public delegate void SaveAction();
+    public static event SaveAction OnSaveSignal;
 
     public bool IsActive { get; private set; }
     public RESPONSE_TYPE ResponseType
@@ -15,12 +16,8 @@ public class Collect : MonoBehaviour, IResponseTask
 
     public void Run(INTERACTIBLE_TYPE originType, Transform originTransform)
     {
-        var itemData = originTransform.GetComponent<ICollectible>();
-
-        Debug.Log("Collected an item:");
-        Debug.Log(itemData.ItemType);
-
-        Inventory.AddItem(itemData.ItemType, itemData.ItemName);
+        Debug.Log("DataIO was instructed to save the game.");
+        OnSaveSignal?.Invoke();
     }
 
     public void Complete()

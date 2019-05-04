@@ -2,9 +2,9 @@
 
 public class IsMechanism : MonoBehaviour, IMechanism
 {
-    private ToggledSprite toggledSpriteComponent;
-    private bool MechanismActive = false;
+    public ToggledSprite toggledSpriteComponent;
 
+    private bool MechanismActive = false;
     private void UpdateSprite()
     {
         if (MechanismActive)
@@ -19,7 +19,6 @@ public class IsMechanism : MonoBehaviour, IMechanism
 
     private void Start()
     {
-        toggledSpriteComponent = GetComponent<ToggledSprite>();
         UpdateSprite();
     }
 

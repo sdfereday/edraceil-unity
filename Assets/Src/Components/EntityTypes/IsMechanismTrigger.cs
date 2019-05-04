@@ -4,6 +4,7 @@ using System.Linq;
 
 public class IsMechanismTrigger : MonoBehaviour, IInteractible
 {
+    public ToggledSprite toggledSpriteComponent;
     public bool MechanismActive = false;
     public List<Transform> mechanisms;
 
@@ -22,9 +23,7 @@ public class IsMechanismTrigger : MonoBehaviour, IInteractible
             return INTERACTIBLE_TYPE.MECHANISM_TRIGGER;
         }
     }
-
-    private ToggledSprite toggledSpriteComponent;
-
+    
     private void UpdateSprite()
     {
         if (MechanismActive)
@@ -56,7 +55,6 @@ public class IsMechanismTrigger : MonoBehaviour, IInteractible
 
     private void Start()
     {
-        toggledSpriteComponent = GetComponent<ToggledSprite>();
         UpdateSprite();
         UpdateMechanisms();
     }

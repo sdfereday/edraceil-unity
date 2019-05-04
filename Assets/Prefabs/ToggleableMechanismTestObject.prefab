@@ -135,3 +135,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbbc04206dc03824581c3d381b38664a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toggledSpriteComponent: {fileID: 8930494717904252582}

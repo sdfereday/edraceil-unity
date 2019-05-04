@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
     [System.Serializable]
     public class Item
     {
+        public string Name;
         public int Qty;
         public ITEM_TYPE Type;
         public int HealthValue;
@@ -27,7 +28,7 @@ public class PlayerInventory : MonoBehaviour
         _items = new List<Item>();
     }
 
-    public void AddItem(ITEM_TYPE _type, int _qty = 1)
+    public void AddItem(ITEM_TYPE _type, string _itemName, int _qty = 1)
     {
         // Find data info for item picked up.
         var registeredItem = ItemDataStub.ItemRegistry.FirstOrDefault(x => x.Type == _type);
@@ -44,6 +45,7 @@ public class PlayerInventory : MonoBehaviour
                 // Otherwise, add it in.
                 _items.Add(new Item()
                 {
+                    Name = _itemName,
                     Qty = _qty,
                     Type = registeredItem.Type,
                     HealthValue = registeredItem.HealthValue,
