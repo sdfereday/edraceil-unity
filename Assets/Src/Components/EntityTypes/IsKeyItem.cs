@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class IsAKey : MonoBehaviour, IInteractible, ICollectible
+public class IsKeyItem : MonoBehaviour, IInteractible, ICollectible
 {
-    public InventoryHistory InventoryHistory;
+    public KeyItemHistory KeyItemHistory;
 
     public Transform Transform
     {
@@ -18,7 +18,7 @@ public class IsAKey : MonoBehaviour, IInteractible, ICollectible
     {
         get
         {
-            return ITEM_TYPE.KEY;
+            return ITEM_TYPE.KEY_ITEM;
         }
     }
 
@@ -32,7 +32,7 @@ public class IsAKey : MonoBehaviour, IInteractible, ICollectible
 
     private void Start()
     {
-        // ...
+        // ... check if already collected, etc
     }
 
     public void Use(Collider2D collider, INPUT_TYPE inputType)

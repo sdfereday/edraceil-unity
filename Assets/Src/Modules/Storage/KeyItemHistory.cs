@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 // using BayatGames.SaveGameFree;
 
-public class InventoryHistory : MonoBehaviour
+public class KeyItemHistory : MonoBehaviour
 {
     /*
      Things that need to be saved:
@@ -49,7 +49,8 @@ public class InventoryHistory : MonoBehaviour
             throw new UnityException("It appears you have an item with that name already.");
         }
 
-        UsedItems.Add(new RegisteredItem() {
+        UsedItems.Add(new RegisteredItem()
+        {
             SceneName = SceneManager.GetActiveScene().name,
             Id = _id
         });

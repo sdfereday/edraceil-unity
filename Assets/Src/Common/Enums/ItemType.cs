@@ -1,5 +1,5 @@
 ﻿public enum ITEM_TYPE
 {
     CHICKEN,
-    KEY
+    KEY_ITEM
 }
