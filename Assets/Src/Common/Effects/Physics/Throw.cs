@@ -7,10 +7,11 @@ public class Throw : MonoBehaviour
     public float parabolaMaxHeight = 2.5f; // desired parabola height
     public float distanceToTravel = 5;
     public float speedOfTravel = 3;
-    public Transform DirectionalPrefab;
     //public GameObject TargetingReticule;
 
+    public Transform DirectionalPrefab;
     private IDirectionInfo DirectionalInfo;
+
     private float flightDuration = 0f;
     private float elapsed_time = 0f;
     private Transform ObjectToThrow;
@@ -18,6 +19,7 @@ public class Throw : MonoBehaviour
     private Vector2 start, end; // Vector positions for start and end
     private Vector2 destination, mouse2d, center;
     private float targetDistance, Vx, Vy = 0;
+    private Vector2 targetDirection;
     //private Transform SpawnedRecticule;
 
     private void Awake()
@@ -29,7 +31,6 @@ public class Throw : MonoBehaviour
 
     public void Update()
     {
-        Vector2 targetDirection = DirectionalInfo.GetFirectionVector2D();
         center = new Vector2(transform.position.x, transform.position.y);
         destination = center + (targetDirection * distanceToTravel);
 
@@ -50,6 +51,7 @@ public class Throw : MonoBehaviour
     {
         ObjectToThrow = _objectToThrow.transform.root;
         flightDuration = targetDistance / destination.magnitude;
+        targetDirection = DirectionalInfo.GetFirectionVector2D();
         elapsed_time = 0;
 
         //SpawnedRecticule.gameObject.SetActive(false);

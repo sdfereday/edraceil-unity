@@ -37,7 +37,7 @@ public class CanBeCollected : MonoBehaviour, IInteractible, ICollectible
         // Could use the scene management with it then also.
         // NOTE: This item name should never change. It's needed for checking
         // against if picked up or not (perhaps look at ScriptableObjects for this sort of permenance).
-        ItemName = "GameObject=" + gameObject.name + ".ItemType=" + _itemType.ToString();
+        ItemName = "GameObject=" + gameObject.name + ".ItemType=" + ItemType.ToString();
 
         // TODO: If having trouble destroying things, just never make them in the first
         // place. Think about using item spawners that are invisible, and if item doesn't

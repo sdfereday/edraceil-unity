@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parabolaMaxHeight: 2.5
-  distanceToTravel: 5
-  speedOfTravel: 3
+  distanceToTravel: 4
+  speedOfTravel: 2
   DirectionalPrefab: {fileID: 6401586682848449954}
 --- !u!1 &490002257
 GameObject:

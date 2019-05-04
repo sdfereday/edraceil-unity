@@ -53,12 +53,18 @@ public class IsMechanismTrigger : MonoBehaviour, IInteractible
             });
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        mechanisms.ForEach(m => Gizmos.DrawLine(transform.position, m.position));
+    }
+
     private void Start()
     {
         UpdateSprite();
         UpdateMechanisms();
     }
-    
+
     public void Use(Collider2D collider, INPUT_TYPE inputType)
     {
         MechanismActive = !MechanismActive;
