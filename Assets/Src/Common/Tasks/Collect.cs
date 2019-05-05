@@ -18,9 +18,9 @@ public class Collect : MonoBehaviour, IResponseTask
         var itemData = originTransform.GetComponent<ICollectible>();
 
         Debug.Log("Collected an item:");
-        Debug.Log(itemData.ItemType);
+        Debug.Log(itemData);
 
-        Inventory.AddItem(itemData.ItemType, itemData.ItemName);
+        Inventory.AddItem(itemData.CollectibleItemObject);
     }
 
     public void Complete()

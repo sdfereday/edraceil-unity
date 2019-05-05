@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     [System.Serializable]
-    public class Item
+    public class ItemMeta
     {
         public string Name;
         public int Qty;
@@ -14,8 +14,8 @@ public class PlayerInventory : MonoBehaviour
         public int MpValue;
     }
 
-    public List<Item> _items;
-    public List<Item> Items
+    public List<ItemMeta> _items;
+    public List<ItemMeta> Items
     {
         get
         {
@@ -25,33 +25,45 @@ public class PlayerInventory : MonoBehaviour
 
     private void Start()
     {
-        _items = new List<Item>();
+        // TODO: Don't forget to add existing after load.
+        _items = new List<ItemMeta>();
     }
 
-    public void AddItem(ITEM_TYPE _type, string _itemName, int _qty = 1)
+    private void OnEnable()
     {
-        // Find data info for item picked up.
-        var registeredItem = ItemDataStub.ItemRegistry.FirstOrDefault(x => x.Type == _type);
+        SaveGame.OnSaveSignal += SaveToDisk;
+    }
 
-        if (registeredItem != null)
+    private void OnDisable()
+    {
+        SaveGame.OnSaveSignal -= SaveToDisk;
+    }
+
+    public void SaveToDisk()
+    {
+        // Save gained inventory specific items to disk.
+        Debug.Log("Player inventory got save to disk signal!");
+        _items.ForEach(x => Debug.Log(x.Name));
+    }
+
+    public void AddItem(CollectibleItem _collectibleItemObject, int _qty = 1)
+    {
+        // Check for existing and increase qty if so.
+        var existing = Items.Find(x => x.Type == _collectibleItemObject.CollectibleItemType);
+
+        if (existing != null)
         {
-            // Check for existing and increase qty if so.
-            var existing = Items.Find(x => x.Type == _type);
-
-            if (existing != null)
+            existing.Qty += _qty;
+        } else {
+            // Meta is just used to populate the temporary instance of the UI, etc.
+            _items.Add(new ItemMeta()
             {
-                existing.Qty += _qty;
-            } else {
-                // Otherwise, add it in.
-                _items.Add(new Item()
-                {
-                    Name = _itemName,
-                    Qty = _qty,
-                    Type = registeredItem.Type,
-                    HealthValue = registeredItem.HealthValue,
-                    MpValue = registeredItem.MpValue
-                });
-            }
+                Name = _collectibleItemObject.CollectibleItemName,
+                Qty = _qty,
+                Type = _collectibleItemObject.CollectibleItemType,
+                HealthValue = _collectibleItemObject.CollectibleItemHealthValue,
+                MpValue = _collectibleItemObject.CollectibleItemMpValue
+            });
         }
     }
 
