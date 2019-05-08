@@ -11,6 +11,8 @@ public class ChatNode
     public List<ChatNode> Choices { get; set; }
     public List<string> Actions { get; set; }
 
+    public bool HasOrigin => From != null;
+    public bool HasRoute => To != null;
     public bool HasChoices => Choices.Count > 0;
     public bool HasActions => Actions.Count > 0;
 }
