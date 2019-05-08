@@ -7,7 +7,10 @@ public class ChatNode
     public string From { get; set; }
     public string To { get; set; }
     public string Text { get; set; }
-
+    
     public List<ChatNode> Choices { get; set; }
     public List<string> Actions { get; set; }
+
+    public bool HasChoices => Choices.Count > 0;
+    public bool HasActions => Actions.Count > 0;
 }

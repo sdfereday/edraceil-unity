@@ -2,6 +2,8 @@
 
 public class Talk : MonoBehaviour, IResponseTask
 {
+    private string conversationStartPoint;
+    private ChatIterator chatIterator;
     public bool IsActive { get; private set; }
     public RESPONSE_TYPE ResponseType
     {
@@ -24,35 +26,45 @@ public class Talk : MonoBehaviour, IResponseTask
 
     public void Run(INTERACTIBLE_TYPE originType, Transform originTransform)
     {
-        var conversationStartPoint = originTransform.GetComponent<IIdentifier>().Identifier;
-        var chatIterator = new ChatIterator(ConversationStub.Collection, OnChatComplete);
+        // TODO: Maybe make the ID related to conversation, not just generic.
+        conversationStartPoint = originTransform.GetComponent<IIdentifier>().Identifier;
+        chatIterator = new ChatIterator(ConversationStub.Collection, OnChatComplete);
 
+        // Disable movement on player whilst talking (or give auto control if cutscene)
         playerInput.ToggleMovement(false);
         IsActive = true;
+        
+        // Start the thing up (buttons will load after initial)
+        NextSentence(conversationStartPoint);
+    }
 
-        // Get first node
-        var node = chatIterator.Start(conversationStartPoint);
-        Debug.Log(node.Text);
-
+    public void NextSentence(string startPoint = null)
+    {
         // If you try to call 'goToNext' and there's no 'to' set, things will error out. It could be
         // handled internally of course but it's just easier to see what's going on in here as you might
         // want different implementation.
-        if (chatIterator.HasChoices(node)) {
+        // OnChatComplete("notSet");
+        var node = chatIterator.GoToNext(startPoint);
+
+        // Probably finished (or errored)
+        if (node == null) return;
+
+        Debug.Log(node.Text);
+
+        if (node.HasChoices)
+        {
+            // Load choices available
             Debug.Log(node.Choices.Count);
-        } else {
-            var nextNode = chatIterator.GoToNext();
-            Debug.Log(nextNode.Text);
         }
-    }
-    
-    public void Complete()
-    {
-        // ...
     }
 
     public void Next()
     {
-        // Testing
-        OnChatComplete("notSet");
+        // ...
+    }
+
+    public void Complete()
+    {
+        // ...
     }
 }

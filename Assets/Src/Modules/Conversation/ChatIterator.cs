@@ -2,6 +2,25 @@
 using System.Linq;
 using System.Collections.Generic;
 
+/*
+ Okay so some ways to make this work the same yet simpler:
+ - When the 'talk' response happens, fire up and pass in the start point
+ id in to the iterator. Easy. This returns a node straight away relating
+ to that particular 'thing'.
+ - When you hit 'next', now unless you run in to a set of choices, you basically
+ create a queue chain using the 'to' of each node.
+ - When you first loaded the convo, this will have already generated said queue,
+ so we deQueue the first item straight away, then when we hit 'next' again, we
+ deQueue another and send that back. This carries on until either a) the end
+ has been reached, or b) some choices have appeared.
+ - When choices appear we're at the end of a queue, but we won't generate one
+ until we've chosen one. This actively kicks off another conversation via
+ the same means, only it doesn't close the current event. The minute you click,
+ the minute you can queue the next chain of sentences.
+ - You can also kick off different events and all sorts this way so it makes it
+ a lot nicer to deal with. I'll re-write some of what's in here to fit this in,
+ but for the most part it's almost there.
+     */
 public class ChatIterator
 {
     private const string EndConversationAction = "endConversation";
@@ -19,8 +38,9 @@ public class ChatIterator
         OnChatComplete = _onChatComplete;
     }
 
-    private ChatNode QueryAndAssignNode(string query)
+    private ChatNode QueryNode(string query)
     {
+        /// Consider setting up a queue (.Queue, Enqueue, etc)
         // This will never (at present) scan for choice nodes (may not ever need to).
         var nextNode = Collection.FirstOrDefault(node => node.Id == query);
 
@@ -41,56 +61,37 @@ public class ChatIterator
             Log("The current node is invalid. It must have either 'to' OR 'choices', and not both.");
             return null;
         }
-
-        CurrentNode = nextNode;
-        return CurrentNode;
+        
+        return nextNode;
     }
 
-    private bool NodeDataNotValid(ChatNode node)
-    {
-        return node.To == null && !HasChoices(node) && !node.Actions.Any(action => action == EndConversationAction);
-    }
+    private void Log<T>(T thing) => UnityEngine.Debug.Log(thing);
 
-    private bool NodeDataConflict(ChatNode node)
-    {
-        return node.To != null && HasChoices(node);
-    }
+    private bool NodeDataNotValid(ChatNode node) => node.To == null && !HasChoices(node) && !node.Actions.Any(action => action == EndConversationAction);
+    private bool NodeDataConflict(ChatNode node) => node.To != null && HasChoices(node);
 
-    private void Log<T>(T thing)
-    {
-        UnityEngine.Debug.Log(thing);
-    }
+    public bool HasChoices(ChatNode node) => node != null && node.Choices.Count() > 0;
+    public bool HasActions(ChatNode node) => node != null && node.Actions.Count() > 0;
 
-    public bool HasChoices(ChatNode node)
+    private ChatNode PreviousNode;
+    public ChatNode GoToNext(string query = null)
     {
-        return node != null && node.Choices.Count() > 0;
-    }
+        var NextNode = query != null ? QueryNode(query) : PreviousNode != null ? QueryNode(PreviousNode.To) : null;
+        PreviousNode = NextNode;
+        
+        if (NextNode == null)
+            throw new Exception("Couldn't find that node.");
 
-    public bool HasActions(ChatNode node)
-    {
-        return node != null && node.Actions.Count() > 0;
-    }
-
-    public ChatNode GoToNext()
-    {
-        // Without a 'to', you cannot proceed to the next node.
-        if (HasChoices(CurrentNode) && CurrentNode.To == null)
+        if (NextNode.HasActions && NextNode.Actions.Any(action => action == EndConversationAction))
         {
-            Log("This node has no 'next', however it does have choices that can be used.");
-            return CurrentNode;
-        }
-
-        // TODO: Please use consts. We also make sure to check if the endConvo action is present. This is really important to remember to add.
-        if (CurrentNode.Actions.Any(action => action == EndConversationAction))
-        {
-            if (CurrentNode.Actions.Any(action => action == SaveConversationAction))
+            if (NextNode.Actions.Any(action => action == SaveConversationAction))
             {
                 // ... onSave, etc
                 ChainPosition = CurrentNode.Id;
                 Log("Saved chain up to ID.");
             }
 
-            if (CurrentNode.Actions.Any(action => action == CancelConversationAction))
+            if (NextNode.Actions.Any(action => action == CancelConversationAction))
             {
                 // ... onCancel, etc
                 Log("Cancelled chain, nothing saved.");
@@ -99,18 +100,10 @@ public class ChatIterator
             Log("Reached end.");
 
             OnChatComplete?.Invoke(ChainPosition);
+
+            return null;
         }
 
-        return QueryAndAssignNode(CurrentNode.To);
-    }
-
-    public ChatNode GoToExact(string query)
-    {
-        return QueryAndAssignNode(query);
-    }
-
-    public ChatNode Start(string startId)
-    {
-        return GoToExact(startId);
+        return NextNode;
     }
 }
