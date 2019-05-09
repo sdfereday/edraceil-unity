@@ -15,4 +15,5 @@ public class ChatNode
     public bool HasRoute => To != null;
     public bool HasChoices => Choices.Count > 0;
     public bool HasActions => Actions.Count > 0;
+    public bool IsLast { get; set; }
 }

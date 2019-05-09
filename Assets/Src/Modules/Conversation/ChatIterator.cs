@@ -14,11 +14,10 @@ public class ChatIterator
     private Action<string> OnChatComplete { get; set; }
     private Queue<ChatNode> ChatQueue { get; set; }
 
-    public ChatIterator(List<ChatNode> _collection, Action<string> _onChatComplete = null)
+    public ChatIterator(List<ChatNode> _collection)
     {
         Collection = new List<ChatNode>(_collection);
         ChatQueue = new Queue<ChatNode>();
-        OnChatComplete = _onChatComplete;
     }
 
     private bool NodeDataNotValid(ChatNode node) => node.To == null && !node.HasChoices && !node.Actions.Any(action => action == EndConversationAction);
@@ -66,6 +65,8 @@ public class ChatIterator
 
         ChatNode CurrentNode = query != null ? QueryNode(query) : ChatQueue.Dequeue();
 
+        if (CurrentNode == null) return null;
+
         if (CurrentNode.HasRoute)
         {
             ChatNode NextNode = QueryNode(CurrentNode.To);
@@ -87,9 +88,7 @@ public class ChatIterator
                 Log.Out("Cancelled chain, nothing saved.");
             }
 
-            Log.Out("Reached end.");
-
-            OnChatComplete?.Invoke(ChainPosition);
+            CurrentNode.IsLast = true;
         }
 
         return CurrentNode;

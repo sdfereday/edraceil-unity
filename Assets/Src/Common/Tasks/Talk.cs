@@ -12,7 +12,10 @@ public class Talk : MonoBehaviour, IResponseTask
     private void OnDisable() => ChatManager.OnConversationComplete -= Complete;
     
     public void Next() => chatManager.NextSentence();
-    public void Complete() => IsActive = false;
+    public void Complete() {
+        playerInput.ToggleMovement(true);
+        IsActive = false;
+    }
 
     public void Run(INTERACTIBLE_TYPE originType, Transform originTransform)
     {

@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fadb1e7b8f8154613af710d10d31ef56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 1}
+  offset: {x: 0, y: 0}
 --- !u!114 &881998516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parabolaMaxHeight: 2.5
-  distanceToTravel: 4
-  speedOfTravel: 2
+  distanceToTravel: 5
+  speedOfTravel: 3
   DirectionalPrefab: {fileID: 6401586682848449954}
 --- !u!1 &490002257
 GameObject:
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd65505d4946a747beffd2ffbade382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Inventory: {fileID: 8217037144470087148}
+  Inventory: {fileID: 0}
 --- !u!1 &1224297051
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 6401586682848449954}
-  interactPosition: {fileID: 1224297052}
+  interactPosition: {fileID: 6401586682848449954}
   interactRadius: 1
   selectObjectsToHit:
     serializedVersion: 2
@@ -452,34 +452,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ResponseList:
-  - id: onDialog
+  - id: OnChatStarted
     type: 3
     testResponse: {fileID: 0}
     carryResponse: {fileID: 0}
     talkResponse: {fileID: 490002259}
     collectResponse: {fileID: 0}
     saveResponse: {fileID: 0}
-  - id: onCarry
-    type: 1
-    testResponse: {fileID: 0}
-    carryResponse: {fileID: 248423147}
-    talkResponse: {fileID: 0}
-    collectResponse: {fileID: 0}
-    saveResponse: {fileID: 0}
-  - id: onItemCollected
-    type: 4
-    testResponse: {fileID: 0}
-    carryResponse: {fileID: 0}
-    talkResponse: {fileID: 0}
-    collectResponse: {fileID: 550932611}
-    saveResponse: {fileID: 0}
-  - id: onSaveGame
-    type: 6
-    testResponse: {fileID: 0}
-    carryResponse: {fileID: 0}
-    talkResponse: {fileID: 0}
-    collectResponse: {fileID: 0}
-    saveResponse: {fileID: 188822838}
 --- !u!1 &8217037144470087147
 GameObject:
   m_ObjectHideFlags: 0
