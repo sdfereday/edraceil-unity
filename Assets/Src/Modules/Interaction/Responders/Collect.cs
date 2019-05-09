@@ -2,16 +2,11 @@
 
 public class Collect : MonoBehaviour, IResponseTask
 {
+    public PlayerKeyItemInventory KeyItemInventory;
     public PlayerInventory Inventory;
 
     public bool IsActive { get; private set; }
-    public RESPONSE_TYPE ResponseType
-    {
-        get
-        {
-            return RESPONSE_TYPE.DEFAULT;
-        }
-    }
+    public RESPONSE_TYPE ResponseType => RESPONSE_TYPE.DEFAULT;
 
     public void Run(INTERACTIBLE_TYPE originType, Transform originTransform)
     {
@@ -20,7 +15,13 @@ public class Collect : MonoBehaviour, IResponseTask
         Debug.Log("Collected an item:");
         Debug.Log(itemData);
 
-        Inventory.AddItem(itemData.CollectibleItemObject);
+        if (itemData.CollectibleItemObject.IsKeyItem)
+        {
+            KeyItemInventory.AddItem(itemData.CollectibleItemObject);
+        } else
+        {
+            Inventory.AddItem(itemData.CollectibleItemObject);
+        }
     }
 
     public void Complete()

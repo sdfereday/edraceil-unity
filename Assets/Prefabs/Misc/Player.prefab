@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parabolaMaxHeight: 2.5
-  distanceToTravel: 5
+  distanceToTravel: 3
   speedOfTravel: 3
   DirectionalPrefab: {fileID: 6401586682848449954}
 --- !u!1 &490002257
@@ -192,7 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd65505d4946a747beffd2ffbade382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Inventory: {fileID: 0}
+  KeyItemInventory: {fileID: 4705938891061446846}
+  Inventory: {fileID: 8217037144470087148}
 --- !u!1 &1224297051
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,6 +459,12 @@ MonoBehaviour:
   - Name: onTransportable
     InteractibleType: 1
     ResponseTrigger: {fileID: 248423147}
+  - Name: onCollectible
+    InteractibleType: 4
+    ResponseTrigger: {fileID: 550932611}
+  - Name: onSave
+    InteractibleType: 6
+    ResponseTrigger: {fileID: 188822838}
 --- !u!1 &8217037144470087147
 GameObject:
   m_ObjectHideFlags: 0

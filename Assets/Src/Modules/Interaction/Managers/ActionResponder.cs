@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+// TODO: Consider making other entities work in the same way to this so it all matches, rather than just having
+// different scripts for each entity type, they could just have their own set of responses.
 public class ActionResponder : MonoBehaviour
 {
     [System.Serializable]

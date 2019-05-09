@@ -6,10 +6,9 @@
     Doesn't need a world ID since we can only have on type of this key item, so
     we can just check if we have one or not.
 */
-public class IsKeyItem : MonoBehaviour, ICollectible
+public class IsKeyItem : MonoBehaviour, IInteractible, ICollectible
 {
     public CollectibleItem _KeyItemObject;
-    public PlayerKeyItemInventory KeyItemInventory;
     public EntityHistory KeyItemHistory;
     public GameObject GraphicalPrefab; // TOOD: Possibly get this from collectible object?
     public bool DestroyPrefabOnCollection = false;
@@ -35,7 +34,6 @@ public class IsKeyItem : MonoBehaviour, ICollectible
         if (!CollectibleItemObject.IsKeyItem)
             throw new UnityException("Tried to add a non-key item to the key item inventory, this isn't allowed.");
 
-        KeyItemInventory.AddItem(CollectibleItemObject);
         KeyItemHistory.LogUsed(CollectibleItemObject.Id);
 
         /* So here what you might choose to do is create

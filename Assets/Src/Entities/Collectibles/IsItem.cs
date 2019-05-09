@@ -10,7 +10,6 @@ public class IsItem : MonoBehaviour, IInteractible, ICollectible
 {
     public string WorldId;
     public CollectibleItem _CollectibleItemObject;
-    public PlayerInventory CollectibleItemInventory;
     public EntityHistory ItemHistory;
     public GameObject GraphicalPrefab; // TOOD: Possibly get this from collectible object?
     public bool DestroyPrefabOnCollection = false;
@@ -36,7 +35,6 @@ public class IsItem : MonoBehaviour, IInteractible, ICollectible
         if (CollectibleItemObject.IsKeyItem)
             throw new UnityException("Tried to add a key item to non-key item store. This is not allowed.");
 
-        CollectibleItemInventory.AddItem(CollectibleItemObject);
         ItemHistory.LogUsed(WorldId);
 
         /* So here what you might choose to do is create

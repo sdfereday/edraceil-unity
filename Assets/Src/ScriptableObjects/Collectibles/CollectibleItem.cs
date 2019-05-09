@@ -4,14 +4,12 @@ using System;
 [CreateAssetMenu(fileName = "New Collectible Item", menuName = "Collectible Item", order = 51)]
 public class CollectibleItem : ScriptableObject
 {
-    private Guid guid = new Guid();
-    public string Id { get => guid.ToString(); }
-
-    public bool _IsKeyItem;
-    public bool IsKeyItem { get => _IsKeyItem; }
+    public string Id => Guid.NewGuid().ToString();
 
     public ITEM_TYPE _CollectibleItemType;
     public ITEM_TYPE CollectibleItemType { get => _CollectibleItemType; }
+
+    public bool IsKeyItem { get => CollectibleItemType == ITEM_TYPE.KEY_ITEM; }
 
     public string _CollectibleItemName;
     public string CollectibleItemName { get => _CollectibleItemName; }
