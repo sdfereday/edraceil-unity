@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 
-public class IsChest : MonoBehaviour, IRemotePrefab
+public class ItemChestGraphic : MonoBehaviour, IRemotePrefab
 {
     public bool IsOpen = false;
 

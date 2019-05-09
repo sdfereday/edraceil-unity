@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System;
 
 [CreateAssetMenu(fileName = "New Collectible Item", menuName = "Collectible Item", order = 51)]
 public class CollectibleItem : ScriptableObject
 {
-    public string Id => Guid.NewGuid().ToString();
+    public string Id;
 
     public ITEM_TYPE _CollectibleItemType;
     public ITEM_TYPE CollectibleItemType { get => _CollectibleItemType; }

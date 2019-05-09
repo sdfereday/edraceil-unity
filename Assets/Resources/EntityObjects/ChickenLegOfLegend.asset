@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae95a2256a3b7d4b9ca1c3a7a1756ba, type: 3}
   m_Name: ChickenLegOfLegend
   m_EditorClassIdentifier: 
-  _IsKeyItem: 1
+  Id: chickenLegOfLegend
   _CollectibleItemType: 1
   _CollectibleItemName: Chicken Leg Of Legend
   _CollectibleItemHealthValue: 0

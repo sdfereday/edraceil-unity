@@ -9,33 +9,28 @@ public class UnlockableDoor : MonoBehaviour, IInteractible
     
     public CollectibleItem ExpectedObjectInInventory;
     public PlayerKeyItemInventory KeyItemInventory;
+    public GameObject GraphicalPrefab;
 
     // Everything that has a state in the map needs to register its change to the history data to be saved.
     public EntityHistory HistoryData;
-
     public Transform Transform => transform;
-
     public INTERACTIBLE_TYPE InteractibleType => INTERACTIBLE_TYPE.DOORWAY;
+
+    private IRemotePrefab RemotePrefabInstance;
 
     private void Start()
     {
         IsUnlocked = HistoryData.WasUsed(WorldId);
+
+        var spawned = Instantiate(GraphicalPrefab, transform.position, Quaternion.identity, transform);
+        RemotePrefabInstance = spawned.GetComponent<IRemotePrefab>();
     }
 
     public void Use(Collider2D collider, INPUT_TYPE inputType)
     {
-        if (IsUnlocked)
-        {
-            // Do something else
-            return;
-        }
+        IsUnlocked = KeyItemInventory.HasItem(ExpectedObjectInInventory.Id);
 
-        if (KeyItemInventory.HasItem(ExpectedObjectInInventory.Id))
-        {
-            Debug.Log("Should unlock the door.");
-        } else
-        {
-            Debug.Log("Needs a key to be unlocked.");
-        }
+        if (IsUnlocked)
+            RemotePrefabInstance.StartInteraction();
     }
 }
