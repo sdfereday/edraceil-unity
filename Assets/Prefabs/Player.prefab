@@ -452,13 +452,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ResponseList:
-  - id: OnChatStarted
-    type: 3
-    testResponse: {fileID: 0}
-    carryResponse: {fileID: 0}
-    talkResponse: {fileID: 490002259}
-    collectResponse: {fileID: 0}
-    saveResponse: {fileID: 0}
+  - Name: onDialogue
+    InteractibleType: 3
+    ResponseTrigger: {fileID: 490002259}
+  - Name: onTransportable
+    InteractibleType: 1
+    ResponseTrigger: {fileID: 248423147}
 --- !u!1 &8217037144470087147
 GameObject:
   m_ObjectHideFlags: 0

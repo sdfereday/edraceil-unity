@@ -5,83 +5,36 @@ using System.Linq;
 public class ActionResponder : MonoBehaviour
 {
     [System.Serializable]
-    public class Response
+    public class Response : PropertyAttribute
     {
-        public string id;
-        public INTERACTIBLE_TYPE type;
-        public TestAction testResponse;
-        public Carry carryResponse;
-        public Talk talkResponse;
-        public Collect collectResponse;
-        public SaveGame saveResponse;
+        public string Name;
+        public INTERACTIBLE_TYPE InteractibleType;
+        public MonoBehaviour ResponseTrigger;
+        private IResponseTask Task { get; set; }
 
-        public List<IResponseTask> ResponseTasks { get; set; }
-        
-        public void Init()
-        {
-            ResponseTasks = new List<IResponseTask>();
-
-            if (testResponse != null)
-            {
-                ResponseTasks.Add(testResponse.GetComponent<IResponseTask>());
-            }
-
-            if (talkResponse != null)
-            {
-                ResponseTasks.Add(talkResponse.GetComponent<IResponseTask>());
-            }
-
-            if (carryResponse != null)
-            {
-                ResponseTasks.Add(carryResponse.GetComponent<IResponseTask>());
-            }
-
-            if (collectResponse != null)
-            {
-                ResponseTasks.Add(collectResponse.GetComponent<IResponseTask>());
-            }
-
-            if (saveResponse != null)
-            {
-                ResponseTasks.Add(saveResponse.GetComponent<IResponseTask>());
-            }
-        }
-
-        public void Activate(INTERACTIBLE_TYPE originType, Transform originTransform)
-        {
-            ResponseTasks.ForEach(x => x.Run(originType, originTransform));
-        }
+        public void Init() => Task = ResponseTrigger.GetComponent<IResponseTask>();
+        public void Activate(INTERACTIBLE_TYPE originType, Transform originTransform) => Task.Run(originType, originTransform);
 
         public void Update(INTERACTIBLE_TYPE originType, Transform originTransform)
         {
-            ResponseTasks
-                .Where(x => x.IsActive && x.ResponseType == RESPONSE_TYPE.CONTINUOUS)
-                .ToList()
-                .ForEach(x => x.Next());
+            if (Task.ResponseType == RESPONSE_TYPE.CONTINUOUS)
+                Task.Next();
 
-            ResponseTasks
-                .Where(x => x.IsActive && x.ResponseType == RESPONSE_TYPE.TOGGLE)
-                .ToList()
-                .ForEach(x => x.Complete());
+            if (Task.ResponseType == RESPONSE_TYPE.TOGGLE)
+                Task.Complete();
         }
 
-        public bool ContainsUnfinished()
-        {
-            return ResponseTasks.Any(x => x.IsActive);
-        }
+        public bool ContainsUnfinished() => Task.IsActive;
     }
 
     public List<Response> ResponseList;
     public bool ResponseMustFinish { get; private set; }
 
-    private void Start()
-    {
-        ResponseList.ForEach(r => r.Init());
-    }
+    private void Start() => ResponseList.ForEach(r => r.Init());
 
     public void Act(INTERACTIBLE_TYPE originType, Transform originTransform)
     {
-        var matchedResponse = ResponseList.Find(r => r.type == originType);
+        var matchedResponse = ResponseList.Find(r => r.InteractibleType == originType);
         ResponseMustFinish = ResponseList.Any(r => r.ContainsUnfinished());
 
         if (matchedResponse == null)
