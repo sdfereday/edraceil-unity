@@ -78,6 +78,19 @@ public class Throw : MonoBehaviour
             // L = (cos(FOV/2) * Ws)/2
             // x'/x = y'/y = S
 
+            // TODO: Consider using a shadow to simulate height also.
+            //var L = (Mathf.Cos(60 / 2) * 10) / 2;
+            //var _x = ObjectToThrow.transform.position.y / L;
+            // ObjectToThrow.transform.localScale = new Vector2(ObjectToThrow.transform.localScale.x, ObjectToThrow.transform.localScale.y);
+
+            //int min = 0;
+            //int max = 1;
+
+            //var scaledValue = (_x - min) / (max - min);
+
+            //Debug.Log(scaledValue);
+            //ObjectToThrow.transform.localScale = new Vector2(scaledValue + 1, scaledValue + 1);
+
             elapsedTime += speedOfTravel * Time.deltaTime;
             yield return null;
         }
