@@ -12,8 +12,14 @@ public class Collect : MonoBehaviour, IResponseTask
     {
         var itemData = originTransform.GetComponent<ICollectible>();
 
-        Debug.Log("Collected an item:");
-        Debug.Log(itemData);
+        if (itemData != null)
+        {
+            Debug.Log("Collected an item:");
+            Debug.Log(itemData);
+        } else
+        {
+            throw new UnityException("Item was not available. Did you add an 'ICollectible' interface?");
+        }
 
         if (itemData.CollectibleItemObject.IsKeyItem)
         {

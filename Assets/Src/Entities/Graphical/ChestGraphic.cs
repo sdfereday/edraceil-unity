@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-public class DoorGraphic : MonoBehaviour, IRemotePrefab
+public class ChestGraphic : MonoBehaviour, IRemotePrefab
 {
     public bool IsOpen = false;
     public ToggledSprite ToggleSprite;
