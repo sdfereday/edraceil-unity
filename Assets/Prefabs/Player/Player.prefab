@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 1828405906269958217}
   m_Layer: 0
   m_Name: InteractionCollider
-  m_TagString: Untagged
+  m_TagString: PlayerInteractor
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
