@@ -2,12 +2,10 @@
 
 public class IsItemChest : MonoBehaviour, IInteractible, ICollectible
 {
-    public string WorldId; // <-- TODO: Again this would be gotten from map data, has to be static.
-    public bool IsOpen = false; // <-- Use an interface for things like this (ILockable) or something.
-
+    public SaveState UseState;
     public CollectibleItem _CollectibleItemObject;
-    public EntityHistory ItemHistory;
     public GameObject GraphicalPrefab;
+    public bool IsOpen = false; // <-- Use an interface for things like this (ILockable) or something.
 
     public Transform Transform => transform;
     public INTERACTIBLE_TYPE InteractibleType => INTERACTIBLE_TYPE.COLLECTIBLE;
@@ -20,11 +18,11 @@ public class IsItemChest : MonoBehaviour, IInteractible, ICollectible
         var spawned = Instantiate(GraphicalPrefab, transform.position, Quaternion.identity, transform);
         RemotePrefabInstance = spawned.GetComponent<IRemotePrefab>();
 
-        if (ItemHistory.WasUsed(WorldId))
+        if (UseState.IsTruthy)
         {
             RemotePrefabInstance.StartInteraction();
         }
-
+        
         IsOpen = spawned.GetComponent<ChestGraphic>().IsOpen;
     }
 
@@ -32,7 +30,7 @@ public class IsItemChest : MonoBehaviour, IInteractible, ICollectible
     {
         if (!IsOpen)
         {
-            ItemHistory.LogUsed(WorldId);
+            UseState.UpdateBoolState(true);
             RemotePrefabInstance.StartInteraction();
         }
     }

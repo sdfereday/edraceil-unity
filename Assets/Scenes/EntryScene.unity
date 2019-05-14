@@ -233,6 +233,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e6394d7cb88da4aa08226429af2f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1210249638 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8124950181509625570, guid: 75eaeeb27efdd844d9cf195979522671,
+    type: 3}
+  m_PrefabInstance: {fileID: 8124950181358219680}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1210249639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210249638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e745adacca73ab47bd72c9cda2df3af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _BooleanObject: {fileID: 11400000, guid: 9e99afebad5d5a9428be41071666b5dd, type: 2}
 --- !u!1001 &1282674808
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -443,11 +462,6 @@ PrefabInstance:
       propertyPath: KeyItemInventory
       value: 
       objectReference: {fileID: 3412515888553781872}
-    - target: {fileID: 2367287582087846155, guid: a06a64213fb5b7149a6129fcf9d14c88,
-        type: 3}
-      propertyPath: HistoryData
-      value: 
-      objectReference: {fileID: 6285235845425845160}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a06a64213fb5b7149a6129fcf9d14c88, type: 3}
 --- !u!1001 &2756193389684489548
@@ -825,11 +839,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8185262712859891708, guid: 83c930a736fc4b14597c01b653152a3b,
-        type: 3}
-      propertyPath: KeyItemHistory
-      value: 
-      objectReference: {fileID: 6285235845425845160}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83c930a736fc4b14597c01b653152a3b, type: 3}
 --- !u!1001 &6285235845425845159
@@ -980,11 +989,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7958831906888994405, guid: d2873d2a7d6eb504aac53f93ff08e110,
-        type: 3}
-      propertyPath: ItemHistory
-      value: 
-      objectReference: {fileID: 6285235845425845160}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2873d2a7d6eb504aac53f93ff08e110, type: 3}
 --- !u!1001 &8124950181358219680

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8124950181509625573}
   - component: {fileID: 8124950181509625571}
   - component: {fileID: 1216385306026527276}
+  - component: {fileID: -1690937527005948605}
   m_Layer: 8
   m_Name: StandardItem
   m_TagString: Untagged
@@ -70,10 +71,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b1cbf74a532b764781ec86c6fd10768, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WorldId: someItemId
+  UseState: {fileID: -1690937527005948605}
   _CollectibleItemObject: {fileID: 11400000, guid: 2cba3e7db86d0d5429977641404056a8,
     type: 2}
-  ItemHistory: {fileID: 0}
   GraphicalPrefab: {fileID: 6826649407097662532, guid: dffa6035b5baf1c45abebace0cb1eeee,
     type: 3}
   DestroyPrefabOnCollection: 1
+--- !u!114 &-1690937527005948605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8124950181509625570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e745adacca73ab47bd72c9cda2df3af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _BooleanObject: {fileID: 11400000, guid: 9e99afebad5d5a9428be41071666b5dd, type: 2}

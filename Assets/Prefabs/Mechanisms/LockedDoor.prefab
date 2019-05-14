@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2367287582087846152}
   - component: {fileID: 2367287582087846158}
   - component: {fileID: 2367287582087846155}
+  - component: {fileID: 1746123154}
   m_Layer: 8
   m_Name: LockedDoor
   m_TagString: Untagged
@@ -70,11 +71,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b5c92215e9c0e438217bbdefa083ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WorldId: someLockedDoorId
+  UseState: {fileID: 1746123154}
   IsUnlocked: 0
   ExpectedObjectInInventory: {fileID: 11400000, guid: f4d9f81c5174fea4683d89a51fc0b872,
     type: 2}
   KeyItemInventory: {fileID: 0}
   GraphicalPrefab: {fileID: 6525071958065365122, guid: e11d4aeb3d7f7b041a1c1ee297356f6e,
     type: 3}
-  HistoryData: {fileID: 0}
+--- !u!114 &1746123154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2367287582087846159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e745adacca73ab47bd72c9cda2df3af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _BooleanObject: {fileID: 11400000, guid: 01e976f6fc8778b4b9bd644b13bef77d, type: 2}

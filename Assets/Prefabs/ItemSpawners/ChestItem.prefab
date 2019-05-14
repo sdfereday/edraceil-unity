@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7958831906888994402}
   - component: {fileID: 7958831906888994403}
   - component: {fileID: 7958831906888994405}
+  - component: {fileID: 2119139705}
   m_Layer: 8
   m_Name: ChestItem
   m_TagString: Untagged
@@ -70,10 +71,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48673c7a1aa6e33458d72d9554cab23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WorldId: someChestId
-  IsOpen: 0
+  UseState: {fileID: 2119139705}
   _CollectibleItemObject: {fileID: 11400000, guid: 2cba3e7db86d0d5429977641404056a8,
     type: 2}
-  ItemHistory: {fileID: 0}
   GraphicalPrefab: {fileID: 5390723667613178366, guid: d1026763e7fae6b44a7b2b98f3e0c37d,
     type: 3}
+  IsOpen: 0
+--- !u!114 &2119139705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7958831906888994400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e745adacca73ab47bd72c9cda2df3af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _BooleanObject: {fileID: 11400000, guid: 6a2dccbb7255e69428c57f3c2c4f2e19, type: 2}

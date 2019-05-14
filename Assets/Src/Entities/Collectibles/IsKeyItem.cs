@@ -8,20 +8,20 @@
 */
 public class IsKeyItem : MonoBehaviour, IInteractible, ICollectible
 {
+    public SaveState UseState;
     public CollectibleItem _KeyItemObject;
-    public EntityHistory KeyItemHistory;
     public GameObject GraphicalPrefab; // TOOD: Possibly get this from collectible object?
     public bool DestroyPrefabOnCollection = false;
 
     public Transform Transform => transform;
     public INTERACTIBLE_TYPE InteractibleType => INTERACTIBLE_TYPE.COLLECTIBLE;
     public CollectibleItem CollectibleItemObject => _KeyItemObject;
-
+    
     private IRemotePrefab RemotePrefabInstance;
 
     private void Start()
     {
-        if (!KeyItemHistory.WasUsed(CollectibleItemObject.Id))
+        if (!UseState.IsTruthy)
         {
             // Spawn graphical prefab and enable interactions
             var spawned = Instantiate(GraphicalPrefab, transform.position, Quaternion.identity, transform);
@@ -34,7 +34,7 @@ public class IsKeyItem : MonoBehaviour, IInteractible, ICollectible
         if (!CollectibleItemObject.IsKeyItem)
             throw new UnityException("Tried to add a non-key item to the key item inventory, this isn't allowed.");
 
-        KeyItemHistory.LogUsed(CollectibleItemObject.Id);
+        UseState.UpdateBoolState(true);
 
         /* So here what you might choose to do is create
          * some sort of transition of the item being

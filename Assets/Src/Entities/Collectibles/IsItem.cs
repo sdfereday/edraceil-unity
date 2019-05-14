@@ -8,9 +8,8 @@
 */
 public class IsItem : MonoBehaviour, IInteractible, ICollectible
 {
-    public string WorldId;
+    public SaveState UseState;
     public CollectibleItem _CollectibleItemObject;
-    public EntityHistory ItemHistory;
     public GameObject GraphicalPrefab; // TOOD: Possibly get this from collectible object?
     public bool DestroyPrefabOnCollection = false;
 
@@ -22,7 +21,7 @@ public class IsItem : MonoBehaviour, IInteractible, ICollectible
 
     private void Start()
     {
-        if (!ItemHistory.WasUsed(WorldId))
+        if (!UseState.IsTruthy)
         {
             // Spawn grapical prefab and enable interactions.
             var spawned = Instantiate(GraphicalPrefab, transform.position, Quaternion.identity, transform);
@@ -35,7 +34,7 @@ public class IsItem : MonoBehaviour, IInteractible, ICollectible
         if (CollectibleItemObject.IsKeyItem)
             throw new UnityException("Tried to add a key item to non-key item store. This is not allowed.");
 
-        ItemHistory.LogUsed(WorldId);
+        UseState.UpdateBoolState(true);
 
         /* So here what you might choose to do is create
          * some sort of transition of the item being
