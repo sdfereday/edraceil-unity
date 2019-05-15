@@ -16,6 +16,12 @@ public class ChangeScene : MonoBehaviour
     private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
     private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
 
+    public delegate void SceneLoadedAction();
+    public static event SceneLoadedAction OnSceneLoadComplete;
+
+    public delegate void SceneLoadStartedAction();
+    public static event SceneLoadStartedAction OnSceneLoadStarted;
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) => StartCoroutine(Fade(FadeDirection.Out));
 
     private IEnumerator Fade(FadeDirection fadeDirection)
@@ -30,9 +36,11 @@ public class ChangeScene : MonoBehaviour
                 yield return null;
             }
             fadeOutUIImage.enabled = false;
+            OnSceneLoadComplete?.Invoke();
         }
         else
         {
+            OnSceneLoadStarted?.Invoke();
             fadeOutUIImage.enabled = true;
             while (alpha <= fadeEndValue)
             {
@@ -54,6 +62,5 @@ public class ChangeScene : MonoBehaviour
         SceneManager.LoadScene(sceneToLoad);
     }
 
-    public void DoTransition(FadeDirection fadeDirection, string sceneToLoad) =>
-        StartCoroutine(FadeAndLoadScene(fadeDirection, sceneToLoad));
+    public void DoTransition(FadeDirection fadeDirection, string sceneToLoad) => StartCoroutine(FadeAndLoadScene(fadeDirection, sceneToLoad));
 }

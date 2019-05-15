@@ -792,4 +792,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeOutUIImage: {fileID: 275751936}
-  fadeSpeed: 1
+  fadeSpeed: 0.5

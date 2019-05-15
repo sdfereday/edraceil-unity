@@ -9,16 +9,25 @@ public class PlayerInput : MonoBehaviour, IDirectionInfo
     public bool InteractionsEnabled { get; private set; }
     public bool MovementEnabled { get; private set; }
     public Vector2 Facing { get; set; }
-    public Vector2 CurrentVelocity
-    {
-        get
-        {
-            return rbody.velocity;
-        }
-    }
+
+    public Vector2 CurrentVelocity => rbody.velocity;
 
     private Rigidbody2D rbody;
     private InteractionTrigger interactionTrigger;
+
+    private void OnEnable()
+    {
+        ChangeScene.OnSceneLoadComplete += OnSceneLoadComplete;
+        ChangeScene.OnSceneLoadStarted += OnSceneLoadStarted;
+    }
+    private void OnDisable()
+    {
+        ChangeScene.OnSceneLoadComplete -= OnSceneLoadComplete;
+        ChangeScene.OnSceneLoadStarted -= OnSceneLoadStarted;
+    }
+
+    private void OnSceneLoadComplete() => ToggleMovement(true);
+    private void OnSceneLoadStarted() => ToggleMovement(false);
 
     private void Start()
     {
