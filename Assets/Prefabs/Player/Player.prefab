@@ -261,7 +261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7540873647721600199}
   m_Layer: 0
-  m_Name: Responses
+  m_Name: Actions
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -300,6 +300,7 @@ GameObject:
   - component: {fileID: 7651877797661564858}
   - component: {fileID: 7651877797661564857}
   - component: {fileID: 7651877797661564859}
+  - component: {fileID: 941761842}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -465,6 +466,24 @@ MonoBehaviour:
   - Name: onSave
     InteractibleType: 6
     ResponseTrigger: {fileID: 188822838}
+--- !u!114 &941761842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7651877797661564856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad1c7634bda2b04db3c7031818bfc3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteRenderer: {fileID: 3108224117531412126}
+  Animations:
+  - Id: Run
+    Frames: []
+    FPS: 32
+    Loops: 1
 --- !u!1 &8217037144470087147
 GameObject:
   m_ObjectHideFlags: 0
