@@ -15,5 +15,7 @@ MonoBehaviour:
   Id: chickenLegOfLegend
   _CollectibleItemType: 1
   _CollectibleItemName: Chicken Leg Of Legend
+  _CollectibleItemMeta: Forged long ago, this ancient Chicken Leg has the power to
+    open doors.
   _CollectibleItemHealthValue: 0
   _CollectibleItemMpValue: 0

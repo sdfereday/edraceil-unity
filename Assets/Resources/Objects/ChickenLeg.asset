@@ -15,5 +15,6 @@ MonoBehaviour:
   Id: chickenLeg
   _CollectibleItemType: 0
   _CollectibleItemName: Chicken Leg
+  _CollectibleItemMeta: Nothing special, just finger lickin' good.
   _CollectibleItemHealthValue: 10
   _CollectibleItemMpValue: 0

@@ -13,6 +13,10 @@ public class CollectibleItem : ScriptableObject
     public string _CollectibleItemName;
     public string CollectibleItemName { get => _CollectibleItemName; }
 
+    [TextArea]
+    public string _CollectibleItemMeta;
+    public string CollectibleItemMeta { get => _CollectibleItemMeta; }
+
     public int _CollectibleItemHealthValue;
     public int CollectibleItemHealthValue { get => _CollectibleItemHealthValue; }
 
