@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-[RequireComponent(typeof(ActionResponder))]
+[RequireComponent(typeof(ActionManager))]
 public class InteractionTrigger : MonoBehaviour
 {
     [SerializeField]
@@ -11,13 +11,13 @@ public class InteractionTrigger : MonoBehaviour
     public float interactRadius;
     public LayerMask selectObjectsToHit;
 
-    private ActionResponder ActionResponder { get; set; }
+    private ActionManager ActionManager { get; set; }
     private Collider2D RootCollider { get; set; }
     private Collider2D CurrentCollider { get; set; }
 
     private void Start()
     {
-        ActionResponder = GetComponent<ActionResponder>();
+        ActionManager = GetComponent<ActionManager>();
         RootCollider = root != null ? root.GetComponent<Collider2D>() : GetComponent<Collider2D>();
         CurrentCollider = GetComponent<Collider2D>();
     }
@@ -45,10 +45,10 @@ public class InteractionTrigger : MonoBehaviour
         if (interactible != null)
         {
             // Perform related actions on player side (trigger carrying, gaining items, global events, etc)
-            ActionResponder.Act(interactible.InteractibleType, interactible.Transform);
+            ActionManager.Act(interactible.InteractibleType, interactible.Transform);
 
             // Perform related actions on interactible's side (trigger anims, individual data changes, etc)
-            if (!ActionResponder.ResponseMustFinish)
+            if (!ActionManager.ResponseMustFinish)
                 interactible.Use(RootCollider, originInputType);
         }
     }

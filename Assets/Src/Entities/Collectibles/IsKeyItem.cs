@@ -8,7 +8,6 @@
 */
 public class IsKeyItem : MonoBehaviour, IInteractible, ICollectible
 {
-    public SaveState UseState;
     public CollectibleItem _KeyItemObject;
     public GameObject GraphicalPrefab; // TOOD: Possibly get this from collectible object?
     public bool DestroyPrefabOnCollection = false;
@@ -16,11 +15,14 @@ public class IsKeyItem : MonoBehaviour, IInteractible, ICollectible
     public Transform Transform => transform;
     public INTERACTIBLE_TYPE InteractibleType => INTERACTIBLE_TYPE.COLLECTIBLE;
     public CollectibleItem CollectibleItemObject => _KeyItemObject;
-    
+
+    public SaveState UseState;
     private IRemotePrefab RemotePrefabInstance;
 
     private void Start()
     {
+        UseState = GetComponent<SaveState>();
+
         if (!UseState.IsTruthy)
         {
             // Spawn graphical prefab and enable interactions
