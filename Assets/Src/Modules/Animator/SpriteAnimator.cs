@@ -6,10 +6,9 @@ using System.Linq;
 public class SpriteAnimator : MonoBehaviour
 {
     public SpriteRenderer SpriteRenderer;
-    public List<AnimationState> Animations;
 
     private int CurrentFrame;
-    private AnimationState CurrentAnim;
+    private AnimationObject CurrentAnim;
     private float NextFrameTime;
     
     private void Update()
@@ -33,5 +32,10 @@ public class SpriteAnimator : MonoBehaviour
 
         SpriteRenderer.sprite = CurrentAnim.Play(CurrentFrame);
         NextFrameTime += CurrentAnim.SecsPerFrame;
+    }
+
+    public void PlayAnimation(AnimationObject animationObject)
+    {
+
     }
 }
