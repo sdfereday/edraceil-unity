@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour, IDirectionInfo
 
     private Rigidbody2D rbody;
     private InteractionTrigger interactionTrigger;
+    public AnimatorLogicManager animLogic;
 
     private void OnEnable()
     {
@@ -48,6 +49,9 @@ public class PlayerInput : MonoBehaviour, IDirectionInfo
 
         if (MovementEnabled)
             Movement();
+
+        // TODO: Const floats and bool names please
+        animLogic.SetFloat("playerMagnitude", CurrentVelocity.magnitude);
     }
 
     private void Interactions()

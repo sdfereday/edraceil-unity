@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
-using System.Linq;
 
-// Stick this on whatever object handles displaying animations
 public class SpriteAnimator : MonoBehaviour
 {
     public SpriteRenderer SpriteRenderer;
@@ -13,8 +10,6 @@ public class SpriteAnimator : MonoBehaviour
     
     private void Update()
     {
-        //CurrentAnim = Animations.FirstOrDefault(x => x.Truthy()).Anim;
-
         if (Time.time < NextFrameTime || CurrentAnim == null) return;
 
         CurrentFrame += 1;
@@ -23,19 +18,16 @@ public class SpriteAnimator : MonoBehaviour
         {
             if (!CurrentAnim.Loops)
             {
-                // ... Pop back to the central decision state
+                // ... Pop back to the central decision state / exit out, as this was likely a trigger
                 return;
             }
 
             CurrentFrame = 0;
         }
 
-        SpriteRenderer.sprite = CurrentAnim.Play(CurrentFrame);
+        SpriteRenderer.sprite = CurrentAnim.GetFrame(CurrentFrame);
         NextFrameTime += CurrentAnim.SecsPerFrame;
     }
 
-    public void PlayAnimation(AnimationObject animationObject)
-    {
-
-    }
+    public void PlayAnimation(AnimationObject animationObject) => CurrentAnim = animationObject;
 }

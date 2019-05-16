@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83bc5071f2da5b4ab139e3c0652b9f8, type: 3}
+  m_Name: PlayerRun
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationObject
+  Name: PlayerRun
+  Frames:
+  - {fileID: -4177993358634767923, guid: 3201d16f77ca6654382ba80d1868df2a, type: 3}
+  - {fileID: -6266351549899380680, guid: 3201d16f77ca6654382ba80d1868df2a, type: 3}
+  - {fileID: 1690034826332086305, guid: 3201d16f77ca6654382ba80d1868df2a, type: 3}
+  - {fileID: -4422017611150716695, guid: 3201d16f77ca6654382ba80d1868df2a, type: 3}
+  - {fileID: 9086201479169650716, guid: 3201d16f77ca6654382ba80d1868df2a, type: 3}
+  FPS: 32
+  Loops: 1

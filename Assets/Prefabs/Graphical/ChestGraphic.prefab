@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61c90946b55db7a449ea7df28ba2e9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSprite: {fileID: -6313813789234030332, guid: 3201d16f77ca6654382ba80d1868df2a,
+  OnSprite: {fileID: -8245770270163153138, guid: 3201d16f77ca6654382ba80d1868df2a,
     type: 3}
   OffSprite: {fileID: -904176948917013313, guid: 3201d16f77ca6654382ba80d1868df2a,
     type: 3}
