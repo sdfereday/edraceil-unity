@@ -2,83 +2,173 @@
 using System.Collections.Generic;
 using System.Linq;
 
+// Values
+public abstract class ConditionValue
+{
+    public string Id;
+}
+
+public class FloatValue : ConditionValue
+{
+    public float Value;
+}
+
+public class BoolValue : ConditionValue
+{
+    public bool Value;
+}
+
+// Conditions
+public abstract class ConditionObject<T> where T : ConditionValue
+{
+    public string Id;
+    public T ConditionValue;
+
+    public abstract bool Assert();
+}
+
+public class FloatEqualTo : ConditionObject<FloatValue>
+{
+    public float Expected;
+    public FloatEqualTo(string id, float expected, float initial = 0)
+    {
+        Id = id;
+        Expected = expected;
+
+        ConditionValue = new FloatValue()
+        {
+            Id = id,
+            Value = initial
+        };
+    }
+
+    public override bool Assert() => ConditionValue.Value == Expected;
+}
+
+public class FloatGreaterThan : ConditionObject<FloatValue>
+{
+    public float Expected;
+    public FloatGreaterThan(string id, float expected, float initial = 0)
+    {
+        Id = id;
+        Expected = expected;
+
+        ConditionValue = new FloatValue()
+        {
+            Id = id,
+            Value = initial
+        };
+    }
+
+    public override bool Assert() => ConditionValue.Value > Expected;
+}
+
+public class BoolCondition : ConditionObject<BoolValue>
+{
+    public bool Expected;
+    public BoolCondition(string id, bool expected, bool initial = false)
+    {
+        Id = id;
+        Expected = expected;
+
+        ConditionValue = new BoolValue()
+        {
+            Id = id,
+            Value = initial
+        };
+    }
+
+    public override bool Assert() => ConditionValue.Value == Expected;
+}
+
+[System.Serializable]
+public class AnimGate
+{
+    public string playAnimation;
+    public bool isTrigger;
+
+    // You'd not be able to make a mixed list considering a list expects a particular type.
+    public List<ConditionObject<FloatValue>> floatConditions;
+    public List<ConditionObject<BoolValue>> boolConditions;
+
+    public void setFloat(string query, float value)
+    {
+        if (floatConditions != null)
+        {
+            floatConditions.FirstOrDefault(condition => condition.Id == query)
+                .ConditionValue.Value = value;
+        }
+    }
+
+    public void setBool(string query, bool value)
+    {
+        if (boolConditions != null)
+        { 
+            boolConditions.FirstOrDefault(condition => condition.Id == query)
+                .ConditionValue.Value = value;
+        }
+    }
+
+    // All conditions MUST be true before this can apply.
+    public bool isTruthy()
+    {
+        return floatConditions != null && floatConditions.All(x => x.Assert()) ||
+            boolConditions != null && boolConditions.All(x => x.Assert());
+    }
+}
+
 [RequireComponent(typeof(SpriteAnimator))]
 public class AnimatorLogicManager : MonoBehaviour
 {
+    public SpriteAnimator SpriteAnimator;
+
     // NOTE: TEST A BUILD IF THIS WORKS, NEED TO KNOW IF SO's KEEP SPRITE REFS.
-    /*
-     - Feed in values (external sources will just do this in their own way, easier)
-     - If any of them are truthy, or the first one that's truth, will be loaded in
-     and passed to the animator.
-     - Anything that effects the state of animation such as moving, etc will be able to directly
-     access this manager. Could be done via an interface, but right now I don't care about that.
-     */
-    
-    // The animator to pass the data to.
-    public SpriteAnimator Animator;
+    // List of connecting gates for 'this' entity (will differ per entity I guess)
+    private List<AnimGate> GatesForPlayerTest;
 
-    // ... dicts not supported in editor
-    [System.Serializable]
-    public class FloatNode
+    public void SetFloat(string id, float value)
     {
-        public string Name;
-        public AnimationObject AnimationData;
-        public string WatchesProperty;
-        public float ExpectedValue;
-
-        // See below for explaination (this is just one node type of many)
-        public bool Assert(float v) => ExpectedValue == v;
+        if (GatesForPlayerTest != null)
+            GatesForPlayerTest.ForEach(x => x.setFloat(id, value));
     }
 
-    public List<FloatNode> FloatNodes;
+    public void SetBool(string id, bool value)
+    {
+        if (GatesForPlayerTest != null)
+            GatesForPlayerTest.ForEach(x => x.setBool(id, value));
+    }
 
-    // List of floats or bools? Register them?
-    public Dictionary<string, bool> BoolValues;
-    public void AddBool(string boolName, bool initialValue) => BoolValues.Add(boolName, initialValue);
-    public void SetBool(string boolName, bool toValue) => BoolValues[boolName] = toValue;
-
-    public Dictionary<string, float> FloatValues;
-    public void AddFloat(string floatName, float initialValue) => FloatValues.Add(floatName, initialValue);
-    public void SetFloat(string floatName, float toValue) => FloatValues[floatName] = toValue;
-
-    // setTrigger planned (this is for one-shot things that don't loop)
-    // ...
+    private void Start()
+    {
+        // Condition id's MUST match your 'set' calls, or nothing will change.
+        // Thinking this could work well in a static script for each different 'thing'.
+        GatesForPlayerTest = new List<AnimGate>() {
+            new AnimGate()
+            {
+                playAnimation = "PlayerIdle", // TODO: const this
+                isTrigger = false,
+                floatConditions = new List<ConditionObject<FloatValue>>()
+                {
+                    new FloatEqualTo("playerMagnitude", 0) // TODO: const this
+                }
+            },
+            new AnimGate()
+            {
+                playAnimation = "PlayerRun", // TODO: const this
+                isTrigger = false,
+                floatConditions = new List<ConditionObject<FloatValue>>()
+                {
+                    new FloatGreaterThan("playerMagnitude", 0) // TODO: const this
+                }
+            }
+        };
+    }
 
     private void Update()
     {
-        // This would work, but it
-        var first = FloatNodes.FirstOrDefault(node => FloatValues[node.WatchesProperty] == node.ExpectedValue);
+        AnimGate firstTruthyGate = GatesForPlayerTest.FirstOrDefault(x => x.isTruthy());
 
-        // using floatValues, see if any nodes
-
-        /*
-        Think mechanim.
-
-        You have created nodes that house animations. But they're linked by
-        a transition between them. This could be a float, or bool, etc.
-
-        If we were to hard-code this:
-        AnimObject,
-        Name (not required but useful for debugging),
-        Transition ->
-            Select a value type the transition uses
-            Put in what it expects
-            Also make it aware of what node to go to if this thing is true
-
-        So you'll need a node that has an outbound transition to another node.
-
-        And a transition back to the origin when it's done (if it's done).
-
-        What do all these transitions have in common? They return a bool of yes
-        or no if a condition has been met.
-        This means that each transition can have a different method of producing
-        that thing.
-
-        Each node will be looped through, and knowing the property it's interested in,
-        we get the value for that property and check against the expected.
-
-        OR, for each node, whatever its function, 'get' the property and return
-        true if it matches. 
-         */
+        if (firstTruthyGate != null)
+            SpriteAnimator.PlayAnimation(firstTruthyGate.playAnimation);
     }
 }

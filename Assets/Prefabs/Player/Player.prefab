@@ -443,6 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 4
+  animLogic: {fileID: 3412515888553781875}
 --- !u!114 &7651877797661564859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,6 +482,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteRenderer: {fileID: 3108224117531412126}
+  AnimationsAvailable:
+  - {fileID: 11400000, guid: ae24f8bafbf4eaa4abf1069276319d58, type: 2}
+  - {fileID: 11400000, guid: 2c7b40c7f4847d144a7132e0e3f4a424, type: 2}
 --- !u!114 &3412515888553781875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,9 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5486cf0aae684d748a6ca54d0c3cd237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 941761842}
-  LogicNodes:
-  - AnimationData: {fileID: 11400000, guid: 2c7b40c7f4847d144a7132e0e3f4a424, type: 2}
+  SpriteAnimator: {fileID: 941761842}
 --- !u!1 &8217037144470087147
 GameObject:
   m_ObjectHideFlags: 0

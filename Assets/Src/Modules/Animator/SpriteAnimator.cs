@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 public class SpriteAnimator : MonoBehaviour
 {
     public SpriteRenderer SpriteRenderer;
+    public List<AnimationObject> AnimationsAvailable;
 
     private int CurrentFrame;
     private AnimationObject CurrentAnim;
@@ -29,5 +32,6 @@ public class SpriteAnimator : MonoBehaviour
         NextFrameTime += CurrentAnim.SecsPerFrame;
     }
 
-    public void PlayAnimation(AnimationObject animationObject) => CurrentAnim = animationObject;
+    // Has to match the actual name of the object (haven't tested it yet)
+    public void PlayAnimation(string query) => CurrentAnim = AnimationsAvailable.FirstOrDefault(x => x.name == query);
 }
