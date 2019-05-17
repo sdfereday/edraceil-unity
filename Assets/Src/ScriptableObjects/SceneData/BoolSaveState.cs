@@ -7,6 +7,7 @@
  and store them via a glbal state. You can always re-apply things later on
  upon load. */
 [CreateAssetMenu(fileName = "New Boolean Save Object", menuName = "Boolean Save Object", order = 51)]
+[System.Serializable]
 public class BoolSaveState : ScriptableObject
 {
     public bool State;

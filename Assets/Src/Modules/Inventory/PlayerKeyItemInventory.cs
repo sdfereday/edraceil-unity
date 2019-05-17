@@ -17,8 +17,8 @@ public class PlayerKeyItemInventory : MonoBehaviour
 
     private void Start()
     {
-        // TODO: Don't forget to add existing after load.
-        _keyItems = new List<KeyItemMeta>();
+        var loadedItems = SaveDataManager.LoadData<List<KeyItemMeta>>(DataConsts.KEY_ITEM_DATA_FILE);
+        _keyItems = loadedItems != null ? loadedItems : new List<KeyItemMeta>();
     }
 
     private void OnEnable()
@@ -33,9 +33,7 @@ public class PlayerKeyItemInventory : MonoBehaviour
 
     public void SaveToDisk()
     {
-        // Save gained key items to disk.
-        Debug.Log("Player key item inventory got save to disk signal!");
-        _keyItems.ForEach(x => Debug.Log(x.Name));
+        SaveDataManager.SaveData(_keyItems, DataConsts.KEY_ITEM_DATA_FILE);
     }
 
     public void AddItem(CollectibleItem _keyItemObject)

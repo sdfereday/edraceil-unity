@@ -24,8 +24,12 @@ public class PlayerInventory : MonoBehaviour
 
     private void Start()
     {
-        // TODO: Don't forget to add existing after load.
-        _items = new List<ItemMeta>();
+        // Notice how it's the meta that's getting stored here. The SO doesn't get touched
+        // and is only used for reference. This might be what needs to be done on the 
+        // scene context also...
+        var loadedItems = SaveDataManager.LoadData<List<ItemMeta>>(DataConsts.INVENTORY_DATA_FILE);
+        _items = loadedItems != null ? loadedItems : new List<ItemMeta>();
+        
     }
 
     private void OnEnable()
@@ -40,9 +44,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void SaveToDisk()
     {
-        // Save gained inventory specific items to disk.
-        Debug.Log("Player inventory got save to disk signal!");
-        _items.ForEach(x => Debug.Log(x.Name));
+        SaveDataManager.SaveData(_items, DataConsts.INVENTORY_DATA_FILE);
     }
 
     public void AddItem(CollectibleItem _collectibleItemObject, int _qty = 1)
