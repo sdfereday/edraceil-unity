@@ -1,116 +1,81 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-// Values
-public abstract class ConditionValue
+// Logic Helpers
+public static class Logic
 {
-    public string Id;
-}
+    // Floats
+    public static bool FloatEqual(float a, float b) => a == b;
+    public static bool FloatGreaterThan(float a, float b) => a > b;
+    public static bool FloatLessThan(float a, float b) => a < b;
 
-public class FloatValue : ConditionValue
-{
-    public float Value;
-}
-
-public class BoolValue : ConditionValue
-{
-    public bool Value;
+    // Bools
+    public static bool BoolTrue(bool a, bool b) => a == b;
+    public static bool BoolFalse(bool a, bool b) => a != b;
 }
 
 // Conditions
-public abstract class ConditionObject<T> where T : ConditionValue
+public abstract class ConditionObject<T>
 {
     public string Id;
-    public T ConditionValue;
+    public T Value;
+    public T Expected;
+    public Func<T, T, bool> LogicMethod;
 
-    public abstract bool Assert();
-}
-
-public class FloatEqualTo : ConditionObject<FloatValue>
-{
-    public float Expected;
-    public FloatEqualTo(string id, float expected, float initial = 0)
+    public ConditionObject(string id, T initial, T expected, Func<T, T, bool> logicMethod)
     {
         Id = id;
+        Value = initial;
         Expected = expected;
-
-        ConditionValue = new FloatValue()
-        {
-            Id = id,
-            Value = initial
-        };
+        LogicMethod = logicMethod;
     }
 
-    public override bool Assert() => ConditionValue.Value == Expected;
+    public bool Assert() => LogicMethod(Value, Expected);
 }
 
-public class FloatGreaterThan : ConditionObject<FloatValue>
+public class FloatCondition : ConditionObject<float>
 {
-    public float Expected;
-    public FloatGreaterThan(string id, float expected, float initial = 0)
-    {
-        Id = id;
-        Expected = expected;
-
-        ConditionValue = new FloatValue()
-        {
-            Id = id,
-            Value = initial
-        };
-    }
-
-    public override bool Assert() => ConditionValue.Value > Expected;
+    public FloatCondition(string id, float expected, float initial, Func<float, float, bool> logicMethod)
+        : base(id, initial, expected, logicMethod) { }
 }
 
-public class BoolCondition : ConditionObject<BoolValue>
+public class BoolCondition : ConditionObject<bool>
 {
-    public bool Expected;
-    public BoolCondition(string id, bool expected, bool initial = false)
-    {
-        Id = id;
-        Expected = expected;
-
-        ConditionValue = new BoolValue()
-        {
-            Id = id,
-            Value = initial
-        };
-    }
-
-    public override bool Assert() => ConditionValue.Value == Expected;
+    public BoolCondition(string id, bool expected, bool initial, Func<bool, bool, bool> logicMethod)
+        : base(id, initial, expected, logicMethod) { }
 }
 
-[System.Serializable]
+[Serializable]
 public class AnimGate
 {
     public string playAnimation;
-    public bool isTrigger;
+    public bool isTrigger = false;
 
     // You'd not be able to make a mixed list considering a list expects a particular type.
-    public List<ConditionObject<FloatValue>> floatConditions;
-    public List<ConditionObject<BoolValue>> boolConditions;
+    public List<ConditionObject<float>> floatConditions;
+    public List<ConditionObject<bool>> boolConditions;
 
-    public void setFloat(string query, float value)
+    public void SetFloat(string query, float value)
     {
         if (floatConditions != null)
         {
             floatConditions.FirstOrDefault(condition => condition.Id == query)
-                .ConditionValue.Value = value;
+                .Value = value;
         }
     }
 
-    public void setBool(string query, bool value)
+    public void SetBool(string query, bool value)
     {
         if (boolConditions != null)
         { 
             boolConditions.FirstOrDefault(condition => condition.Id == query)
-                .ConditionValue.Value = value;
+                .Value = value;
         }
     }
 
-    // All conditions MUST be true before this can apply.
-    public bool isTruthy()
+    public bool IsTruthy()
     {
         return floatConditions != null && floatConditions.All(x => x.Assert()) ||
             boolConditions != null && boolConditions.All(x => x.Assert());
@@ -121,44 +86,42 @@ public class AnimGate
 public class AnimatorLogicManager : MonoBehaviour
 {
     public SpriteAnimator SpriteAnimator;
-
-    // NOTE: TEST A BUILD IF THIS WORKS, NEED TO KNOW IF SO's KEEP SPRITE REFS.
-    // List of connecting gates for 'this' entity (will differ per entity I guess)
     private List<AnimGate> GatesForPlayerTest;
 
     public void SetFloat(string id, float value)
     {
         if (GatesForPlayerTest != null)
-            GatesForPlayerTest.ForEach(x => x.setFloat(id, value));
+            GatesForPlayerTest.ForEach(x => x.SetFloat(id, value));
     }
 
     public void SetBool(string id, bool value)
     {
         if (GatesForPlayerTest != null)
-            GatesForPlayerTest.ForEach(x => x.setBool(id, value));
+            GatesForPlayerTest.ForEach(x => x.SetBool(id, value));
     }
 
     private void Start()
     {
         // Condition id's MUST match your 'set' calls, or nothing will change.
         // Thinking this could work well in a static script for each different 'thing'.
+        // TODO: const these magic strings
         GatesForPlayerTest = new List<AnimGate>() {
             new AnimGate()
             {
-                playAnimation = "PlayerIdle", // TODO: const this
-                isTrigger = false,
-                floatConditions = new List<ConditionObject<FloatValue>>()
+                playAnimation = "PlayerIdle",
+                floatConditions = new List<ConditionObject<float>>()
                 {
-                    new FloatEqualTo("playerMagnitude", 0) // TODO: const this
+                    new FloatCondition("playerMagnitude", 0, 0, (float current, float expected)
+                        => Logic.FloatEqual(current, expected)) 
                 }
             },
             new AnimGate()
             {
-                playAnimation = "PlayerRun", // TODO: const this
-                isTrigger = false,
-                floatConditions = new List<ConditionObject<FloatValue>>()
+                playAnimation = "PlayerRun",
+                floatConditions = new List<ConditionObject<float>>()
                 {
-                    new FloatGreaterThan("playerMagnitude", 0) // TODO: const this
+                    new FloatCondition("playerMagnitude", 0, 0, (float current, float expected)
+                        => Logic.FloatGreaterThan(current, expected))
                 }
             }
         };
@@ -166,7 +129,7 @@ public class AnimatorLogicManager : MonoBehaviour
 
     private void Update()
     {
-        AnimGate firstTruthyGate = GatesForPlayerTest.FirstOrDefault(x => x.isTruthy());
+        AnimGate firstTruthyGate = GatesForPlayerTest.FirstOrDefault(x => x.IsTruthy());
 
         if (firstTruthyGate != null)
             SpriteAnimator.PlayAnimation(firstTruthyGate.playAnimation);
