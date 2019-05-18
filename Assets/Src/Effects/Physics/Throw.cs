@@ -49,7 +49,7 @@ public class Throw : MonoBehaviour
 
     public void StartThrow(Component _objectToThrow)
     {
-        ObjectToThrow = _objectToThrow.transform.root;
+        ObjectToThrow = _objectToThrow.transform;
         flightDuration = targetDistance / destination.magnitude;
         targetDirection = DirectionalInfo.GetFirectionVector2D();
         elapsed_time = 0;

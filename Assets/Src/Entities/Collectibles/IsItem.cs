@@ -6,27 +6,21 @@
     that might spawn out of a dead enemy for example (since they don't need to
     be logged).
 */
-public class IsItem : MonoBehaviour, IInteractible, ICollectible
+public class IsItem : FieldEntity, IInteractible, ICollectible
 {
     public CollectibleItem _CollectibleItemObject;
-    public GameObject GraphicalPrefab; // TOOD: Possibly get this from collectible object?
     public bool DestroyPrefabOnCollection = false;
 
     public Transform Transform => transform;
     public INTERACTIBLE_TYPE InteractibleType => INTERACTIBLE_TYPE.COLLECTIBLE;
     public CollectibleItem CollectibleItemObject => _CollectibleItemObject;
-
-    public SaveState UseState;
-    private IRemotePrefab RemotePrefabInstance;
-
-    private void Start()
+    
+    public override void OnAssert(bool truthy)
     {
-        UseState = GetComponent<SaveState>();
-
-        if (!UseState.IsTruthy)
+        if (!truthy)
         {
             // Spawn grapical prefab and enable interactions.
-            var spawned = Instantiate(GraphicalPrefab, transform.position, Quaternion.identity, transform);
+            var spawned = Instantiate(_CollectibleItemObject.GraphicalPrefab, transform.position, Quaternion.identity, transform);
             RemotePrefabInstance = spawned.GetComponent<IRemotePrefab>();
         }
     }
@@ -36,17 +30,8 @@ public class IsItem : MonoBehaviour, IInteractible, ICollectible
         if (CollectibleItemObject.IsKeyItem)
             throw new UnityException("Tried to add a key item to non-key item store. This is not allowed.");
 
-        UseState.UpdateBoolState(true);
+        UpdateBoolState(true);
 
-        /* So here what you might choose to do is create
-         * some sort of transition of the item being
-         received such as a simple chest or cutscene.
-         When said action is done, we perform a callback
-         with whatever we need. Such as reporting to
-         messages, destroying things in the game world,
-         etc. Whatever really. You can add the SO any time
-         through other means too, it all gets added
-         in the same way. */
         RemotePrefabInstance.StartInteraction(() =>
         {
             if (DestroyPrefabOnCollection)

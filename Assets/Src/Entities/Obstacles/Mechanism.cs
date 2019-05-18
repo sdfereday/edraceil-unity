@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class IsMechanism : MonoBehaviour, IMechanism
+public class Mechanism : MonoBehaviour, IMechanism
 {
     public ToggledSprite toggledSpriteComponent;
 

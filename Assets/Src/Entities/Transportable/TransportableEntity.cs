@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CanBeCarried : MonoBehaviour, IInteractible, ICarryable
+public class TransportableEntity : MonoBehaviour, IInteractible, ICarryable
 {
     public bool CanInteract { get; private set; }
     public bool CanThrow { get { return true; } }

@@ -6,27 +6,21 @@
     Doesn't need a world ID since we can only have on type of this key item, so
     we can just check if we have one or not.
 */
-public class IsKeyItem : MonoBehaviour, IInteractible, ICollectible
+public class IsKeyItem : FieldEntity, IInteractible, ICollectible
 {
     public CollectibleItem _KeyItemObject;
-    public GameObject GraphicalPrefab; // TOOD: Possibly get this from collectible object?
     public bool DestroyPrefabOnCollection = false;
 
     public Transform Transform => transform;
     public INTERACTIBLE_TYPE InteractibleType => INTERACTIBLE_TYPE.COLLECTIBLE;
     public CollectibleItem CollectibleItemObject => _KeyItemObject;
 
-    public SaveState UseState;
-    private IRemotePrefab RemotePrefabInstance;
-
-    private void Start()
+    public override void OnAssert(bool truthy)
     {
-        UseState = GetComponent<SaveState>();
-
-        if (!UseState.IsTruthy)
+        if (!truthy)
         {
             // Spawn graphical prefab and enable interactions
-            var spawned = Instantiate(GraphicalPrefab, transform.position, Quaternion.identity, transform);
+            var spawned = Instantiate(_KeyItemObject.GraphicalPrefab, transform.position, Quaternion.identity, transform);
             RemotePrefabInstance = spawned.GetComponent<IRemotePrefab>();
         }
     }
@@ -36,17 +30,8 @@ public class IsKeyItem : MonoBehaviour, IInteractible, ICollectible
         if (!CollectibleItemObject.IsKeyItem)
             throw new UnityException("Tried to add a non-key item to the key item inventory, this isn't allowed.");
 
-        UseState.UpdateBoolState(true);
+        UpdateBoolState(true);
 
-        /* So here what you might choose to do is create
-         * some sort of transition of the item being
-         received such as a simple chest or cutscene.
-         When said action is done, we perform a callback
-         with whatever we need. Such as reporting to
-         messages, destroying things in the game world,
-         etc. Whatever really. You can add the SO any time
-         through other means too, it all gets added
-         in the same way. */
         RemotePrefabInstance.StartInteraction(() =>
         {
             if (DestroyPrefabOnCollection)

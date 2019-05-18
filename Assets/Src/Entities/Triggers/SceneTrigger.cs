@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class IsSceneTrigger : MonoBehaviour
+public class SceneTrigger : MonoBehaviour
 {
     public string SceneName;
     public ChangeScene SceneChanger;

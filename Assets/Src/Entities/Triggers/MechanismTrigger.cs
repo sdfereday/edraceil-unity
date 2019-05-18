@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class IsMechanismTrigger : MonoBehaviour, IInteractible
+public class MechanismTrigger : MonoBehaviour, IInteractible
 {
     public ToggledSprite toggledSpriteComponent;
     public bool MechanismActive = false;
