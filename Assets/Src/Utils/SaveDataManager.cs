@@ -15,10 +15,8 @@ public static class SaveDataManager
         }
     }
 
-    public static T LoadData<T>(string path)
+    private static T DoLoad<T>(string fullPath)
     {
-        string fullPath = Path.Combine(Application.persistentDataPath, path);
-
         if (!File.Exists(fullPath))
         {
             using (StreamWriter streamWriter = File.CreateText(fullPath))
@@ -32,5 +30,19 @@ public static class SaveDataManager
             string jsonString = streamReader.ReadToEnd();
             return JsonConvert.DeserializeObject<T>(jsonString);
         }
+    }
+
+    public static T LoadData<T>(string path)
+    {
+        return DoLoad<T>(Path.Combine(Application.persistentDataPath, path));
+    }
+    
+    public static T LoadAssetData<T>(string path)
+    {
+        // TODO: Make sure not to rely on resource folder, it should be avoided in production.
+        Debug.LogWarning("Loading from resources isn't a good idea in production!");
+        Debug.LogWarning(path);
+        string jsonString = Resources.Load<TextAsset>(path).text;
+        return JsonConvert.DeserializeObject<T>(jsonString);
     }
 }

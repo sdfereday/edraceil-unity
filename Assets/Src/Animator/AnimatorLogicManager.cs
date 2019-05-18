@@ -1,135 +1,70 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-
-// Logic Helpers
-public static class Logic
-{
-    // Floats
-    public static bool FloatEqual(float a, float b) => a.Equals(b);
-    public static bool FloatGreaterThan(float a, float b) => a > b;
-    public static bool FloatLessThan(float a, float b) => a < b;
-
-    // Bools
-    public static bool BoolTrue(bool a, bool b) => a.Equals(b);
-    public static bool BoolFalse(bool a, bool b) => !a.Equals(b);
-}
-
-// Conditions
-public abstract class ConditionObject<T>
-{
-    public string Id;
-    public T Value;
-    public T Expected;
-    public Func<T, T, bool> LogicMethod;
-
-    public ConditionObject(string id, T initial, T expected, Func<T, T, bool> logicMethod)
-    {
-        Id = id;
-        Value = initial;
-        Expected = expected;
-        LogicMethod = logicMethod;
-    }
-
-    public bool Assert() => LogicMethod(Value, Expected);
-}
-
-public class FloatCondition : ConditionObject<float>
-{
-    public FloatCondition(string id, float expected, float initial, Func<float, float, bool> logicMethod)
-        : base(id, initial, expected, logicMethod) { }
-}
-
-public class BoolCondition : ConditionObject<bool>
-{
-    public BoolCondition(string id, bool expected, bool initial, Func<bool, bool, bool> logicMethod)
-        : base(id, initial, expected, logicMethod) { }
-}
-
-[Serializable]
-public class AnimGate
-{
-    public string playAnimation;
-    public bool isTrigger = false;
-
-    // You'd not be able to make a mixed list considering a list expects a particular type.
-    public List<ConditionObject<float>> floatConditions;
-    public List<ConditionObject<bool>> boolConditions;
-
-    public void SetFloat(string query, float value)
-    {
-        if (floatConditions != null)
-        {
-            floatConditions.FirstOrDefault(condition => condition.Id == query)
-                .Value = value;
-        }
-    }
-
-    public void SetBool(string query, bool value)
-    {
-        if (boolConditions != null)
-        { 
-            boolConditions.FirstOrDefault(condition => condition.Id == query)
-                .Value = value;
-        }
-    }
-
-    public bool IsTruthy()
-    {
-        return floatConditions != null && floatConditions.All(x => x.Assert()) ||
-            boolConditions != null && boolConditions.All(x => x.Assert());
-    }
-}
 
 [RequireComponent(typeof(SpriteAnimator))]
 public class AnimatorLogicManager : MonoBehaviour
 {
+    public CharacterObject CharacterData;
     public SpriteAnimator SpriteAnimator;
-    private List<AnimGate> GatesForPlayerTest;
+    private List<AnimationGate> AnimationGateData;
+
+    private void Awake()
+    {
+        // TODO: Move this out of here eventually (worth splitting json files out also?)
+        // PLUS, don't store this in the user directory. It belongs to the games files, it
+        // might even be worth making it in to a binary eventually.
+        AnimationGateData = new List<AnimationGate>();
+
+        var loadedGates = SaveDataManager.LoadAssetData<List<GateModelCollection>>(DataConsts.ANIMATION_LOGIC_FILE)
+            .Where(x => x.targetEntity == CharacterData.Id)
+            .FirstOrDefault().gates;
+            
+        // Attempt to reconstruct gate data using this new instanced data
+        AnimationGateData = loadedGates.Select(gate =>
+        {
+            // This is where it gets rather nasty. Compare via switch to see what we need to bind. It's also nasty
+            // IMO because I have to cast it as a condition object, then convert it all to a list.
+            List<ConditionObject<float>> floatConditions = gate.floatConditions != null ? gate.floatConditions.Select(f =>
+            {
+                return new FloatCondition(f.Id, f.Expected, f.Value, f.LogicMethod) as ConditionObject<float>;
+            }).ToList() : new List<ConditionObject<float>>();
+
+            List<ConditionObject<bool>> boolConditions = gate.boolConditions != null ? gate.boolConditions.Select(b =>
+            {
+                return new BoolCondition(b.Id, b.Expected, b.Value, b.LogicMethod) as ConditionObject<bool>;
+            }).ToList() : new List<ConditionObject<bool>>();
+
+            // Nasty stuff ended, we just return a new animation gate.
+            return new AnimationGate()
+            {
+                playAnimation = gate.playAnimation,
+                floatConditions = floatConditions,
+                boolConditions = boolConditions
+            };
+        }).ToList();
+    }
 
     public void SetFloat(string id, float value)
     {
-        if (GatesForPlayerTest != null)
-            GatesForPlayerTest.ForEach(x => x.SetFloat(id, value));
+        if (AnimationGateData != null)
+            AnimationGateData.ForEach(x => x.SetFloat(id, value));
     }
 
     public void SetBool(string id, bool value)
     {
-        if (GatesForPlayerTest != null)
-            GatesForPlayerTest.ForEach(x => x.SetBool(id, value));
-    }
-
-    private void Start()
-    {
-        // Condition id's MUST match your 'set' calls, or nothing will change.
-        // Thinking this could work well in a static script for each different 'thing'.
-        // TODO: const these magic strings
-        GatesForPlayerTest = new List<AnimGate>() {
-            new AnimGate()
-            {
-                playAnimation = "PlayerIdle",
-                floatConditions = new List<ConditionObject<float>>()
-                {
-                    new FloatCondition("playerMagnitude", 0, 0, (float current, float expected)
-                        => Logic.FloatEqual(current, expected)) 
-                }
-            },
-            new AnimGate()
-            {
-                playAnimation = "PlayerRun",
-                floatConditions = new List<ConditionObject<float>>()
-                {
-                    new FloatCondition("playerMagnitude", 0, 0, (float current, float expected)
-                        => Logic.FloatGreaterThan(current, expected))
-                }
-            }
-        };
+        if (AnimationGateData != null)
+            AnimationGateData.ForEach(x => x.SetBool(id, value));
     }
 
     private void Update()
     {
-        AnimGate firstTruthyGate = GatesForPlayerTest.FirstOrDefault(x => x.IsTruthy());
+        if (AnimationGateData == null)
+            return;
+
+        AnimationGate firstTruthyGate = AnimationGateData
+            .Where(x => x.IsTruthy())
+            .FirstOrDefault();
 
         if (firstTruthyGate != null)
             SpriteAnimator.PlayAnimation(firstTruthyGate.playAnimation);

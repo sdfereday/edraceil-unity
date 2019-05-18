@@ -1,0 +1,31 @@
+[
+  {
+    "targetEntity": "player",
+    "gates": [
+      {
+        "playAnimation": "PlayerIdle",
+        "floatConditions": [
+          {
+            "Id": "playerMagnitude",
+            "Value": 0.0,
+            "Expected": 0.0,
+            "LogicMethod": 0
+          }
+        ],
+        "boolConditions": null
+      },
+      {
+        "playAnimation": "PlayerRun",
+        "floatConditions": [
+          {
+            "Id": "playerMagnitude",
+            "Value": 0.0,
+            "Expected": 0.0,
+            "LogicMethod": 1
+          }
+        ],
+        "boolConditions": null
+      }
+    ]
+  }
+]
