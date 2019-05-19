@@ -35,9 +35,6 @@ public class SceneContext : MonoBehaviour
             });
 
             OnSceneDataLoaded?.Invoke();
-        } else
-        {
-            throw new System.Exception(ErrorConsts.SCENE_DATA_NULL);
         }
     }
 

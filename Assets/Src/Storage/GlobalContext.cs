@@ -8,18 +8,18 @@ public class GlobalContext : MonoBehaviour
 
     private void Awake()
     {
+        LoadedScenes = new List<SceneContextModel>();
         List<SceneContextModel> loadedData = SaveDataManager.LoadData<List<SceneContextModel>>(DataConsts.SCENE_DATA_FILE);
-        bool hasDuplicates = loadedData.GroupBy(x => x.sceneName)
+
+        if (loadedData != null ? loadedData.GroupBy(x => x.sceneName)
               .Where(g => g.Count() > 1)
               .Select(y => y.Key)
-              .Count() > 0;
-
-        if (hasDuplicates)
+              .Count() > 0 : false)
         {
             throw new System.Exception(ErrorConsts.DUPLICATE_SCENE_MODEL);
         }
 
-        LoadedScenes = loadedData;
+        LoadedScenes = loadedData ?? new List<SceneContextModel>();
     }
 
     public SceneContextModel LoadSceneData(string sceneName)
@@ -31,15 +31,15 @@ public class GlobalContext : MonoBehaviour
 
     public void UpdateSceneData(SceneContextModel sceneModel)
     {
-        var existing = LoadedScenes.Where(x => x.sceneName == sceneModel.sceneName)
+        var existingSceneData = LoadedScenes.Where(x => x.sceneName == sceneModel.sceneName)
             .FirstOrDefault();
 
-        if (existing == null)
+        if (existingSceneData != null)
         {
-            LoadedScenes.Add(existing);
+            existingSceneData.boolStates = sceneModel.boolStates;
         } else
         {
-            existing.boolStates = sceneModel.boolStates;
+            LoadedScenes.Add(sceneModel);
         }
 
         SaveDataManager.SaveData(LoadedScenes, DataConsts.SCENE_DATA_FILE);

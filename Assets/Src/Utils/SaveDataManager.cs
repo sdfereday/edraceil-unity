@@ -1,30 +1,24 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 
 public static class SaveDataManager
 {
-    public static void SaveData<T>(T data, string path)
-    {
-        string fullPath = Path.Combine(Application.persistentDataPath, path);
-        string jsonString = JsonConvert.SerializeObject(data, Formatting.Indented);
+    public static string UserDirectory = Path.Combine(Application.persistentDataPath, DATA_SLOT.SLOT_0.ToString());
 
-        using (StreamWriter streamWriter = File.CreateText(fullPath))
+    private static void CreateIfNone(string _dir, string _fileLocation)
+    {
+        Directory.CreateDirectory(_dir);
+
+        using (StreamWriter streamWriter = File.CreateText(_fileLocation))
         {
-            streamWriter.Write(jsonString);
+            streamWriter.Write("[]");
         }
     }
 
     private static T DoLoad<T>(string fullPath)
     {
-        if (!File.Exists(fullPath))
-        {
-            using (StreamWriter streamWriter = File.CreateText(fullPath))
-            {
-                streamWriter.Write("[]");
-            }
-        }
-
         using (StreamReader streamReader = File.OpenText(fullPath))
         {
             string jsonString = streamReader.ReadToEnd();
@@ -32,9 +26,28 @@ public static class SaveDataManager
         }
     }
 
-    public static T LoadData<T>(string path)
+    public static void SaveData<T>(T data, string fileName)
     {
-        return DoLoad<T>(Path.Combine(Application.persistentDataPath, path));
+        string fileWithDir = String.Format("{0}/{1}", UserDirectory, fileName);
+
+        if (!File.Exists(fileWithDir))
+            CreateIfNone(UserDirectory, fileWithDir);
+        
+        string jsonString = JsonConvert.SerializeObject(data, Formatting.Indented);
+        using (StreamWriter streamWriter = File.CreateText(fileWithDir))
+        {
+            streamWriter.Write(jsonString);
+        }
+    }   
+
+    public static T LoadData<T>(string fileName)
+    {
+        string fileWithDir = String.Format("{0}/{1}", UserDirectory, fileName);
+
+        if (!File.Exists(fileWithDir))
+            CreateIfNone(UserDirectory, fileWithDir);
+
+        return DoLoad<T>(fileWithDir);
     }
     
     public static T LoadAssetData<T>(string path)
