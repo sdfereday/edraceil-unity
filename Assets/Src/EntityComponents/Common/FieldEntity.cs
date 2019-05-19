@@ -2,23 +2,28 @@
 
 public abstract class FieldEntity : MonoBehaviour
 {
-    protected SaveState UseState;
+    [SerializeField]
+    private BoolSaveState _BooleanObject;
+    //private void OnEnable() => SceneContext.OnSceneDataLoaded += HandleSceneDataLoaded;
+    //private void OnDisable() => SceneContext.OnSceneDataLoaded -= HandleSceneDataLoaded;
+
     protected IRemotePrefab RemotePrefabInstance;
+    protected bool IsTruthy => _BooleanObject != null ? _BooleanObject.State : false;
 
-    public virtual void Start()
+    // TODO: Why does the event only work sometimes?
+    private void Start()
     {
-        UseState = GetComponent<SaveState>();
-
-        if (UseState != null)
-        {
-            OnAssert(UseState.IsTruthy);
-        } else
-        {
-            OnAssert(false);
-        }
+        Debug.Log(this.name + " was asserted.");
+        RemotePrefabInstance = GetComponent<IRemotePrefab>();
+        OnAssert(IsTruthy);
     }
 
-    protected void UpdateBoolState(bool state) => UseState.UpdateBoolState(state);
+    //protected void UpdateBoolState(bool state) => UseState.UpdateBoolState(state);
+    protected void UpdateBoolState(bool _state)
+    {
+        if (_BooleanObject != null)
+            _BooleanObject.State = _state;
+    }
 
     public virtual void OnAssert(bool truthy) { }
 }

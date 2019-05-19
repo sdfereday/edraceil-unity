@@ -22,7 +22,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         // Notice how it's the meta that's getting stored here. The SO doesn't get touched
         // and is only used for reference. This might be what needs to be done on the 

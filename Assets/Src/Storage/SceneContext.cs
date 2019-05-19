@@ -5,6 +5,9 @@ using System.Linq;
 
 public class SceneContext : MonoBehaviour
 {
+    public delegate void SceneDataLoadedAction();
+    public static event SceneDataLoadedAction OnSceneDataLoaded;
+
     public string SceneName;
     public List<BoolSaveState> MapEntityStates;
 
@@ -30,6 +33,11 @@ public class SceneContext : MonoBehaviour
                     boolState.State = x.state;
                 }
             });
+
+            OnSceneDataLoaded?.Invoke();
+        } else
+        {
+            throw new System.Exception(ErrorConsts.SCENE_DATA_NULL);
         }
     }
 

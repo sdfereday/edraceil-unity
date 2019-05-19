@@ -15,7 +15,7 @@ public class IsUnloggedItem : FieldEntity, IInteractible, ICollectible
     public void Use(Collider2D collider, INPUT_TYPE inputType)
     {
         if (CollectibleItemObject.IsKeyItem)
-            throw new UnityException("Tried to add a key item to non-key item store. This is not allowed.");
+            throw new UnityException(ErrorConsts.NON_NORMAL_ITEM_ERROR);
 
         Destroy(gameObject);
     }

@@ -15,7 +15,7 @@ public class PlayerKeyItemInventory : MonoBehaviour
     public List<KeyItemMeta> _keyItems;
     public List<KeyItemMeta> Keyitems { get => _keyItems; }
 
-    private void Start()
+    private void Awake()
     {
         var loadedItems = SaveDataManager.LoadData<List<KeyItemMeta>>(DataConsts.KEY_ITEM_DATA_FILE);
         _keyItems = loadedItems != null ? loadedItems : new List<KeyItemMeta>();

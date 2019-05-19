@@ -137,8 +137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61c90946b55db7a449ea7df28ba2e9b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSprite: {fileID: 21300002, guid: c41cf7500302401409e9156cabebf1de, type: 3}
-  OffSprite: {fileID: 21300000, guid: c41cf7500302401409e9156cabebf1de, type: 3}
+  OnSprite: {fileID: 21300000, guid: bd541d04f9cc61a42826a4b3b4e51046, type: 3}
+  OffSprite: {fileID: 21300002, guid: bd541d04f9cc61a42826a4b3b4e51046, type: 3}
   Spr: {fileID: -7690022518287995153}
 --- !u!114 &7003517104843843174
 MonoBehaviour:

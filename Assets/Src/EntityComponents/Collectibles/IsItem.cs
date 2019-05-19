@@ -9,14 +9,12 @@
 public class IsItem : FieldEntity, IInteractible, ICollectible
 {
     public CollectibleItem _CollectibleItemObject;
+    public CollectibleItem CollectibleItemObject => _CollectibleItemObject;
     public Transform Transform => transform;
     public INTERACTIBLE_TYPE GetInteractibleType() => INTERACTIBLE_TYPE.COLLECTIBLE;
-    public CollectibleItem CollectibleItemObject => _CollectibleItemObject;
     
     public override void OnAssert(bool alreadyAcquired)
     {
-        RemotePrefabInstance = GetComponent<IRemotePrefab>();
-
         if (alreadyAcquired)
             Destroy(gameObject);
     }
@@ -24,7 +22,7 @@ public class IsItem : FieldEntity, IInteractible, ICollectible
     public void Use(Collider2D collider, INPUT_TYPE inputType)
     {
         if (CollectibleItemObject.IsKeyItem)
-            throw new UnityException("Tried to add a key item to non-key item store. This is not allowed.");
+            throw new UnityException(ErrorConsts.NON_NORMAL_ITEM_ERROR);
 
         UpdateBoolState(true);
 

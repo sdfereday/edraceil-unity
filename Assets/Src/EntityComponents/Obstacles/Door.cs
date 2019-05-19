@@ -4,16 +4,19 @@ public class Door : FieldEntity, IInteractible
 {
     // You may wish to have an 'open state' also for massive doors / bridges in other components.
     public bool IsUnlocked = false; // <-- Use an interface for things like this (ILockable) or something.
-    public SceneProp ScenePropObject;
+    public SceneProp ScenePropObject; // TODO: Is this being used?
     public CollectibleItem ExpectedObjectInInventory;
-    public PlayerKeyItemInventory KeyItemInventory;
     public Transform Transform => transform;
     public INTERACTIBLE_TYPE GetInteractibleType() => INTERACTIBLE_TYPE.DOORWAY;
 
+    private PlayerKeyItemInventory KeyItemInventory;
+
     public override void OnAssert(bool alreadyUnlocked)
     {
+        KeyItemInventory = GameObject.FindGameObjectWithTag(DataConsts.GLOBAL_CONTEXT_TAG)
+            .GetComponentInChildren<PlayerKeyItemInventory>();
+
         IsUnlocked = alreadyUnlocked && KeyItemInventory.HasItem(ExpectedObjectInInventory.Id);
-        RemotePrefabInstance = GetComponent<IRemotePrefab>();
     }
 
     public void Use(Collider2D collider, INPUT_TYPE inputType)

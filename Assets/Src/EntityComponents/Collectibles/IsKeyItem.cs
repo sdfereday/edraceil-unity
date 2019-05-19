@@ -13,18 +13,28 @@ public class IsKeyItem : FieldEntity, IInteractible, ICollectible
     public Transform Transform => transform;
     public INTERACTIBLE_TYPE GetInteractibleType() => INTERACTIBLE_TYPE.COLLECTIBLE;
 
+    private PlayerKeyItemInventory KeyItemInventory;
+
     public override void OnAssert(bool alreadyAcquired)
     {
-        RemotePrefabInstance = GetComponent<IRemotePrefab>();
-
+        KeyItemInventory = GameObject.FindGameObjectWithTag(DataConsts.GLOBAL_CONTEXT_TAG)
+            .GetComponentInChildren<PlayerKeyItemInventory>();
+                
         if (alreadyAcquired)
             Destroy(gameObject);
+
+        /// Integrity check to see if we have the item yet if it's not set in save data (should never be a thing).
+        if (!alreadyAcquired && KeyItemInventory.HasItem(CollectibleItemObject.Id) ||
+            alreadyAcquired && !KeyItemInventory.HasItem(CollectibleItemObject.Id))
+        {
+            throw new System.Exception(ErrorConsts.KEY_ITEM_INTEGRITY_FAILUE);
+        }
     }
 
     public void Use(Collider2D collider, INPUT_TYPE inputType)
     {
         if (!CollectibleItemObject.IsKeyItem)
-            throw new UnityException("Tried to add a non-key item to the key item inventory, this isn't allowed.");
+            throw new UnityException(ErrorConsts.NON_KEY_ITEM_ERROR);
 
         UpdateBoolState(true);
 

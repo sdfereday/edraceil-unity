@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 3048035881733702663}
   - component: {fileID: 7958831906888994403}
   - component: {fileID: 7958831906888994405}
-  - component: {fileID: 2119139705}
-  - component: {fileID: 8702225666348082887}
   - component: {fileID: -4421816842548556925}
+  - component: {fileID: 8702225666348082887}
   - component: {fileID: -6095602911271377454}
   m_Layer: 8
   m_Name: ChestItem
@@ -124,37 +123,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48673c7a1aa6e33458d72d9554cab23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _BooleanObject: {fileID: 11400000, guid: 6a2dccbb7255e69428c57f3c2c4f2e19, type: 2}
   IsOpen: 0
   ScenePropObject: {fileID: 11400000, guid: fc9b58b6721e58944a64d1da00b58f21, type: 2}
   _CollectibleItemObject: {fileID: 11400000, guid: 2cba3e7db86d0d5429977641404056a8,
     type: 2}
---- !u!114 &2119139705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7958831906888994400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e745adacca73ab47bd72c9cda2df3af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _BooleanObject: {fileID: 11400000, guid: 6a2dccbb7255e69428c57f3c2c4f2e19, type: 2}
---- !u!114 &8702225666348082887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7958831906888994400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a99be0654b484fa4ba9613abab98cfd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsActive: 0
-  ToggleSprite: {fileID: -4421816842548556925}
 --- !u!114 &-4421816842548556925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +145,20 @@ MonoBehaviour:
   OffSprite: {fileID: -904176948917013313, guid: 3201d16f77ca6654382ba80d1868df2a,
     type: 3}
   Spr: {fileID: 3048035881733702663}
+--- !u!114 &8702225666348082887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7958831906888994400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a99be0654b484fa4ba9613abab98cfd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsActive: 0
+  ToggleSprite: {fileID: -4421816842548556925}
 --- !u!114 &-6095602911271377454
 MonoBehaviour:
   m_ObjectHideFlags: 0

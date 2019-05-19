@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5993760441311249605}
   - component: {fileID: 2367287582087846158}
   - component: {fileID: 2367287582087846155}
-  - component: {fileID: 1746123154}
   - component: {fileID: -3098629805745290992}
   - component: {fileID: -689489930136636034}
   - component: {fileID: 4139147108948998373}
@@ -123,24 +122,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48b5c92215e9c0e438217bbdefa083ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _BooleanObject: {fileID: 11400000, guid: 01e976f6fc8778b4b9bd644b13bef77d, type: 2}
   IsUnlocked: 0
   ScenePropObject: {fileID: 11400000, guid: 5a830c6fd55699a4ead64b5cec5055c2, type: 2}
   ExpectedObjectInInventory: {fileID: 11400000, guid: dedc4bab250420d4c8476eebc3f35075,
     type: 2}
-  KeyItemInventory: {fileID: 0}
---- !u!114 &1746123154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2367287582087846159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e745adacca73ab47bd72c9cda2df3af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _BooleanObject: {fileID: 11400000, guid: 01e976f6fc8778b4b9bd644b13bef77d, type: 2}
 --- !u!114 &-3098629805745290992
 MonoBehaviour:
   m_ObjectHideFlags: 0
