@@ -13,9 +13,6 @@ public class CollectibleItem : ScriptableObject
     public string _CollectibleItemName;
     public string CollectibleItemName => _CollectibleItemName;
 
-    public GameObject _GraphicalPrefab;
-    public GameObject GraphicalPrefab => _GraphicalPrefab;
-
     [TextArea]
     public string _CollectibleItemMeta;
     public string CollectibleItemMeta => _CollectibleItemMeta;

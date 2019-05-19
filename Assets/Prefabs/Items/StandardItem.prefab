@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1216385306026527276}
   - component: {fileID: -1690937527005948605}
   - component: {fileID: 5875570891744940479}
+  - component: {fileID: 3728738104438869108}
   m_Layer: 8
   m_Name: StandardItem
   m_TagString: Untagged
@@ -123,7 +124,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _CollectibleItemObject: {fileID: 11400000, guid: 2cba3e7db86d0d5429977641404056a8,
     type: 2}
-  DestroyPrefabOnCollection: 1
 --- !u!114 &-1690937527005948605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,5 +147,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aead2b61cb3abda41a947c6f9215db21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3728738104438869108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8124950181509625570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3b17cf128da6748998d032b6b7e121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

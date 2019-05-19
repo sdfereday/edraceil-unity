@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c7c9e0279b217649b3031c9add6b641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: EntryScene
+  SceneName: 
   MapEntityStates:
   - {fileID: 11400000, guid: 6a2dccbb7255e69428c57f3c2c4f2e19, type: 2}
   - {fileID: 11400000, guid: 714e48e82cca1b0489baca8e1fdee77f, type: 2}
@@ -1337,18 +1337,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2053574818}
     m_Modifications:
-    - target: {fileID: -4796324060637464421, guid: 85ac78770ffccd44f879cc02a3c3e1e5,
-        type: 3}
-      propertyPath: OnSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: bd541d04f9cc61a42826a4b3b4e51046,
-        type: 3}
-    - target: {fileID: -4796324060637464421, guid: 85ac78770ffccd44f879cc02a3c3e1e5,
-        type: 3}
-      propertyPath: OffSprite
-      value: 
-      objectReference: {fileID: 21300002, guid: bd541d04f9cc61a42826a4b3b4e51046,
-        type: 3}
     - target: {fileID: 8957215632819759197, guid: 85ac78770ffccd44f879cc02a3c3e1e5,
         type: 3}
       propertyPath: m_Name
@@ -1409,6 +1397,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90.00001
       objectReference: {fileID: 0}
+    - target: {fileID: -4796324060637464421, guid: 85ac78770ffccd44f879cc02a3c3e1e5,
+        type: 3}
+      propertyPath: OnSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bd541d04f9cc61a42826a4b3b4e51046,
+        type: 3}
+    - target: {fileID: -4796324060637464421, guid: 85ac78770ffccd44f879cc02a3c3e1e5,
+        type: 3}
+      propertyPath: OffSprite
+      value: 
+      objectReference: {fileID: 21300002, guid: bd541d04f9cc61a42826a4b3b4e51046,
+        type: 3}
     - target: {fileID: 8957215632819759201, guid: 85ac78770ffccd44f879cc02a3c3e1e5,
         type: 3}
       propertyPath: mechanisms.Array.data[0]

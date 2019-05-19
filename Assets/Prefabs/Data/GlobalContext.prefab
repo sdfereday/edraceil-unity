@@ -744,8 +744,9 @@ GameObject:
   - component: {fileID: 6285235844262580628}
   - component: {fileID: 5029378019102611613}
   - component: {fileID: -8729827748131920761}
+  - component: {fileID: 6285235845425845161}
   m_Layer: 0
-  m_Name: Context
+  m_Name: GlobalContext
   m_TagString: GameData
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -793,3 +794,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeOutUIImage: {fileID: 275751936}
   fadeSpeed: 0.5
+--- !u!114 &6285235845425845161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6285235844262580629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2c5363db060854f9b76e0fe9e95de6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllScenes: []

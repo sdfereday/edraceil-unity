@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dae95a2256a3b7d4b9ca1c3a7a1756ba, type: 3}
-  m_Name: ChickenLegOfLegend
+  m_Name: GoldenKey
   m_EditorClassIdentifier: 
-  Id: chickenLegOfLegend
+  Id: goldenKey
   _CollectibleItemType: 1
-  _CollectibleItemName: Chicken Leg Of Legend
-  _GraphicalPrefab: {fileID: 6826649407097662532, guid: dffa6035b5baf1c45abebace0cb1eeee,
-    type: 3}
-  _CollectibleItemMeta: Forged long ago, this ancient Chicken Leg has the power to
-    open doors.
+  _CollectibleItemName: Golden Key
+  _GraphicalPrefab: {fileID: 0}
+  _CollectibleItemMeta: 
   _CollectibleItemHealthValue: 0
   _CollectibleItemMpValue: 0

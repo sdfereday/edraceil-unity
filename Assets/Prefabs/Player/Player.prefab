@@ -484,7 +484,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteRenderer: {fileID: 1360261196977950641}
-  AnimationsAvailable: []
+  AnimationsAvailable:
+  - {fileID: 11400000, guid: ae24f8bafbf4eaa4abf1069276319d58, type: 2}
+  - {fileID: 11400000, guid: 2c7b40c7f4847d144a7132e0e3f4a424, type: 2}
 --- !u!114 &5420653188012235986
 MonoBehaviour:
   m_ObjectHideFlags: 0

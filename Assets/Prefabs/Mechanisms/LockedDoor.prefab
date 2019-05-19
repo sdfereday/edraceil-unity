@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUnlocked: 0
   ScenePropObject: {fileID: 11400000, guid: 5a830c6fd55699a4ead64b5cec5055c2, type: 2}
-  ExpectedObjectInInventory: {fileID: 11400000, guid: f4d9f81c5174fea4683d89a51fc0b872,
+  ExpectedObjectInInventory: {fileID: 11400000, guid: dedc4bab250420d4c8476eebc3f35075,
     type: 2}
   KeyItemInventory: {fileID: 0}
 --- !u!114 &1746123154
