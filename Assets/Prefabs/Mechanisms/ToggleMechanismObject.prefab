@@ -9,12 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8957215632819759202}
-  - component: {fileID: 8957215632819759203}
+  - component: {fileID: -7690022518287995153}
   - component: {fileID: 8957215632819759200}
-  - component: {fileID: 200782441260277723}
   - component: {fileID: 8957215632819759201}
+  - component: {fileID: -4796324060637464421}
+  - component: {fileID: 7003517104843843174}
   m_Layer: 8
-  m_Name: ToggleMechanismTestObject
+  m_Name: ToggleMechanismObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.00001}
---- !u!212 &8957215632819759203
+--- !u!212 &-7690022518287995153
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,21 +109,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &200782441260277723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8957215632819759197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61c90946b55db7a449ea7df28ba2e9b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnSprite: {fileID: 21300000, guid: bd541d04f9cc61a42826a4b3b4e51046, type: 3}
-  OffSprite: {fileID: 21300002, guid: bd541d04f9cc61a42826a4b3b4e51046, type: 3}
-  Spr: {fileID: 8957215632819759203}
 --- !u!114 &8957215632819759201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +121,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2224e357bc486c54b8a0f8318faea196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toggledSpriteComponent: {fileID: 200782441260277723}
+  toggledSpriteComponent: {fileID: -4796324060637464421}
   MechanismActive: 0
   mechanisms:
   - {fileID: 0}
+--- !u!114 &-4796324060637464421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8957215632819759197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61c90946b55db7a449ea7df28ba2e9b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnSprite: {fileID: 21300002, guid: c41cf7500302401409e9156cabebf1de, type: 3}
+  OffSprite: {fileID: 21300000, guid: c41cf7500302401409e9156cabebf1de, type: 3}
+  Spr: {fileID: -7690022518287995153}
+--- !u!114 &7003517104843843174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8957215632819759197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3b17cf128da6748998d032b6b7e121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

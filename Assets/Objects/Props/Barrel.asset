@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0382fbe6c5f01bd4e867e7543eaa2da3, type: 3}
-  m_Name: KeyItemCollected
+  m_Script: {fileID: 11500000, guid: ec16f8eb7e299f443b517753c1ce9ac2, type: 3}
+  m_Name: Barrel
   m_EditorClassIdentifier: 
-  State: 1
+  Id: simpleBarrel
+  _GraphicalPrefab: {fileID: 8220097679735015219, guid: fb57edf1d78678d45b9bf214fbe51cc2,
+    type: 3}

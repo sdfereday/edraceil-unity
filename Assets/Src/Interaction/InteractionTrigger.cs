@@ -45,7 +45,7 @@ public class InteractionTrigger : MonoBehaviour
         if (interactible != null)
         {
             // Perform related actions on player side (trigger carrying, gaining items, global events, etc)
-            ActionManager.Act(interactible.InteractibleType, interactible.Transform);
+            ActionManager.Act(interactible.GetInteractibleType(), interactible.Transform);
 
             // Perform related actions on interactible's side (trigger anims, individual data changes, etc)
             if (!ActionManager.ResponseMustFinish)

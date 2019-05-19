@@ -35,6 +35,7 @@ public class PlayerInput : MonoBehaviour, IDirectionInfo
         rbody = GetComponent<Rigidbody2D>();
         interactionTrigger = GetComponentInChildren<InteractionTrigger>();
         Facing = Vector2.right;
+        animLogic = transform.GetComponentInChildren<AnimatorLogicManager>();
 
         InteractionsEnabled = true;
         MovementEnabled = true;

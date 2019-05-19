@@ -1,18 +1,24 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
 
 public class SceneContext : MonoBehaviour
 {
-    // Drag everything to this list that you want to keep track of state-wise.
-    public string SceneName;
     public List<BoolSaveState> MapEntityStates;
 
     [System.Serializable]
-    public class BooStateModel
+    public class BoolStateModel
     {
-        public bool State;
+        public bool state;
         public string name;
+    }
+
+    [System.Serializable]
+    public class SceneContextModel
+    {
+        public string sceneName;
+        public List<BoolStateModel> boolStates;
     }
 
     private void Start()
@@ -27,16 +33,18 @@ public class SceneContext : MonoBehaviour
         // complicated that way anyway.
         MapEntityStates.ForEach(x => x.State = false);
 
-        var loadedBoolStates = SaveDataManager.LoadData<List<BooStateModel>>(DataConsts.LEVEL_DATA_FILE);
+        var loadedSceneState = SaveDataManager.LoadData<List<SceneContextModel>>(DataConsts.LEVEL_DATA_FILE)
+            .Where(x => x.sceneName == SceneManager.GetActiveScene().name)
+            .FirstOrDefault();
         
-        if (loadedBoolStates != null)
+        if (loadedSceneState != null)
         {
-            loadedBoolStates.ForEach(x => {
+            loadedSceneState.boolStates.ForEach(x => {
                 var boolState = MapEntityStates.FirstOrDefault(ent => ent.name == x.name);
 
                 if (boolState != null)
                 {
-                    boolState.State = x.State;
+                    boolState.State = x.state;
                 }
             });
         }
@@ -54,6 +62,39 @@ public class SceneContext : MonoBehaviour
 
     private void SaveToDisk()
     {
-        SaveDataManager.SaveData(MapEntityStates, DataConsts.LEVEL_DATA_FILE);
+        var payload = new SceneContextModel()
+        {
+            sceneName = SceneManager.GetActiveScene().name,
+            boolStates = MapEntityStates.Select(x => {
+                return new BoolStateModel()
+                {
+                    name = x.name,
+                    state = x.State
+                };
+            }).ToList()
+        };
+
+        // TODO: This will overwrite any existing that exist. This needs fixing. Perhaps before you go ahead and
+        // send a new list, find the 'node' instead, and edit that. Just check the docs, see what the craic is.
+        SaveDataManager.SaveData(new List<SceneContextModel>() { payload }, DataConsts.LEVEL_DATA_FILE);
+
+        // Test payload
+        var payload2 = new SceneContextModel()
+        {
+            sceneName = SceneManager.GetActiveScene().name,
+            boolStates = MapEntityStates.Select(x => {
+                return new BoolStateModel()
+                {
+                    name = x.name + "rammbooooo",
+                    state = x.State
+                };
+            }).ToList()
+        };
+
+        // Tests see that this overwrites. We need to compile it all together.
+        SaveDataManager.SaveData(new List<SceneContextModel>() { payload2 }, DataConsts.LEVEL_DATA_FILE);
+
+        // Like so (somehow, either write to a new file, or, get what's already there and stick it on the end):
+        SaveDataManager.SaveData(new List<SceneContextModel>() { payload, payload2 }, DataConsts.LEVEL_DATA_FILE);
     }
 }

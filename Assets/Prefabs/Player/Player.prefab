@@ -294,15 +294,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6401586682848449954}
-  - component: {fileID: 3108224117531412126}
+  - component: {fileID: 1360261196977950641}
   - component: {fileID: 7651877797661564860}
   - component: {fileID: 5162194781764108982}
   - component: {fileID: 7651877797661564858}
   - component: {fileID: 7651877797661564857}
   - component: {fileID: 7651877797661564859}
-  - component: {fileID: 941761842}
-  - component: {fileID: 3412515888553781875}
-  - component: {fileID: 893796152}
+  - component: {fileID: -8713718961806068400}
+  - component: {fileID: 5420653188012235986}
+  - component: {fileID: 412905108999959574}
+  - component: {fileID: -7492736976598845240}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -327,7 +328,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3108224117531412126
+--- !u!212 &1360261196977950641
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -444,7 +445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 4
-  animLogic: {fileID: 3412515888553781875}
+  animLogic: {fileID: 0}
 --- !u!114 &7651877797661564859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,7 +471,7 @@ MonoBehaviour:
   - Name: onSave
     InteractibleType: 6
     ResponseTrigger: {fileID: 188822838}
---- !u!114 &941761842
+--- !u!114 &-8713718961806068400
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -482,11 +483,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cad1c7634bda2b04db3c7031818bfc3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteRenderer: {fileID: 3108224117531412126}
-  AnimationsAvailable:
-  - {fileID: 11400000, guid: ae24f8bafbf4eaa4abf1069276319d58, type: 2}
-  - {fileID: 11400000, guid: 2c7b40c7f4847d144a7132e0e3f4a424, type: 2}
---- !u!114 &3412515888553781875
+  SpriteRenderer: {fileID: 1360261196977950641}
+  AnimationsAvailable: []
+--- !u!114 &5420653188012235986
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -499,8 +498,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterData: {fileID: 11400000, guid: 4a5852bc240719049bf41de3a9520493, type: 2}
-  SpriteAnimator: {fileID: 941761842}
---- !u!114 &893796152
+  SpriteAnimator: {fileID: -8713718961806068400}
+--- !u!114 &412905108999959574
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -513,6 +512,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartsRight: 1
+--- !u!114 &-7492736976598845240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7651877797661564856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3b17cf128da6748998d032b6b7e121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8217037144470087147
 GameObject:
   m_ObjectHideFlags: 0

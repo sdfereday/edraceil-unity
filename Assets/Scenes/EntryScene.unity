@@ -611,10 +611,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2053574818}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -572514269500815665, guid: 3201d16f77ca6654382ba80d1868df2a,
+        type: 3}
     - target: {fileID: 2756193388047121942, guid: fb93bde418f2bce4884eed0b9b230df5,
         type: 3}
       propertyPath: m_Name
-      value: NPC-StartsDialogue
+      value: NPC
       objectReference: {fileID: 0}
     - target: {fileID: 2756193388047121937, guid: fb93bde418f2bce4884eed0b9b230df5,
         type: 3}
@@ -671,21 +676,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2756193388047121938, guid: fb93bde418f2bce4884eed0b9b230df5,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -572514269500815665, guid: 3201d16f77ca6654382ba80d1868df2a,
-        type: 3}
     - target: {fileID: 2756193388047121936, guid: fb93bde418f2bce4884eed0b9b230df5,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2756193388047121936, guid: fb93bde418f2bce4884eed0b9b230df5,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 1.6
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb93bde418f2bce4884eed0b9b230df5, type: 3}
@@ -1338,6 +1337,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2053574818}
     m_Modifications:
+    - target: {fileID: -4796324060637464421, guid: 85ac78770ffccd44f879cc02a3c3e1e5,
+        type: 3}
+      propertyPath: OnSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bd541d04f9cc61a42826a4b3b4e51046,
+        type: 3}
+    - target: {fileID: -4796324060637464421, guid: 85ac78770ffccd44f879cc02a3c3e1e5,
+        type: 3}
+      propertyPath: OffSprite
+      value: 
+      objectReference: {fileID: 21300002, guid: bd541d04f9cc61a42826a4b3b4e51046,
+        type: 3}
     - target: {fileID: 8957215632819759197, guid: 85ac78770ffccd44f879cc02a3c3e1e5,
         type: 3}
       propertyPath: m_Name
