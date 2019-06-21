@@ -2,30 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 
-[Serializable]
-public class AnimationGate
+namespace RedPanda.Animator
 {
-    public string playAnimation;
-    public bool isTrigger = false;
-
-    public List<ConditionObject<float>> floatConditions;
-    public List<ConditionObject<bool>> boolConditions;
-
-    public void SetFloat(string query, float value)
+    [Serializable]
+    public class AnimationGate
     {
-        floatConditions.FirstOrDefault(condition => condition.Id == query)
-            .Value = value;
-    }
+        public string playAnimation;
+        public bool isTrigger = false;
 
-    public void SetBool(string query, bool value)
-    {
-        boolConditions.FirstOrDefault(condition => condition.Id == query)
-            .Value = value;
-    }
+        public List<ConditionObject<float>> floatConditions;
+        public List<ConditionObject<bool>> boolConditions;
 
-    public bool IsTruthy()
-    {
-        return floatConditions.All(x => x.Assert()) &&
-            boolConditions.All(x => x.Assert());
+        public void SetFloat(string query, float value)
+        {
+            floatConditions.FirstOrDefault(condition => condition.Id == query)
+                .Value = value;
+        }
+
+        public void SetBool(string query, bool value)
+        {
+            boolConditions.FirstOrDefault(condition => condition.Id == query)
+                .Value = value;
+        }
+
+        public bool IsTruthy()
+        {
+            return floatConditions.All(x => x.Assert()) &&
+                boolConditions.All(x => x.Assert());
+        }
     }
 }

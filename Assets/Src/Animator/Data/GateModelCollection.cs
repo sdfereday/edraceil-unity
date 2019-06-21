@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 
-public class GateModelCollection
+namespace RedPanda.Animator
 {
-    public string targetEntity;
-    public List<GateModel> gates;
+    public class GateModelCollection
+    {
+        public string targetEntity;
+        public List<GateModel> gates;
+    }
 }

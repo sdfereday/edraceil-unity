@@ -1,18 +1,21 @@
-﻿public class BoolCondition : ConditionObject<bool>
+﻿namespace RedPanda.Animator
 {
-    public BoolCondition(string id, bool expected, bool initial, LOGIC_METHOD_TYPE logicMethodType)
-        : base(id, initial, expected, logicMethodType) { }
-
-    public override bool Assert()
+    public class BoolCondition : ConditionObject<bool>
     {
-        switch (LogicMethodType)
+        public BoolCondition(string id, bool expected, bool initial, LOGIC_METHOD_TYPE logicMethodType)
+            : base(id, initial, expected, logicMethodType) { }
+
+        public override bool Assert()
         {
-            case LOGIC_METHOD_TYPE.BOOL_TRUE:
-                return LogicHelpers.BoolTrue(Value, Expected);
-            case LOGIC_METHOD_TYPE.BOOL_FALSE:
-                return LogicHelpers.BoolFalse(Value, Expected);
-            default:
-                return false;
+            switch (LogicMethodType)
+            {
+                case LOGIC_METHOD_TYPE.BOOL_TRUE:
+                    return LogicHelpers.BoolTrue(Value, Expected);
+                case LOGIC_METHOD_TYPE.BOOL_FALSE:
+                    return LogicHelpers.BoolFalse(Value, Expected);
+                default:
+                    return false;
+            }
         }
     }
 }

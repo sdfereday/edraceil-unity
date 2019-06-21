@@ -1,21 +1,24 @@
 ﻿using System;
 
-public abstract class ConditionObject<T>
+namespace RedPanda.Animator
 {
-    public string Id;
-    public T Value;
-    public T Expected;
-    public Func<T, T, bool> LogicMethod;
-    public LOGIC_METHOD_TYPE LogicMethodType;
-
-    public ConditionObject(string id, T initial, T expected, LOGIC_METHOD_TYPE logicMethodType)
+    public abstract class ConditionObject<T>
     {
-        Id = id;
-        Value = initial;
-        Expected = expected;
-        LogicMethodType = logicMethodType;
-    }
+        public string Id;
+        public T Value;
+        public T Expected;
+        public Func<T, T, bool> LogicMethod;
+        public LOGIC_METHOD_TYPE LogicMethodType;
 
-    // public bool Assert() => LogicMethod(Value, Expected);
-    public abstract bool Assert();
+        public ConditionObject(string id, T initial, T expected, LOGIC_METHOD_TYPE logicMethodType)
+        {
+            Id = id;
+            Value = initial;
+            Expected = expected;
+            LogicMethodType = logicMethodType;
+        }
+
+        // public bool Assert() => LogicMethod(Value, Expected);
+        public abstract bool Assert();
+    }
 }
