@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 
-public class SceneTrigger : MonoBehaviour
+namespace RedPanda.Entities
 {
-    public string SceneName;
-    public ChangeScene SceneChanger;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class SceneTrigger : MonoBehaviour
     {
-        if (collision.transform.CompareTag(CharacterConsts.PLAYER_INTERACTOR))
+        public string SceneName;
+        public ChangeScene SceneChanger;
+
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            SceneChanger.DoTransition(ChangeScene.FadeDirection.In, SceneName);
+            if (collision.transform.CompareTag(CharacterConsts.PLAYER_INTERACTOR))
+            {
+                SceneChanger.DoTransition(ChangeScene.FadeDirection.In, SceneName);
+            }
         }
     }
 }

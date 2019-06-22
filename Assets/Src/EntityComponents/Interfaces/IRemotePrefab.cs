@@ -1,6 +1,9 @@
 ﻿using System;
 
-public interface IRemotePrefab
+namespace RedPanda.Entities
 {
-    void StartInteraction(Action OnComplete = null);
+    public interface IRemotePrefab
+    {
+        void StartInteraction(Action OnComplete = null);
+    }
 }

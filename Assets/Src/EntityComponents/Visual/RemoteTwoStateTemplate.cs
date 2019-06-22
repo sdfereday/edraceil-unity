@@ -1,50 +1,53 @@
 ﻿using UnityEngine;
 using System;
 
-public class RemoteTwoStateTemplate : MonoBehaviour, IRemotePrefab
+namespace RedPanda.Entities
 {
-    public bool IsActive = false;
-    public ToggledSprite ToggleSprite;
-
-    private void Start()
+    public class RemoteTwoStateTemplate : MonoBehaviour, IRemotePrefab
     {
-        if (IsActive)
+        public bool IsActive = false;
+        public ToggledSprite ToggleSprite;
+
+        private void Start()
         {
-            ToggleSprite.On();
+            if (IsActive)
+            {
+                ToggleSprite.On();
+            }
+            else
+            {
+                ToggleSprite.Off();
+            }
         }
-        else
+
+        public void StartInteraction(Action OnComplete = null)
         {
             ToggleSprite.Off();
-        }
-    }
+            IsActive = !IsActive;
 
-    public void StartInteraction(Action OnComplete = null)
-    {
-        ToggleSprite.Off();
-        IsActive = !IsActive;
+            if (IsActive)
+            {
+                ToggleSprite.On();
+            }
+            else
+            {
+                ToggleSprite.Off();
+            }
 
-        if (IsActive)
-        {
-            ToggleSprite.On();
-        }
-        else
-        {
-            ToggleSprite.Off();
+            OnComplete?.Invoke();
         }
 
-        OnComplete?.Invoke();
-    }
-
-    public void SetActive(bool state)
-    {
-        IsActive = state;
-        if (IsActive)
+        public void SetActive(bool state)
         {
-            ToggleSprite.On();
-        }
-        else
-        {
-            ToggleSprite.Off();
+            IsActive = state;
+            if (IsActive)
+            {
+                ToggleSprite.On();
+            }
+            else
+            {
+                ToggleSprite.Off();
+            }
         }
     }
 }

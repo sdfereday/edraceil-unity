@@ -1,36 +1,39 @@
 ﻿using UnityEngine;
 
-public class Mechanism : MonoBehaviour, IMechanism
+namespace RedPanda.Entities
 {
-    public ToggledSprite toggledSpriteComponent;
-
-    private bool MechanismActive = false;
-    private void UpdateSprite()
+    public class Mechanism : MonoBehaviour, IMechanism
     {
-        if (MechanismActive)
+        public ToggledSprite toggledSpriteComponent;
+
+        private bool MechanismActive = false;
+        private void UpdateSprite()
         {
-            toggledSpriteComponent.On();
+            if (MechanismActive)
+            {
+                toggledSpriteComponent.On();
+            }
+            else
+            {
+                toggledSpriteComponent.Off();
+            }
         }
-        else
+
+        private void Start()
         {
-            toggledSpriteComponent.Off();
+            UpdateSprite();
         }
-    }
 
-    private void Start()
-    {
-        UpdateSprite();
-    }
+        public void Activate()
+        {
+            MechanismActive = true;
+            UpdateSprite();
+        }
 
-    public void Activate()
-    {
-        MechanismActive = true;
-        UpdateSprite();
-    }
-
-    public void Deactivate()
-    {
-        MechanismActive = false;
-        UpdateSprite();
+        public void Deactivate()
+        {
+            MechanismActive = false;
+            UpdateSprite();
+        }
     }
 }

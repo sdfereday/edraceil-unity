@@ -1,4 +1,7 @@
-﻿public interface ICollectible
+﻿namespace RedPanda.Entities
 {
-    CollectibleItem CollectibleItemObject { get; }
+    public interface ICollectible
+    {
+        CollectibleItem CollectibleItemObject { get; }
+    }
 }

@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 
-public class StartsDialogue : MonoBehaviour, IInteractible, IIdentifier
+namespace RedPanda.Entities
 {
-    public string Id;
-    public string Identifier => Id;
-
-    public Transform Transform => transform;
-    public INTERACTIBLE_TYPE GetInteractibleType() => INTERACTIBLE_TYPE.DIALOGUE;
-
-    public void Use(Collider2D collider, INPUT_TYPE inputType)
+    public class StartsDialogue : MonoBehaviour, IInteractible, IIdentifier
     {
-        // ...
+        public string Id;
+        public string Identifier => Id;
+
+        public Transform Transform => transform;
+        public INTERACTIBLE_TYPE GetInteractibleType() => INTERACTIBLE_TYPE.DIALOGUE;
+
+        public void Use(Collider2D collider, INPUT_TYPE inputType)
+        {
+            // ...
+        }
     }
 }

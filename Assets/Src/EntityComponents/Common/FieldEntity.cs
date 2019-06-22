@@ -1,29 +1,32 @@
 ﻿using UnityEngine;
 
-public abstract class FieldEntity : MonoBehaviour
+namespace RedPanda.Entities
 {
-    [SerializeField]
-    private BoolSaveState _BooleanObject;
-    //private void OnEnable() => SceneContext.OnSceneDataLoaded += HandleSceneDataLoaded;
-    //private void OnDisable() => SceneContext.OnSceneDataLoaded -= HandleSceneDataLoaded;
-
-    protected IRemotePrefab RemotePrefabInstance;
-    protected bool IsTruthy => _BooleanObject != null ? _BooleanObject.State : false;
-
-    // TODO: Why does the event only work sometimes?
-    private void Start()
+    public abstract class FieldEntity : MonoBehaviour
     {
-        Debug.Log(this.name + " was asserted.");
-        RemotePrefabInstance = GetComponent<IRemotePrefab>();
-        OnAssert(IsTruthy);
-    }
+        [SerializeField]
+        private BoolSaveState _BooleanObject;
+        //private void OnEnable() => SceneContext.OnSceneDataLoaded += HandleSceneDataLoaded;
+        //private void OnDisable() => SceneContext.OnSceneDataLoaded -= HandleSceneDataLoaded;
 
-    //protected void UpdateBoolState(bool state) => UseState.UpdateBoolState(state);
-    protected void UpdateBoolState(bool _state)
-    {
-        if (_BooleanObject != null)
-            _BooleanObject.State = _state;
-    }
+        protected IRemotePrefab RemotePrefabInstance;
+        protected bool IsTruthy => _BooleanObject != null ? _BooleanObject.State : false;
 
-    public virtual void OnAssert(bool truthy) { }
+        // TODO: Why does the event only work sometimes?
+        private void Start()
+        {
+            Debug.Log(this.name + " was asserted.");
+            RemotePrefabInstance = GetComponent<IRemotePrefab>();
+            OnAssert(IsTruthy);
+        }
+
+        //protected void UpdateBoolState(bool state) => UseState.UpdateBoolState(state);
+        protected void UpdateBoolState(bool _state)
+        {
+            if (_BooleanObject != null)
+                _BooleanObject.State = _state;
+        }
+
+        public virtual void OnAssert(bool truthy) { }
+    }
 }

@@ -1,36 +1,39 @@
 using UnityEngine;
 
-public class TransportableEntity : MonoBehaviour, IInteractible, ICarryable
+namespace RedPanda.Entities
 {
-    public bool CanInteract { get; private set; }
-    public bool CanThrow { get { return true; } }
-    public bool CanCarry { get; private set; }
-    public int CurrentWeightValue { get { return 0; } }
-
-    public Collider2D Collider;
-
-    public Transform Transform => transform;
-    public INTERACTIBLE_TYPE GetInteractibleType() => INTERACTIBLE_TYPE.TRANSPORTABLE;
-
-    private void Start()
+    public class TransportableEntity : MonoBehaviour, IInteractible, ICarryable
     {
-        SetInteractible(true);
-        SetCarryable(true);
-    }
+        public bool CanInteract { get; private set; }
+        public bool CanThrow { get { return true; } }
+        public bool CanCarry { get; private set; }
+        public int CurrentWeightValue { get { return 0; } }
 
-    public void SetInteractible(bool state)
-    {
-        CanInteract = state;
-        Collider.enabled = state;
-    }
+        public Collider2D Collider;
 
-    public void SetCarryable(bool state)
-    {
-        CanCarry = state;
-    }
-    
-    public void Use(Collider2D collider, INPUT_TYPE inputType)
-    {
-        // ...
+        public Transform Transform => transform;
+        public INTERACTIBLE_TYPE GetInteractibleType() => INTERACTIBLE_TYPE.TRANSPORTABLE;
+
+        private void Start()
+        {
+            SetInteractible(true);
+            SetCarryable(true);
+        }
+
+        public void SetInteractible(bool state)
+        {
+            CanInteract = state;
+            Collider.enabled = state;
+        }
+
+        public void SetCarryable(bool state)
+        {
+            CanCarry = state;
+        }
+
+        public void Use(Collider2D collider, INPUT_TYPE inputType)
+        {
+            // ...
+        }
     }
 }

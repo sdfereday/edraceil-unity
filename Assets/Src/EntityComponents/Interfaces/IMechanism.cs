@@ -1,5 +1,8 @@
-﻿public interface IMechanism
+﻿namespace RedPanda.Entities
 {
-    void Activate();
-    void Deactivate();
+    public interface IMechanism
+    {
+        void Activate();
+        void Deactivate();
+    }
 }

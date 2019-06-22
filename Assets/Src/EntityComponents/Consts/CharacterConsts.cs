@@ -1,5 +1,8 @@
-﻿public static class CharacterConsts
+﻿namespace RedPanda.Entities
 {
-    public const string PLAYER_TAG = "Player";
-    public const string PLAYER_INTERACTOR = "PlayerInteractor";
+    public static class CharacterConsts
+    {
+        public const string PLAYER_TAG = "Player";
+        public const string PLAYER_INTERACTOR = "PlayerInteractor";
+    }
 }

@@ -1,30 +1,33 @@
 ﻿using UnityEngine;
 
-public class Door : FieldEntity, IInteractible
+namespace RedPanda.Entities
 {
-    // You may wish to have an 'open state' also for massive doors / bridges in other components.
-    public bool IsUnlocked = false; // <-- Use an interface for things like this (ILockable) or something.
-    public SceneProp ScenePropObject; // TODO: Is this being used?
-    public CollectibleItem ExpectedObjectInInventory;
-    public Transform Transform => transform;
-    public INTERACTIBLE_TYPE GetInteractibleType() => INTERACTIBLE_TYPE.DOORWAY;
-
-    private PlayerKeyItemInventory KeyItemInventory;
-
-    public override void OnAssert(bool alreadyUnlocked)
+    public class Door : FieldEntity, IInteractible
     {
-        KeyItemInventory = GameObject.FindGameObjectWithTag(DataConsts.GLOBAL_CONTEXT_TAG)
-            .GetComponentInChildren<PlayerKeyItemInventory>();
+        // You may wish to have an 'open state' also for massive doors / bridges in other components.
+        public bool IsUnlocked = false; // <-- Use an interface for things like this (ILockable) or something.
+        public SceneProp ScenePropObject; // TODO: Is this being used?
+        public CollectibleItem ExpectedObjectInInventory;
+        public Transform Transform => transform;
+        public INTERACTIBLE_TYPE GetInteractibleType() => INTERACTIBLE_TYPE.DOORWAY;
 
-        IsUnlocked = alreadyUnlocked && KeyItemInventory.HasItem(ExpectedObjectInInventory.Id);
-    }
+        private PlayerKeyItemInventory KeyItemInventory;
 
-    public void Use(Collider2D collider, INPUT_TYPE inputType)
-    {
-        IsUnlocked = KeyItemInventory.HasItem(ExpectedObjectInInventory.Id);
-        UpdateBoolState(IsUnlocked);
+        public override void OnAssert(bool alreadyUnlocked)
+        {
+            KeyItemInventory = GameObject.FindGameObjectWithTag(DataConsts.GLOBAL_CONTEXT_TAG)
+                .GetComponentInChildren<PlayerKeyItemInventory>();
 
-        if (IsUnlocked)
-            RemotePrefabInstance.StartInteraction();
+            IsUnlocked = alreadyUnlocked && KeyItemInventory.HasItem(ExpectedObjectInInventory.Id);
+        }
+
+        public void Use(Collider2D collider, INPUT_TYPE inputType)
+        {
+            IsUnlocked = KeyItemInventory.HasItem(ExpectedObjectInInventory.Id);
+            UpdateBoolState(IsUnlocked);
+
+            if (IsUnlocked)
+                RemotePrefabInstance.StartInteraction();
+        }
     }
 }

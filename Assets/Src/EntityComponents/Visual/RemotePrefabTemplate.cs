@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System;
 
-public class RemotePrefabTemplate : MonoBehaviour, IRemotePrefab
+namespace RedPanda.Entities
 {
-    public void StartInteraction(Action OnComplete = null)
+    public class RemotePrefabTemplate : MonoBehaviour, IRemotePrefab
     {
-        OnComplete?.Invoke();
+        public void StartInteraction(Action OnComplete = null)
+        {
+            OnComplete?.Invoke();
+        }
     }
 }

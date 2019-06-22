@@ -6,29 +6,32 @@
     that might spawn out of a dead enemy for example (since they don't need to
     be logged).
 */
-public class IsItem : FieldEntity, IInteractible, ICollectible
+namespace RedPanda.Entities
 {
-    public CollectibleItem _CollectibleItemObject;
-    public CollectibleItem CollectibleItemObject => _CollectibleItemObject;
-    public Transform Transform => transform;
-    public INTERACTIBLE_TYPE GetInteractibleType() => INTERACTIBLE_TYPE.COLLECTIBLE;
-    
-    public override void OnAssert(bool alreadyAcquired)
+    public class IsItem : FieldEntity, IInteractible, ICollectible
     {
-        if (alreadyAcquired)
-            Destroy(gameObject);
-    }
+        public CollectibleItem _CollectibleItemObject;
+        public CollectibleItem CollectibleItemObject => _CollectibleItemObject;
+        public Transform Transform => transform;
+        public INTERACTIBLE_TYPE GetInteractibleType() => INTERACTIBLE_TYPE.COLLECTIBLE;
 
-    public void Use(Collider2D collider, INPUT_TYPE inputType)
-    {
-        if (CollectibleItemObject.IsKeyItem)
-            throw new UnityException(ErrorConsts.NON_NORMAL_ITEM_ERROR);
-
-        UpdateBoolState(true);
-
-        RemotePrefabInstance.StartInteraction(() =>
+        public override void OnAssert(bool alreadyAcquired)
         {
-            Destroy(gameObject);
-        });
+            if (alreadyAcquired)
+                Destroy(gameObject);
+        }
+
+        public void Use(Collider2D collider, INPUT_TYPE inputType)
+        {
+            if (CollectibleItemObject.IsKeyItem)
+                throw new UnityException(ErrorConsts.NON_NORMAL_ITEM_ERROR);
+
+            UpdateBoolState(true);
+
+            RemotePrefabInstance.StartInteraction(() =>
+            {
+                Destroy(gameObject);
+            });
+        }
     }
 }

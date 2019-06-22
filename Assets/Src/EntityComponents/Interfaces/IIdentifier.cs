@@ -1,5 +1,7 @@
-
-public interface IIdentifier
+namespace RedPanda.Entities
 {
-    string Identifier { get; }
+    public interface IIdentifier
+    {
+        string Identifier { get; }
+    }
 }
