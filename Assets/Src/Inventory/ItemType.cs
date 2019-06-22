@@ -1,5 +1,8 @@
-﻿public enum ITEM_TYPE
+﻿namespace RedPanda.Inventory
 {
-    CHICKEN,
-    KEY_ITEM
+    public enum ITEM_TYPE
+    {
+        CHICKEN,
+        KEY_ITEM
+    }
 }

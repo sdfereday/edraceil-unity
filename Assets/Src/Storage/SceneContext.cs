@@ -3,58 +3,63 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System.Linq;
 
-public class SceneContext : MonoBehaviour
+namespace RedPanda.Storage
 {
-    public delegate void SceneDataLoadedAction();
-    public static event SceneDataLoadedAction OnSceneDataLoaded;
-
-    public string SceneName;
-    public List<BoolSaveState> MapEntityStates;
-
-    private GlobalContext GlobalContextData;
-
-    private void Awake()
+    public class SceneContext : MonoBehaviour
     {
-        GlobalContextData = GameObject.FindGameObjectWithTag(DataConsts.GLOBAL_CONTEXT_TAG)
-            .GetComponent<GlobalContext>();
+        public delegate void SceneDataLoadedAction();
+        public static event SceneDataLoadedAction OnSceneDataLoaded;
 
-        SceneName = SceneManager.GetActiveScene().name;
-        MapEntityStates.ForEach(x => x.State = false);
+        public string SceneName;
+        public List<BoolSaveState> MapEntityStates;
 
-        var loadedSceneState = GlobalContextData.LoadSceneData(SceneName);
+        private GlobalContext GlobalContextData;
 
-        if (loadedSceneState != null)
+        private void Awake()
         {
-            loadedSceneState.boolStates.ForEach(x => {
-                var boolState = MapEntityStates.FirstOrDefault(ent => ent.name == x.name);
+            GlobalContextData = GameObject.FindGameObjectWithTag(DataConsts.GLOBAL_CONTEXT_TAG)
+                .GetComponent<GlobalContext>();
 
-                if (boolState != null)
+            SceneName = SceneManager.GetActiveScene().name;
+            MapEntityStates.ForEach(x => x.State = false);
+
+            var loadedSceneState = GlobalContextData.LoadSceneData(SceneName);
+
+            if (loadedSceneState != null)
+            {
+                loadedSceneState.boolStates.ForEach(x =>
                 {
-                    boolState.State = x.state;
-                }
-            });
+                    var boolState = MapEntityStates.FirstOrDefault(ent => ent.name == x.name);
 
-            OnSceneDataLoaded?.Invoke();
+                    if (boolState != null)
+                    {
+                        boolState.State = x.state;
+                    }
+                });
+
+                OnSceneDataLoaded?.Invoke();
+            }
         }
-    }
 
-    private void OnEnable() => SaveGame.OnSaveSignal += SaveToDisk;
-    private void OnDisable() => SaveGame.OnSaveSignal -= SaveToDisk;
+        private void OnEnable() => SaveGame.OnSaveSignal += SaveToDisk;
+        private void OnDisable() => SaveGame.OnSaveSignal -= SaveToDisk;
 
-    private void SaveToDisk()
-    {
-        var payload = new SceneContextModel()
+        private void SaveToDisk()
         {
-            sceneName = SceneManager.GetActiveScene().name,
-            boolStates = MapEntityStates.Select(x => {
-                return new BoolStateModel()
+            var payload = new SceneContextModel()
+            {
+                sceneName = SceneManager.GetActiveScene().name,
+                boolStates = MapEntityStates.Select(x =>
                 {
-                    name = x.name,
-                    state = x.State
-                };
-            }).ToList()
-        };
+                    return new BoolStateModel()
+                    {
+                        name = x.name,
+                        state = x.State
+                    };
+                }).ToList()
+            };
 
-        GlobalContextData.UpdateSceneData(payload);
+            GlobalContextData.UpdateSceneData(payload);
+        }
     }
 }

@@ -1,19 +1,22 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
-public class SortZ : MonoBehaviour
+namespace RedPanda.Utils
 {
-    private SpriteRenderer spr;
-
-    private void Awake()
+    [RequireComponent(typeof(SpriteRenderer))]
+    public class SortZ : MonoBehaviour
     {
-        spr = GetComponent<SpriteRenderer>();
-    }
+        private SpriteRenderer spr;
 
-    private void Update()
-    {
-        if (spr != null && Camera.main != null)
-            spr.sortingOrder = (int)Camera.main.WorldToScreenPoint(spr.bounds.min).y * -1;
-    }
+        private void Awake()
+        {
+            spr = GetComponent<SpriteRenderer>();
+        }
 
+        private void Update()
+        {
+            if (spr != null && Camera.main != null)
+                spr.sortingOrder = (int)Camera.main.WorldToScreenPoint(spr.bounds.min).y * -1;
+        }
+
+    }
 }

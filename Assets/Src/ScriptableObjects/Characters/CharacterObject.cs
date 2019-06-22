@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Character Object", menuName = "Character Object", order = 51)]
-public class CharacterObject : ScriptableObject
+namespace RedPanda.Objects.Characters
 {
-    public string Id;
-    public string Name;
+    [CreateAssetMenu(fileName = "New Character Object", menuName = "Character Object", order = 51)]
+    public class CharacterObject : ScriptableObject
+    {
+        public string Id;
+        public string Name;
 
-    public GameObject _GraphicalPrefab;
-    public GameObject GraphicalPrefab => _GraphicalPrefab;
+        public GameObject _GraphicalPrefab;
+        public GameObject GraphicalPrefab => _GraphicalPrefab;
 
-    [TextArea]
-    public string _CharacterMeta;
-    public string CharacterMeta => _CharacterMeta;
+        [TextArea]
+        public string _CharacterMeta;
+        public string CharacterMeta => _CharacterMeta;
+    }
 }

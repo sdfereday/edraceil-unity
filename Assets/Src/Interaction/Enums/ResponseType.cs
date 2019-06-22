@@ -1,6 +1,9 @@
-﻿public enum RESPONSE_TYPE
+﻿namespace RedPanda.Interaction
 {
-    DEFAULT,
-    TOGGLE,
-    CONTINUOUS
+    public enum RESPONSE_TYPE
+    {
+        DEFAULT,
+        TOGGLE,
+        CONTINUOUS
+    }
 }

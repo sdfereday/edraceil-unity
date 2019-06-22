@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 
-public class DontDestroy : MonoBehaviour
+namespace RedPanda.Utils
 {
-    private void Awake()
+    public class DontDestroy : MonoBehaviour
     {
-        // TODO: Consts please.
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("GameData");
-
-        if (objs.Length > 1)
+        private void Awake()
         {
-            Destroy(gameObject);
-        }
+            // TODO: Consts please.
+            GameObject[] objs = GameObject.FindGameObjectsWithTag("GameData");
 
-        DontDestroyOnLoad(gameObject);
+            if (objs.Length > 1)
+            {
+                Destroy(gameObject);
+            }
+
+            DontDestroyOnLoad(gameObject);
+        }
     }
 }

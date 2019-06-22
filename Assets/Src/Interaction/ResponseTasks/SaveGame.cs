@@ -1,32 +1,35 @@
 ﻿using UnityEngine;
 
-public class SaveGame : MonoBehaviour, IResponseTask
+namespace RedPanda.Interaction
 {
-    public delegate void SaveAction();
-    public static event SaveAction OnSaveSignal;
-
-    public bool IsActive { get; private set; }
-    public RESPONSE_TYPE ResponseType
+    public class SaveGame : MonoBehaviour, IResponseTask
     {
-        get
+        public delegate void SaveAction();
+        public static event SaveAction OnSaveSignal;
+
+        public bool IsActive { get; private set; }
+        public RESPONSE_TYPE ResponseType
         {
-            return RESPONSE_TYPE.DEFAULT;
+            get
+            {
+                return RESPONSE_TYPE.DEFAULT;
+            }
         }
-    }
 
-    public void Run(INTERACTIBLE_TYPE originType, Transform originTransform)
-    {
-        Debug.Log("DataIO was instructed to save the game.");
-        OnSaveSignal?.Invoke();
-    }
+        public void Run(INTERACTIBLE_TYPE originType, Transform originTransform)
+        {
+            Debug.Log("DataIO was instructed to save the game.");
+            OnSaveSignal?.Invoke();
+        }
 
-    public void Complete()
-    {
-        // ...
-    }
+        public void Complete()
+        {
+            // ...
+        }
 
-    public void Next()
-    {
-        // ...
+        public void Next()
+        {
+            // ...
+        }
     }
 }

@@ -1,6 +1,9 @@
-﻿public enum INPUT_TYPE
+﻿namespace RedPanda.Input
 {
-    ANY,
-    USE,
-    CANCEL
+    public enum INPUT_TYPE
+    {
+        ANY,
+        USE,
+        CANCEL
+    }
 }

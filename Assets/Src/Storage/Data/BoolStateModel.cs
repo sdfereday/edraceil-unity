@@ -1,6 +1,9 @@
-﻿[System.Serializable]
-public class BoolStateModel
+﻿namespace RedPanda.Storage
 {
-    public bool state;
-    public string name;
+    [System.Serializable]
+    public class BoolStateModel
+    {
+        public bool state;
+        public string name;
+    }
 }

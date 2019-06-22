@@ -1,10 +1,13 @@
-﻿public enum INTERACTIBLE_TYPE
+﻿namespace RedPanda.Interaction
 {
-    VOID,
-    TRANSPORTABLE,
-    DOORWAY,
-    DIALOGUE,
-    COLLECTIBLE,
-    MECHANISM_TRIGGER,
-    SAVE_THE_GAME
+    public enum INTERACTIBLE_TYPE
+    {
+        VOID,
+        TRANSPORTABLE,
+        DOORWAY,
+        DIALOGUE,
+        COLLECTIBLE,
+        MECHANISM_TRIGGER,
+        SAVE_THE_GAME
+    }
 }

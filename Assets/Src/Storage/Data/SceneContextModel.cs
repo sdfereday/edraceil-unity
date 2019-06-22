@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 
-[System.Serializable]
-public class SceneContextModel
+namespace RedPanda.Storage
 {
-    public string sceneName;
-    public List<BoolStateModel> boolStates;
+    [System.Serializable]
+    public class SceneContextModel
+    {
+        public string sceneName;
+        public List<BoolStateModel> boolStates;
+    }
 }

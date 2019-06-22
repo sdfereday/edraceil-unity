@@ -1,33 +1,36 @@
 ﻿using UnityEngine;
 
-public class ToggledSprite : MonoBehaviour
+namespace RedPanda.Effects
 {
-    public Sprite OnSprite;
-    public Sprite OffSprite;
-    public SpriteRenderer Spr;
-
-    private bool IsOn = false;
-
-    private void SetSprite(bool _isOn)
+    public class ToggledSprite : MonoBehaviour
     {
-        Spr.sprite = _isOn ? OnSprite : OffSprite;
-    }
+        public Sprite OnSprite;
+        public Sprite OffSprite;
+        public SpriteRenderer Spr;
 
-    public void Toggle()
-    {
-        SetSprite(IsOn);
-        IsOn = !IsOn;
-    }
+        private bool IsOn = false;
 
-    public void On()
-    {
-        IsOn = true;
-        SetSprite(IsOn);
-    }
+        private void SetSprite(bool _isOn)
+        {
+            Spr.sprite = _isOn ? OnSprite : OffSprite;
+        }
 
-    public void Off()
-    {
-        IsOn = false;
-        SetSprite(IsOn);
+        public void Toggle()
+        {
+            SetSprite(IsOn);
+            IsOn = !IsOn;
+        }
+
+        public void On()
+        {
+            IsOn = true;
+            SetSprite(IsOn);
+        }
+
+        public void Off()
+        {
+            IsOn = false;
+            SetSprite(IsOn);
+        }
     }
 }

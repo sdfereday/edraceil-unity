@@ -2,42 +2,44 @@
 using System.Linq;
 using UnityEngine;
 
-public class PlayerKeyItemInventory : MonoBehaviour
+namespace RedPanda.Inventory
 {
-    [System.Serializable]
-    public class KeyItemMeta
+    public class PlayerKeyItemInventory : MonoBehaviour
     {
-        public string Name;
-        public string Id;
-        public ITEM_TYPE Type;
-    }
+        [System.Serializable]
+        public class KeyItemMeta
+        {
+            public string Name;
+            public string Id;
+            public ITEM_TYPE Type;
+        }
 
-    public List<KeyItemMeta> _keyItems;
-    public List<KeyItemMeta> Keyitems { get => _keyItems; }
+        public List<KeyItemMeta> _keyItems;
+        public List<KeyItemMeta> Keyitems { get => _keyItems; }
 
-    private void Awake()
-    {
-        var loadedItems = SaveDataManager.LoadData<List<KeyItemMeta>>(DataConsts.KEY_ITEM_DATA_FILE);
-        _keyItems = loadedItems != null ? loadedItems : new List<KeyItemMeta>();
-    }
+        private void Awake()
+        {
+            var loadedItems = SaveDataManager.LoadData<List<KeyItemMeta>>(DataConsts.KEY_ITEM_DATA_FILE);
+            _keyItems = loadedItems != null ? loadedItems : new List<KeyItemMeta>();
+        }
 
-    private void OnEnable()
-    {
-        SaveGame.OnSaveSignal += SaveToDisk;
-    }
+        private void OnEnable()
+        {
+            SaveGame.OnSaveSignal += SaveToDisk;
+        }
 
-    private void OnDisable()
-    {
-        SaveGame.OnSaveSignal -= SaveToDisk;
-    }
+        private void OnDisable()
+        {
+            SaveGame.OnSaveSignal -= SaveToDisk;
+        }
 
-    public void SaveToDisk()
-    {
-        SaveDataManager.SaveData(_keyItems, DataConsts.KEY_ITEM_DATA_FILE);
-    }
+        public void SaveToDisk()
+        {
+            SaveDataManager.SaveData(_keyItems, DataConsts.KEY_ITEM_DATA_FILE);
+        }
 
-    public void AddItem(CollectibleItem _keyItemObject)
-    {
+        public void AddItem(CollectibleItem _keyItemObject)
+        {
             var existing = _keyItems.Find(x => x.Id == _keyItemObject.Id || x.Name == _keyItemObject.CollectibleItemName);
 
             if (existing != null)
@@ -54,8 +56,9 @@ public class PlayerKeyItemInventory : MonoBehaviour
                     Type = ITEM_TYPE.KEY_ITEM
                 });
             }
-        
-    }
 
-    public bool HasItem(string _id) =>_keyItems.Any(x => x.Id == _id);
+        }
+
+        public bool HasItem(string _id) => _keyItems.Any(x => x.Id == _id);
+    }
 }

@@ -1,98 +1,101 @@
 ﻿using UnityEngine;
 
-// See: https://bitbucket.org/drunkenoodle/rr-clone/src for original (and battle ideas).
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(InteractionTrigger))]
-public class PlayerInput : MonoBehaviour, IDirectionInfo
+namespace RedPanda.Input
 {
-    public float maxSpeed = 3f;
-    public bool InteractionsEnabled { get; private set; }
-    public bool MovementEnabled { get; private set; }
-    public Vector2 Facing { get; set; }
-
-    public Vector2 CurrentVelocity => rbody.velocity;
-
-    private Rigidbody2D rbody;
-    private InteractionTrigger interactionTrigger;
-    public AnimatorLogicManager animLogic;
-
-    private void OnEnable()
+    // See: https://bitbucket.org/drunkenoodle/rr-clone/src for original (and battle ideas).
+    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(InteractionTrigger))] // TODO: Remove need for this in here, too many concerns.
+    public class PlayerInput : MonoBehaviour, IDirectionInfo
     {
-        ChangeScene.OnSceneLoadComplete += OnSceneLoadComplete;
-        ChangeScene.OnSceneLoadStarted += OnSceneLoadStarted;
-    }
-    private void OnDisable()
-    {
-        ChangeScene.OnSceneLoadComplete -= OnSceneLoadComplete;
-        ChangeScene.OnSceneLoadStarted -= OnSceneLoadStarted;
-    }
+        public float maxSpeed = 3f;
+        public bool InteractionsEnabled { get; private set; }
+        public bool MovementEnabled { get; private set; }
+        public Vector2 Facing { get; set; }
 
-    private void OnSceneLoadComplete() => ToggleMovement(true);
-    private void OnSceneLoadStarted() => ToggleMovement(false);
+        public Vector2 CurrentVelocity => rbody.velocity;
 
-    private void Start()
-    {
-        rbody = GetComponent<Rigidbody2D>();
-        interactionTrigger = GetComponentInChildren<InteractionTrigger>();
-        Facing = Vector2.right;
-        animLogic = transform.GetComponentInChildren<AnimatorLogicManager>();
+        private Rigidbody2D rbody;
+        private InteractionTrigger interactionTrigger;
+        public AnimatorLogicManager animLogic;
 
-        InteractionsEnabled = true;
-        MovementEnabled = true;
-    }
-
-    private void Update()
-    {
-        rbody.velocity = Vector2.zero;
-
-        if (InteractionsEnabled)
-            Interactions();
-
-        if (MovementEnabled)
-            Movement();
-
-        // TODO: Const floats and bool names please
-        animLogic.SetFloat("playerMagnitude", CurrentVelocity.magnitude);
-    }
-
-    private void Interactions()
-    {
-        if (Input.GetKeyDown(KeyCodeConsts.USE))
+        private void OnEnable()
         {
-            interactionTrigger.Interact(INPUT_TYPE.USE);
+            ChangeScene.OnSceneLoadComplete += OnSceneLoadComplete;
+            ChangeScene.OnSceneLoadStarted += OnSceneLoadStarted;
+        }
+        private void OnDisable()
+        {
+            ChangeScene.OnSceneLoadComplete -= OnSceneLoadComplete;
+            ChangeScene.OnSceneLoadStarted -= OnSceneLoadStarted;
         }
 
-        if (Input.GetKeyDown(KeyCodeConsts.CANCEL))
+        private void OnSceneLoadComplete() => ToggleMovement(true);
+        private void OnSceneLoadStarted() => ToggleMovement(false);
+
+        private void Start()
         {
-            interactionTrigger.Interact(INPUT_TYPE.CANCEL);
+            rbody = GetComponent<Rigidbody2D>();
+            interactionTrigger = GetComponentInChildren<InteractionTrigger>();
+            Facing = Vector2.right;
+            animLogic = transform.GetComponentInChildren<AnimatorLogicManager>();
+
+            InteractionsEnabled = true;
+            MovementEnabled = true;
         }
-    }
 
-    private void Movement()
-    {
-        float xAxis = Input.GetAxisRaw(KeyCodeConsts.Horizontal);
-        float yAxis = Input.GetAxisRaw(KeyCodeConsts.Vertical);
-
-        if (xAxis != 0 || yAxis != 0)
+        private void Update()
         {
-            Vector2 nm = new Vector2(xAxis * maxSpeed, yAxis * maxSpeed).normalized;
-            rbody.velocity = nm * maxSpeed;
-            Facing = CurrentVelocity.normalized;
+            rbody.velocity = Vector2.zero;
+
+            if (InteractionsEnabled)
+                Interactions();
+
+            if (MovementEnabled)
+                Movement();
+
+            // TODO: Const floats and bool names please
+            animLogic.SetFloat("playerMagnitude", CurrentVelocity.magnitude);
         }
-    }
 
-    public void ToggleInteractions(bool state)
-    {
-        InteractionsEnabled = state;
-    }
+        private void Interactions()
+        {
+            if (Input.GetKeyDown(KeyCodeConsts.USE))
+            {
+                interactionTrigger.Interact(INPUT_TYPE.USE);
+            }
 
-    public void ToggleMovement(bool state)
-    {
-        MovementEnabled = state;
-    }
+            if (Input.GetKeyDown(KeyCodeConsts.CANCEL))
+            {
+                interactionTrigger.Interact(INPUT_TYPE.CANCEL);
+            }
+        }
 
-    public Vector2 GetFirectionVector2D()
-    {
-        return Facing;
+        private void Movement()
+        {
+            float xAxis = Input.GetAxisRaw(KeyCodeConsts.Horizontal);
+            float yAxis = Input.GetAxisRaw(KeyCodeConsts.Vertical);
+
+            if (xAxis != 0 || yAxis != 0)
+            {
+                Vector2 nm = new Vector2(xAxis * maxSpeed, yAxis * maxSpeed).normalized;
+                rbody.velocity = nm * maxSpeed;
+                Facing = CurrentVelocity.normalized;
+            }
+        }
+
+        public void ToggleInteractions(bool state)
+        {
+            InteractionsEnabled = state;
+        }
+
+        public void ToggleMovement(bool state)
+        {
+            MovementEnabled = state;
+        }
+
+        public Vector2 GetFirectionVector2D()
+        {
+            return Facing;
+        }
     }
 }

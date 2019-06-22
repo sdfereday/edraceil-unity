@@ -1,26 +1,29 @@
 ﻿using UnityEngine;
 
-public class VelocitySpriteFlip : MonoBehaviour
+namespace RedPanda.Effects
 {
-    public bool StartsRight = true;
-
-    private Rigidbody2D rBody;
-    private SpriteRenderer SpriteRender;
-    private float lastVelocity;
-    private bool facingRight;
-
-    private void Start()
+    public class VelocitySpriteFlip : MonoBehaviour
     {
-        rBody = GetComponent<Rigidbody2D>();
-        SpriteRender = GetComponent<SpriteRenderer>();
-        SpriteRender.flipX = !StartsRight;
-    }
+        public bool StartsRight = true;
 
-    private void Update()
-    {
-        if (rBody.velocity.magnitude != 0)
+        private Rigidbody2D rBody;
+        private SpriteRenderer SpriteRender;
+        private float lastVelocity;
+        private bool facingRight;
+
+        private void Start()
         {
-            SpriteRender.flipX = rBody.velocity.normalized.x < 0;
+            rBody = GetComponent<Rigidbody2D>();
+            SpriteRender = GetComponent<SpriteRenderer>();
+            SpriteRender.flipX = !StartsRight;
+        }
+
+        private void Update()
+        {
+            if (rBody.velocity.magnitude != 0)
+            {
+                SpriteRender.flipX = rBody.velocity.normalized.x < 0;
+            }
         }
     }
 }

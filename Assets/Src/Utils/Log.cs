@@ -1,4 +1,7 @@
-﻿public static class Log
+﻿namespace RedPanda.Utils
 {
-    public static void Out<T>(T thing) => UnityEngine.Debug.Log(thing);
+    public static class Log
+    {
+        public static void Out<T>(T thing) => UnityEngine.Debug.Log(thing);
+    }
 }

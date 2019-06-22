@@ -1,42 +1,47 @@
 ﻿using UnityEngine;
 
-public class Collect : MonoBehaviour, IResponseTask
+namespace RedPanda.Interaction
 {
-    public PlayerKeyItemInventory KeyItemInventory;
-    public PlayerInventory Inventory;
-
-    public bool IsActive { get; private set; }
-    public RESPONSE_TYPE ResponseType => RESPONSE_TYPE.DEFAULT;
-
-    public void Run(INTERACTIBLE_TYPE originType, Transform originTransform)
+    public class Collect : MonoBehaviour, IResponseTask
     {
-        var itemData = originTransform.GetComponent<ICollectible>();
+        public PlayerKeyItemInventory KeyItemInventory;
+        public PlayerInventory Inventory;
 
-        if (itemData != null)
+        public bool IsActive { get; private set; }
+        public RESPONSE_TYPE ResponseType => RESPONSE_TYPE.DEFAULT;
+
+        public void Run(INTERACTIBLE_TYPE originType, Transform originTransform)
         {
-            Debug.Log("Collected an item:");
-            Debug.Log(itemData);
-        } else
-        {
-            throw new UnityException("Item was not available. Did you add an 'ICollectible' interface?");
+            var itemData = originTransform.GetComponent<ICollectible>();
+
+            if (itemData != null)
+            {
+                Debug.Log("Collected an item:");
+                Debug.Log(itemData);
+            }
+            else
+            {
+                throw new UnityException("Item was not available. Did you add an 'ICollectible' interface?");
+            }
+
+            if (itemData.CollectibleItemObject.IsKeyItem)
+            {
+                KeyItemInventory.AddItem(itemData.CollectibleItemObject);
+            }
+            else
+            {
+                Inventory.AddItem(itemData.CollectibleItemObject);
+            }
         }
 
-        if (itemData.CollectibleItemObject.IsKeyItem)
+        public void Complete()
         {
-            KeyItemInventory.AddItem(itemData.CollectibleItemObject);
-        } else
-        {
-            Inventory.AddItem(itemData.CollectibleItemObject);
+            // ...
         }
-    }
 
-    public void Complete()
-    {
-        // ...
-    }
-
-    public void Next()
-    {
-        // ...
+        public void Next()
+        {
+            // ...
+        }
     }
 }

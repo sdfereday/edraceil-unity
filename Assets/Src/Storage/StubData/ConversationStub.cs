@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 
-public static class ConversationStub
+namespace RedPanda.Storage
 {
-    // The actions here MUST match the internals set on chat iterator.
-    public static List<ChatNode> Collection = new List<ChatNode>() {
+    public static class ConversationStub
+    {
+        // The actions here MUST match the internals set on chat iterator.
+        public static List<ChatNode> Collection = new List<ChatNode>() {
         new ChatNode() {
             Id = "m1",
             From = null,
@@ -59,4 +61,5 @@ public static class ConversationStub
             }
         }
     };
+    }
 }
