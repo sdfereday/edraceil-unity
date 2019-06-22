@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using RedPanda.Storage;
+using RedPanda.Interaction;
 
 namespace RedPanda.Inventory
 {

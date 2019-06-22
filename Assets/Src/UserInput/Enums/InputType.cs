@@ -1,4 +1,4 @@
-﻿namespace RedPanda.Input
+﻿namespace RedPanda.UserInput
 {
     public enum INPUT_TYPE
     {

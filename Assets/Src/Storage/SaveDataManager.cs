@@ -3,7 +3,7 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 
-namespace RedPanda.Utils
+namespace RedPanda.Storage
 {
     public static class SaveDataManager
     {

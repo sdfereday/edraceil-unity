@@ -1,4 +1,6 @@
-﻿namespace RedPanda.Animator
+﻿using RedPanda.Utils;
+
+namespace RedPanda.Animator
 {
     public class BoolCondition : ConditionObject<bool>
     {

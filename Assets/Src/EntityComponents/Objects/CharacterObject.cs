@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RedPanda.Objects.Characters
+namespace RedPanda.Entities
 {
     [CreateAssetMenu(fileName = "New Character Object", menuName = "Character Object", order = 51)]
     public class CharacterObject : ScriptableObject

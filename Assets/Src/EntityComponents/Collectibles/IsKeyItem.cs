@@ -1,4 +1,9 @@
 ﻿using UnityEngine;
+using RedPanda.Global;
+using RedPanda.Interaction;
+using RedPanda.UserInput;
+using RedPanda.Inventory;
+using RedPanda.Storage;
 
 /*
     Use this for when a container (such as a chest, etc) will give the player

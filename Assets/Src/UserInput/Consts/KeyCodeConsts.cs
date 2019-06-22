@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RedPanda.Input
+namespace RedPanda.UserInput
 {
     public static class KeyCodeConsts
     {

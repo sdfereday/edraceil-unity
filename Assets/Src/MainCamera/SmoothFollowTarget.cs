@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using RedPanda.Entities;
 
 // Take note that we could actually convert the player to not use a rigidBody at all, we'd need a custom collision callback for this however.
 // See here for details: http://docs.unity3d.com/Manual/CollidersOverview.html
 // To summarize, return to this at a later date for optimization tactics.
 // Possible solution for 'shaky tile' problem when camera moves:
 // http://forum.unity3d.com/threads/solved-2d-sprites-flicker-shake-on-camera-movement.270741/ (adapted here)
-namespace RedPanda.Camera
+namespace RedPanda.MainCamera
 {
     public class SmoothFollowTarget : MonoBehaviour
     {
@@ -13,7 +14,7 @@ namespace RedPanda.Camera
         public float dampTime = 30f;
         public bool JustPosition = false;
         public Transform target;
-        public string SearchForTag = CharacterConsts.PLAYER_TAG;
+        public string SearchForTag = CharacterConsts.PLAYER_TAG; // TODO: Perhaps add this to global.
 
         // Ensure pixel-precision tracking
         public float pixelToUnits = 40f;

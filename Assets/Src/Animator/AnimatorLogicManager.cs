@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using RedPanda.Entities;
+using RedPanda.Storage;
 
 namespace RedPanda.Animator
 {

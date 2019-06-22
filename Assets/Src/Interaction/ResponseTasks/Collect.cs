@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using RedPanda.Inventory;
+using RedPanda.Entities;
 
 namespace RedPanda.Interaction
 {

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using RedPanda.Interaction;
+using RedPanda.Effects;
+using RedPanda.UserInput;
 
 namespace RedPanda.Entities
 {

@@ -1,4 +1,8 @@
 ﻿using UnityEngine;
+using RedPanda.Global;
+using RedPanda.Interaction;
+using RedPanda.UserInput;
+using RedPanda.Inventory;
 
 /*
     Use this for when an item has been placed not in a chest, but statically

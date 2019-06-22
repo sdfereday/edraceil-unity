@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using RedPanda.UserInput;
 
 namespace RedPanda.Effects
 {

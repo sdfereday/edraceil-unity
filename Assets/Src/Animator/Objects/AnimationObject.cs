@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RedPanda.Objects.Animations
+namespace RedPanda.Animator
 {
     [CreateAssetMenu(fileName = "New 2D Animation Object", menuName = "2D Animation Object", order = 51)]
     public class AnimationObject : ScriptableObject

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using RedPanda.Inventory;
 
-namespace RedPanda.Objects.Collectibles
+namespace RedPanda.Inventory
 {
     [CreateAssetMenu(fileName = "New Collectible Item", menuName = "Collectible Item", order = 51)]
     public class CollectibleItem : ScriptableObject

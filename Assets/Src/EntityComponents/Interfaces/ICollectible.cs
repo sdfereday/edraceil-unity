@@ -1,4 +1,6 @@
-﻿namespace RedPanda.Entities
+﻿using RedPanda.Inventory;
+
+namespace RedPanda.Entities
 {
     public interface ICollectible
     {

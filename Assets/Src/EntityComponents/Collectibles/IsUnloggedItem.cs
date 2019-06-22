@@ -1,4 +1,8 @@
 ﻿using UnityEngine;
+using RedPanda.Global;
+using RedPanda.Interaction;
+using RedPanda.Inventory;
+using RedPanda.UserInput;
 
 /*
     This is the type of item that just gets instantiated and picked up without any

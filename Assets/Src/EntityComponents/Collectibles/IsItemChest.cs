@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
+using RedPanda.Interaction;
+using RedPanda.Inventory;
+using RedPanda.UserInput;
 
 namespace RedPanda.Entities
 {
     public class IsItemChest : FieldEntity, IInteractible, ICollectible
     {
         public bool IsOpen = false; // <-- Use an interface for things like this (ILockable) or something.
-        public SceneProp ScenePropObject; // TODO: Is this being used?
         public CollectibleItem _CollectibleItemObject;
         public CollectibleItem CollectibleItemObject => _CollectibleItemObject;
         public Transform Transform => transform;

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
+using RedPanda.Interaction;
+using RedPanda.Animator;
+using RedPanda.Effects;
 
-namespace RedPanda.Input
+namespace RedPanda.UserInput
 {
     // See: https://bitbucket.org/drunkenoodle/rr-clone/src for original (and battle ideas).
     [RequireComponent(typeof(Rigidbody2D))]

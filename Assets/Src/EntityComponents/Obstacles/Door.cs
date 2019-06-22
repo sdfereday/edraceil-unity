@@ -1,4 +1,8 @@
 ﻿using UnityEngine;
+using RedPanda.Storage;
+using RedPanda.Interaction;
+using RedPanda.Inventory;
+using RedPanda.UserInput;
 
 namespace RedPanda.Entities
 {
@@ -6,7 +10,6 @@ namespace RedPanda.Entities
     {
         // You may wish to have an 'open state' also for massive doors / bridges in other components.
         public bool IsUnlocked = false; // <-- Use an interface for things like this (ILockable) or something.
-        public SceneProp ScenePropObject; // TODO: Is this being used?
         public CollectibleItem ExpectedObjectInInventory;
         public Transform Transform => transform;
         public INTERACTIBLE_TYPE GetInteractibleType() => INTERACTIBLE_TYPE.DOORWAY;

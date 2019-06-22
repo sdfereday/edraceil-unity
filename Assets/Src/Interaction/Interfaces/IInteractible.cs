@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using RedPanda.Interaction;
+using RedPanda.UserInput;
 
-namespace RedPanda.Entities
+namespace RedPanda.Interaction
 {
     public interface IInteractible
     {

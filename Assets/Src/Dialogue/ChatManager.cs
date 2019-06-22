@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using RedPanda.Storage;
 
 namespace RedPanda.Dialogue
 {

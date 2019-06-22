@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using RedPanda.Effects;
 
 namespace RedPanda.Entities
 {

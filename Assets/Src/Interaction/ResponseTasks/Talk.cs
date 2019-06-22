@@ -1,4 +1,7 @@
 ﻿using UnityEngine;
+using RedPanda.Dialogue;
+using RedPanda.UserInput;
+using RedPanda.Entities;
 
 namespace RedPanda.Interaction
 {

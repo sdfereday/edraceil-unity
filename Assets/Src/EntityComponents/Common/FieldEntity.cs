@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using RedPanda.Storage;
 
 namespace RedPanda.Entities
 {
